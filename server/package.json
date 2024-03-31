@@ -1,0 +1,23 @@
+{
+    "name": "server",
+    "version": "1.0.0",
+    "description": "HamServer",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "seed": "node seeds/seed.js",
+        "watch": "nodemon server.js"
+    },
+    "author": "P3GRP1",
+    "license": "CC BY-NC-ND 4.0 DEED",
+    "dependencies": {
+        "@apollo/server": "^4.7.1",
+        "apollo": "^2.34.0",
+        "express": "^4.17.2",
+        "graphql": "^16.6.0",
+        "mongoose": "^7.0.2"
+    },
+    "devDependencies": {
+        "nodemon": "^2.0.6"
+    }
+}

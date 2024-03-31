@@ -1,0 +1,21 @@
+{
+  "name": "hamsterbrain",
+  "private": "true",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "node server/server.js --ignore client",
+    "develop": "concurrently \"cd server && npm run start\" \"cd client && npm run dev\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "seed": "cd server && npm run seed",
+    "build": "cd client && npm run build"
+  },
+  "author": "P3GRP1",
+  "license": "CC BY-NC-ND 4.0 DEED",
+  "devDependencies": {
+    "@types/react": "^18.0.37",
+    "@types/react-dom": "^18.0.11",
+    "@vitejs/plugin-react": "^4.0.0",
+    "concurrently": "^8.2.2",
+    "vite": "^4.4.5"
+  }
+}
