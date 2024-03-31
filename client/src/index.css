@@ -1,0 +1,22 @@
+/* Required for React Scheduler */
+@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-calendars/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-dropdowns/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-navigations/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-react-schedule/styles/material.css";
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+.carousel-item img {
+    max-width: 25%; /* or any specific pixel value */
+    height: auto; /* maintain aspect ratio */
+  }
+
+.Schedule-container {
+    max-width: 50%;
+    margin: auto;
+    
+    max-height: 20%;
+}

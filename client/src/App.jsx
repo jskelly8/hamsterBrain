@@ -1,5 +1,5 @@
 // React & Apollo imports
-import React from 'react';
+// import React from 'react';
 import {
   ApolloClient,
   InMemoryCache,
@@ -12,6 +12,8 @@ import { Outlet } from 'react-router-dom';
 // Component imports
 import Header from './components/Header';
 import Footer from './components/Footer';
+
+import Hero from './pages/Hero';
 
 // HTTP link for GraphQL operations
 const httpLink = createHttpLink({
@@ -42,6 +44,7 @@ function App() {
         <Header />
         <main className="outlet">
           <Outlet />
+          <Hero />
         </main>
         <Footer />
       </div>
