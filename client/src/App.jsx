@@ -13,7 +13,9 @@ import { Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
+// Temp Holding Place
 import Hero from './pages/Hero';
+import Schedule from './pages/Schedule';
 
 // HTTP link for GraphQL operations
 const httpLink = createHttpLink({
@@ -44,7 +46,9 @@ function App() {
         <Header />
         <main className="outlet">
           <Outlet />
+          {/* Temp Holding Place*/}
           <Hero />
+          <Schedule />
         </main>
         <Footer />
       </div>
