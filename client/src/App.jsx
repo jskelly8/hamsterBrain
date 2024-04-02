@@ -16,7 +16,7 @@ import Footer from './components/Footer';
 // Temp Holding Place
 // import Hero from './pages/Hero';
 // import Schedule from './pages/Schedule';
-import Tasks from './pages/Tasks';
+// import Tasks from './pages/Tasks';
 // import Header from './components/Header/index';
 // import Footer from './components/Footer/index';
 
