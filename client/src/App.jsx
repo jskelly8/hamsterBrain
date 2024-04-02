@@ -10,12 +10,11 @@ import { setContext } from '@apollo/client/link/context';
 import { Outlet } from 'react-router-dom';
 
 // Component imports
-import Header from './components/Header';
-import Footer from './components/Footer';
+import Header from './components/Header/index';
+import Footer from './components/Footer/index';
 
 // Temp Holding Place
 import Hero from './pages/Hero';
-import Schedule from './pages/Schedule';
 
 // HTTP link for GraphQL operations
 const httpLink = createHttpLink({
@@ -48,7 +47,6 @@ function App() {
           <Outlet />
           {/* Temp Holding Place*/}
           <Hero />
-          <Schedule />
         </main>
         <Footer />
       </div>
