@@ -44,14 +44,16 @@ export default function PomodoroTimer() {
     };
 
     return (
-        <div>
+        <div className="timer">
             <h2>Pomodoro Timer</h2>
-            <p>Mode: {mode}</p>
-            <p>{formatTime(secondsLeft)}</p>
-            <button onClick={toggleIsActive}>
-                {isActive ? 'Pause' : 'Start'}
-            </button>
-            <button onClick={resetTimer}>Reset</button>
+            <p className="timerMode">Mode: {mode}</p>
+            <p className="timerDisplay">{formatTime(secondsLeft)}</p>
+            <div className='timerControls'>
+                <button onClick={toggleIsActive} className="timerButton">
+                    {isActive ? 'Pause' : 'Start'}
+                </button>
+                <button onClick={resetTimer} className="timerButton">Reset</button>
+            </div>
         </div>
     );
 };
