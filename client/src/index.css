@@ -22,6 +22,166 @@
 }
 
 /* End Schedule CSS */
+
+/* Homepage Styling */
+.homeContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #151619;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #4586BF;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+}
+
+.btn button {
+  padding: 5px 10px;
+  font-size: 18px;
+  border-radius: 8px;
+  background-color: #151619;
+  border-color: #4586BF;
+  color: #BFB3A4;
+}
+
+.btn button:hover {
+  background-color: #4fa8d1;
+  color: #151619;
+}
+
+.cardsContainer {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 20px;
+}
+
+.card {
+  flex-basis: calc(33.333% - 40px);
+  border: 2px solid #4586BF;
+  border-radius: 8px;
+  margin: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  background-color: #BFB3A4;
+}
+
+.quoteContainer {
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+  background-color: #4fa8d1;
+  color: #151619;
+}
+
+.bottomSection {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.timerContainer, .bottomRight {
+  border: 1px solid #4586BF;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.timerContainer {
+  flex-basis: 33%;
+}
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  background-color: #282c34;
+  color: #4586BF;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.timer h2 {
+  margin: 0;
+}
+
+.timerMode {
+  font-size: 20px;
+}
+
+.timerDisplay {
+  font-size: 48px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.timerControls {
+  display: flex;
+  gap: 10px;
+}
+
+.timerButton {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #282c34;
+  background-color: #4586BF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.timerButton:hover {
+  background-color: #BFB3A4;
+}
+
+.bottomRight {
+  flex-basis: 66%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.testimonialContainer, .aboutContainer {
+  border: 2px solid #4586BF;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #BFB3A4;
+}
+
+@media (max-width: 768px) {
+  .cardsContainer, .bottomSection {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card, .timerContainer, .bottomRight {
+    flex-basis: auto;
+    width: 100%;
+  }
+
+  .timerDisplay {
+    font-size: 36px;
+  }
+  .timerControls {
+    flex-direction: column;
+  }
+  .timerButton {
+    width: 100%;
+  }
+}
+
 /* Navbar Styling */
 
 .white {
@@ -44,7 +204,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  background-color: #42353a;
+  background-color: #151619;
+  border-bottom: 1px solid #4586BF;
 }
 
 .navbar-container {
@@ -54,8 +215,12 @@
   width: 100%;
 }
 
+.navbar-container h3 {
+  color: #4586BF;
+}
+
 .burgerBox {
-  border: solid #e4bfc6 2px;
+  border: solid #4586BF 2px;
   padding: 5px;
   border-radius: 10px;
 }
@@ -81,7 +246,7 @@
 .bar {
   width: 25px;
   height: 2px;
-  background-color: #e4bfc6;
+  background-color: #4586BF;
   margin: 3px 0;
 }
 
@@ -92,7 +257,7 @@
   top: 100%;
   left: 0;
   width: 100%;
-  background-color: #42353a;
+  background-color: #151619;
 }
 
 .nav-links.open {
@@ -104,7 +269,7 @@
   position: absolute;
   top: 70px;
   right: 1rem;
-  background-color: #42353a;
+  background-color: #151619;
   z-index: 10;
 }
 
@@ -114,12 +279,12 @@
 
 .nav-links li a {
   text-decoration: none;
-  color: #fff;
+  color: #4586BF;
   padding: 0.5rem;
 }
 
 .nav-links li a:hover {
-  color: #e4bfc6;
+  color: #BFB3A4;
 }
 
 .butterfly {
@@ -138,3 +303,44 @@
   }
 }
 
+/* Footer styling */
+.footerContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #151619;
+  font-size: 18px;
+  padding: 1.5rem;
+  border-top: 1px solid #4586BF;
+}
+
+.footerContainer a {
+  margin-left: 0.3rem;
+}
+
+.siteRepo {
+  display: flex;
+  justify-content: center;
+  color: #4586BF;
+  margin-top: 0.5rem;
+}
+
+.siteRepo a:hover {
+  color: #BFB3A4;
+}
+
+.devs {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 1rem;
+  color: #4586BF;
+  font-size: 20px;
+  flex-wrap: wrap;
+}
+
+.dev {
+  display: flex;
+}
+
+.dev a:hover {
+  color: #BFB3A4;
+}
