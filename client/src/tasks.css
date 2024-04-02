@@ -1,0 +1,144 @@
+/* Task CSS */
+
+.margin {
+    margin-top: 30px;
+}
+
+.font35 {
+  font-size: 35px;
+}
+
+#app {
+    margin-top: 20px;
+  }
+  
+  #note-add {
+    margin-bottom: 15px;
+  }
+  
+  .note-box {
+    font-size: 14px;
+    padding: 15px;
+    margin-top: 0;
+    margin-bottom: 5px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+  
+  .alerts {
+    margin-left: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #3c763d;
+  }
+  
+  .panel {
+    box-shadow: 2px 2px 4px #ccc;
+  }
+  
+  label {
+    font-size: 18px;
+  }
+  
+  .delete {
+    font-weight: bold;
+    font-size: 22px;
+    margin-top: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    border-style: none;
+  }
+  
+  .delete:hover {
+    text-decoration: none;
+    background-color: #ffffff;
+    color: #777777;
+  }
+
+  .delete-btn-transform {
+    transform: translateY(-8px); 
+  }
+  
+  .green {
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+  }
+  
+  .red {
+    background-color: #f2dede;
+    border-color: #ebccd1;
+  }
+  
+  .blue {
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+  }
+  
+  .orange {
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .divCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: 100vh */
+  }
+  
+  .form-group {
+    display: flex; /* Use flexbox to arrange children */
+    justify-content: center;
+    align-items: center; /* Align items vertically in the center */
+    flex-direction: column;
+    gap: 10px; /* Add some space between the form elements */
+  }
+  
+  .form-group label {
+    margin-right: 5px; /* Space between label and input */
+    white-space:L nowrap;
+  }
+  
+  .form-group input {
+    flex-grow: 1; /* Allow input to take up available space */
+  }
+  
+  .form-control {
+    width: 100%
+  }
+
+  .thicc {
+    width: calc(100% + 20px);
+    /* margin-left: -10px; 
+    margin-right: -10px; */
+    /* transform: scaleX(5);  */
+  }
+
+#note-add {
+    width: calc(100% + 100px);
+    margin-left: -10px; 
+    margin-right: -10px;
+}
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+
+  @media (max-width: 768px) {
+    .font70 {
+      font-size: 2rem; /* Adjust based on your needs */
+    }
+    .font40 {
+      font-size: 1.5rem; /* Adjust based on your needs */
+    }
+    .font30 {
+      font-size: 1.25rem; /* Adjust based on your needs */
+    }
+  }

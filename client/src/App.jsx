@@ -14,8 +14,9 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 
 // Temp Holding Place
-import Hero from './pages/Hero';
-import Schedule from './pages/Schedule';
+// import Hero from './pages/Hero';
+// import Schedule from './pages/Schedule';
+import Tasks from './pages/Tasks';
 
 // HTTP link for GraphQL operations
 const httpLink = createHttpLink({
@@ -47,8 +48,9 @@ function App() {
         <main className="outlet">
           <Outlet />
           {/* Temp Holding Place*/}
-          <Hero />
-          <Schedule />
+          {/* <Hero />
+          <Schedule /> */}
+          <Tasks />
         </main>
         <Footer />
       </div>
