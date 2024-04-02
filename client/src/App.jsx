@@ -54,7 +54,7 @@ function App() {
           {/* Temp Holding Place*/}
           {/* <Hero />
           <Schedule /> */}
-          <Tasks />
+          {/* <Tasks /> */}
 
         </main>
         <Footer />
