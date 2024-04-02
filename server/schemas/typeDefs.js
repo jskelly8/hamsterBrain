@@ -21,10 +21,13 @@ input EditProfileInput{
 type Query {
     profiles: [Profile]!
     profile(profileId: ID!): Profile
+    me: Profile
 }
 type Mutation {
+    addProfile(name: String!, email: String!, password: String!): Profile
     add(name:String!): Profile
     editProfile(input: EditProfileInput!): Profile!
+    login(email: String!, password: String!): Profile
 }`;
 
 module.exports = typeDefs;
