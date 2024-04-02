@@ -8,7 +8,7 @@ export default function Home() {
     <main className='homeContainer'>
       <div className="hero">
         <Hero />
-        <div className="btn">
+        <div className="btn divCenter">
           <a href="/how-it-works"><button>How It Works</button></a>
         </div>
       </div>
