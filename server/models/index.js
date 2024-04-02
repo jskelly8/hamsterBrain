@@ -1,3 +1,3 @@
-const Temp = require('./tempModel');
+const Profile = require('./profile');
 
-module.exports = { Temp };
+module.exports = { Profile };

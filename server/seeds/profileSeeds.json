@@ -1,0 +1,81 @@
+[
+      {
+        "username": "plant123",
+        "name": "Robert Plant",
+        "email": "robert@example.com",
+        "buddyemail": "angus@example.com",
+        "password": "ledzeppelin123"
+      },
+      {
+       
+        "username": "young456",
+        "name": "Angus Young",
+        "email": "angus@example.com",
+        "buddyemail": "robert@example.com",
+        "password": "acdc456"
+      },
+      {
+       
+        "username": "garcia789",
+        "name": "Jerry Garcia",
+        "email": "jerry@example.com",
+        "buddyemail": "tony@example.com",
+        "password": "gratefuldead789"
+      },
+      {
+        
+        "username": "iomm123",
+        "name": "Tony Iommi",
+        "email": "tony@example.com",
+        "buddyemail": "jerry@example.com",
+        "password": "blacksabbath123"
+      },
+      {
+       
+        "username": "corgan654",
+        "name": "Billy Corgan",
+        "email": "billy@example.com",
+        "buddyemail": "ozzy@example.com",
+        "password": "smashingpumpkins654"
+      },
+      {
+        
+        "username": "osbourne987",
+        "name": "Ozzy Osbourne",
+        "email": "ozzy@example.com",
+        "buddyemail": "billy@example.com",
+        "password": "blacksabbath987"
+      },
+      {
+       
+        "username": "bonham135",
+        "name": "John Bonham",
+        "email": "john@example.com",
+        "buddyemail": "neil@example.com",
+        "password": "ledzeppelin135"
+      },
+      {
+        
+        "username": "peart246",
+        "name": "Neil Peart",
+        "email": "neil@example.com",
+        "buddyemail": "john@example.com",
+        "password": "rush246"
+      },
+      {
+        
+        "username": "grohl111",
+        "name": "Dave Grohl",
+        "email": "dave@example.com",
+        "buddyemail": "hetfield@example.com",
+        "password": "foo123"
+      },
+      {
+        
+        "username": "hetfield321",
+        "name": "James Hetfield",
+        "email": "hetfield@example.com",
+        "buddyemail": "dave@example.com",
+        "password": "metallica321"
+      }
+    ]
