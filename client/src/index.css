@@ -23,6 +23,22 @@
 
 /* End Schedule CSS */
 /* Navbar Styling */
+
+.white {
+  color: white;
+}
+
+.black {
+  color: black;
+}
+
+.divCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh */
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -104,6 +120,16 @@
 
 .nav-links li a:hover {
   color: #e4bfc6;
+}
+
+.butterfly {
+  font-family: "Butterfly Kids", cursive;
+  font-weight: 400;
+  font-style:inherit;
+}
+
+.font50 {
+  font-size: 50px;
 }
 
 @media (max-width: 768px) {

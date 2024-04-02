@@ -23,7 +23,7 @@ export default function Nav() {
                     <img src='' alt='Logo' />
                 </Link>
                 <div>
-                    <h3>Hamster Brain</h3>
+                    <h3 className="white">Hamster Brain</h3>
                 </div>
                 <div>
                     <div className='burgerBox'>
@@ -71,4 +71,4 @@ export default function Nav() {
             </div>
         </nav>
     );
-};
+}
