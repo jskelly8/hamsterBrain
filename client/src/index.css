@@ -21,6 +21,7 @@
     max-height: 20%;
 }
 
+/* End Schedule CSS */
 /* Navbar Styling */
 .navbar {
   display: flex;
@@ -110,3 +111,4 @@
     display: none;
   }
 }
+
