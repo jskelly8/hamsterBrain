@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import '../tasks.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBan } from '@fortawesome/free-solid-svg-icons';
 
 class Tasks extends Component {
   constructor(props) {
@@ -54,12 +56,12 @@ class Tasks extends Component {
     const { notes, inputText, alert } = this.state;
 
     return (
-      <div className="margin">
+      <div>
         {/* Note input form */}
-        <div className="panel panel-default">
+        <div className="panel panel-default ">
           <div className="panel-body divCenter">
             <form className="form-group divCenter">
-              <label className ="font35" htmlFor="note-add">Quick Notes:</label>
+              <label className =" margin font100 butterfly" htmlFor="note-add">Quick Notes:</label>
               <input
                 id="note-add"
                 className="form-control thicc"
@@ -96,7 +98,7 @@ class Tasks extends Component {
         </div>
 
         {/* Notes display */}
-        <h3 className="text-center divCenter">Notes</h3>
+        
         <hr />
 
 
@@ -109,7 +111,10 @@ class Tasks extends Component {
     notes.map(note => (
       <div key={note.id} className="d-flex align-items-center"> {/* Flex container */}
         <div className="col-md-1 text-center"> {/* Delete button container */}
-          <button className="delete btn btn-default delete-btn-transform" onClick={() => this.handleDeleteNote(note.id)}>
+        
+          <button className="delete btn btn-default " 
+          onClick={() => this.handleDeleteNote(note.id)}>
+            <FontAwesomeIcon icon={faBan} className="delete-btn-transform"/>
             &times;
           </button>
         </div>
