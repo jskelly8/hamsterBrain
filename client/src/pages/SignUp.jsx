@@ -1,20 +1,49 @@
 import { useState } from 'react';
 import { useMutation, gql } from '@apollo/client';
 
-// Define the addProfile mutation
+
+// const ADD_PROFILE_MUTATION = gql`
+// type Mutation {
+//   addProfile(username: String!, email: String!, password: String!): Auth
+//   add(name:String!): Profile
+//   editProfile(input: EditProfileInput!): Profile!
+//   login(email: String!, password: String!): Auth
+//   addTask(input: AddTaskInput!): Task!
+//   getTask(input: GetTaskInput!): Task!
+// }`;
+
 const ADD_PROFILE_MUTATION = gql`
-  mutation AddProfile($name: String!, $email: String!, $password: String!) {
-    addProfile(name: $name, email: $email, password: $password) {
-      _id
+  mutation AddProfile($username: String!, $email: String!, $password: String!) {
+    addProfile(username: $username, email: $email, password: $password) {
+      id
       username
-      name
-      email
     }
   }
 `;
 
+// const ADD_PROFILE_MUTATION = gql`
+// type Mutation {
+//   addProfile(username: String!, email: String!, password: String!): Auth
+//   add(name:String!): Profile
+//   editProfile(input: EditProfileInput!): Profile!
+//   login(email: String!, password: String!): Auth
+//   addTask(input: AddTaskInput!): Task!
+//   getTask(input: GetTaskInput!): Task!
+// }`;
+
+
+
+// const ADD_PROFILE_MUTATION = gql`
+//   mutation AddProfile($username: String!) {
+//     addProfile(username: $username) {
+//       id
+//       username
+//     }
+//   }
+// `;
+
 const SignUp = () => {
-  const [name, setName] = useState('');
+  const [username, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -27,7 +56,7 @@ const SignUp = () => {
       // Execute the addProfile mutation
       await addProfile({
         variables: {
-          name,
+          username,
           email,
           password,
         },
@@ -48,7 +77,7 @@ const SignUp = () => {
           <label>Name:</label>
           <input
             type="text"
-            value={name}
+            value={username}
             onChange={(e) => setName(e.target.value)}
             required
           />
