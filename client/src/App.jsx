@@ -20,11 +20,12 @@ import Footer from './components/Footer';
 // import Header from './components/Header/index';
 // import Footer from './components/Footer/index';
 
-
 // HTTP link for GraphQL operations
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: 'graphql',
 });
+
+
 
 // Authentication link
 const authLink = setContext((_, { headers }) => {
@@ -40,6 +41,7 @@ const authLink = setContext((_, { headers }) => {
 // Initialize Apollo Client with the created links and cache
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
+
   cache: new InMemoryCache(),
 });
 
