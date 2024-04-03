@@ -19,6 +19,7 @@
     "vite": "^4.4.5"
   },
   "dependencies": {
+    "apollo-server-express": "^3.13.0",
     "uuid": "^9.0.1"
   }
 }

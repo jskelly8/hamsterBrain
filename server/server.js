@@ -1,13 +1,14 @@
 const express = require('express');
-const { ApolloServer, } = require('@apollo/server');
+const { ApolloServer } = require('@apollo/server');
 /* gql */
 const { expressMiddleware } = require('@apollo/server/express4');
 const path = require('path');
 const { authMiddleware } = require('./utils/auth');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
+const cors = require('cors');
 
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 5174;
 const app = express();
 const server = new ApolloServer({
     typeDefs,
@@ -17,6 +18,7 @@ const server = new ApolloServer({
 const startApolloServer = async () => {
     await server.start();
 
+    app.use(cors());
     app.use(express.urlencoded({ extended: true }));
     app.use(express.json());
 
@@ -24,13 +26,23 @@ const startApolloServer = async () => {
         context: authMiddleware
     }));
 
+        app.get('/', (req, res) => {
+            res.send('Welcome to the server');
+          });
+    
+          console.log('StartApollo')
+
     if (process.env.NODE_ENV === 'production') {
-        app.use(express.static(path.join(__dirnace, '../client/dist')));
+        app.use(express.static(path.join(__dirname, '../client/dist')));
+ 
+        console.log('Process.NODE')
 
         app.get('*', (req, res) => {
             res.sendFile(path.join(__dirname, '../client/dist/index.html'));
         });
     }
+
+    console.log('Check3')
 
     db.once('open', () => {
         app.listen(PORT, () => {

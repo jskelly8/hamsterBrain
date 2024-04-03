@@ -7,7 +7,6 @@
         "password": "ledzeppelin123"
       },
       {
-       
         "username": "young456",
         "name": "Angus Young",
         "email": "angus@example.com",
@@ -15,7 +14,6 @@
         "password": "acdc456"
       },
       {
-       
         "username": "garcia789",
         "name": "Jerry Garcia",
         "email": "jerry@example.com",
@@ -23,7 +21,6 @@
         "password": "gratefuldead789"
       },
       {
-        
         "username": "iomm123",
         "name": "Tony Iommi",
         "email": "tony@example.com",
@@ -31,7 +28,6 @@
         "password": "blacksabbath123"
       },
       {
-       
         "username": "corgan654",
         "name": "Billy Corgan",
         "email": "billy@example.com",
@@ -39,7 +35,6 @@
         "password": "smashingpumpkins654"
       },
       {
-        
         "username": "osbourne987",
         "name": "Ozzy Osbourne",
         "email": "ozzy@example.com",
@@ -47,7 +42,6 @@
         "password": "blacksabbath987"
       },
       {
-       
         "username": "bonham135",
         "name": "John Bonham",
         "email": "john@example.com",
@@ -55,7 +49,6 @@
         "password": "ledzeppelin135"
       },
       {
-        
         "username": "peart246",
         "name": "Neil Peart",
         "email": "neil@example.com",
@@ -63,7 +56,6 @@
         "password": "rush246"
       },
       {
-        
         "username": "grohl111",
         "name": "Dave Grohl",
         "email": "dave@example.com",
@@ -71,7 +63,6 @@
         "password": "foo123"
       },
       {
-        
         "username": "hetfield321",
         "name": "James Hetfield",
         "email": "hetfield@example.com",

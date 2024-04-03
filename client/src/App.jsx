@@ -31,6 +31,7 @@ const authLink = setContext((_, { headers }) => {
 // Initialize Apollo Client with the created links and cache
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
+
   cache: new InMemoryCache(),
 });
 
@@ -41,6 +42,12 @@ function App() {
         <Header />
         <main className="outlet">
           <Outlet />
+
+          {/* Temp Holding Place*/}
+          {/* <Hero />
+          <Schedule /> */}
+          {/* <Tasks /> */}
+
         </main>
         <Footer />
       </div>

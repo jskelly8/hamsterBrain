@@ -5,15 +5,15 @@ function Planner() {
     {
       Id: 1,
       Subject: 'Meeting',
-      StartTime: new Date(2023, 1, 15, 10, 0),
-      EndTime: new Date(2023, 1, 15, 12, 30),
+      StartTime: new Date(2024, 1, 15, 1, 0),
+      EndTime: new Date(2027, 1, 15, 12, 30),
     },
   ];
 
   return (
     <div className="Schedule-container">
     <ScheduleComponent
-      selectedDate={new Date(2023, 1, 15)}
+      selectedDate={new Date(2024, 3, 10)}
       eventSettings={{
         dataSource: data,
       }}

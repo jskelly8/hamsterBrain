@@ -20,6 +20,10 @@ input EditProfileInput{
 input AddTaskInput {
     task: String!
 }
+type Auth {
+    token: ID!
+    user: User
+  }
 type Task {
     _id: ID!
     taskId: String!
@@ -32,12 +36,20 @@ type Query {
     me: Profile
     tasks: [Task]!
 }
+
+type User {
+    id: ID!
+    username: String!
+    email: String!
+}
+
 type Mutation {
-    addProfile(name: String!, email: String!, password: String!): Profile
+    addProfile(username: String!, email: String!, password: String!): Auth
     add(name:String!): Profile
     editProfile(input: EditProfileInput!): Profile!
-    login(email: String!, password: String!): Profile
+    login(email: String!, password: String!): Auth
     addTask(input: AddTaskInput!): Task!
+    getTask(in)
 }`;
 
 module.exports = typeDefs;
