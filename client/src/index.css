@@ -50,6 +50,16 @@
   color: #BFB3A4;
 }
 
+.btn-success {
+  padding: 5px 10px;
+  font-size: 18px;
+  border-radius: 8px;
+  background-color: #151619;
+  border-color: #4586BF;
+  color: #4586BF;
+  font-weight: bold;
+}
+
 .btn button:hover {
   background-color: #4fa8d1;
   color: #151619;
@@ -91,7 +101,7 @@
 }
 
 .timerContainer, .bottomRight {
-  border: 1px solid #4586BF;
+  border: 1px solid 6;
   border-radius: 8px;
   padding: 20px;
 }
@@ -190,6 +200,10 @@
 
 .black {
   color: black;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 .divCenter {

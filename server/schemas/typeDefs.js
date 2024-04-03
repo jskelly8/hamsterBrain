@@ -1,6 +1,6 @@
 const { gql } = require('@apollo/server');
 
-const typeDefs =`
+const typeDefs = `
 type Profile {
     _id: ID!
     username: String!
@@ -18,11 +18,7 @@ input EditProfileInput{
     password: String
 }
 input AddTaskInput {
-    _id: ID!
     task: String!
-}
-input GetTaskInput {
-    _id: String!
 }
 type Auth {
     token: ID!
@@ -30,6 +26,7 @@ type Auth {
   }
 type Task {
     _id: ID!
+    taskId: String!
     task: String!
     user: Profile!
 }
@@ -52,7 +49,7 @@ type Mutation {
     editProfile(input: EditProfileInput!): Profile!
     login(email: String!, password: String!): Auth
     addTask(input: AddTaskInput!): Task!
-    getTask(input: GetTaskInput!): Task!
+    getTask(in)
 }`;
 
 module.exports = typeDefs;
