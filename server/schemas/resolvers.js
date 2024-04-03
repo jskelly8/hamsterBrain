@@ -1,16 +1,16 @@
-const { Profile } = require("../models");
+const { User } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 const resolvers = {
   Query: {
-    profiles: async () => {
-      return Profile.find();
+    Users: async () => {
+      return User.find();
     },
-    profile: async (parent, { profileId }) => {
-      return Profile.findOne({ _id: profileId });
+    User: async (parent, { UserId }) => {
+      return User.findOne({ _id: UserId });
     },
     me: async (parent, args, context) => {
       if (context.user) {
-        return Profile.findOne({ _id: context.user._id });
+        return User.findOne({ _id: context.user._id });
       }
       throw AuthenticationError;
     },
@@ -20,51 +20,51 @@ const resolvers = {
   },
 
   Mutation: {
-    addProfile: async (parent, { username, email, password }) => {
-      const profile = await Profile.create({ username, email, password });
-      const token = signToken(profile);
+    addUser: async (parent, { username, email, password }) => {
+      const User = await User.create({ username, email, password });
+      const token = signToken(User);
 
-      return { token, profile };
+      return { token, User };
     },
     login: async (parent, { email, password }) => {
-      const profile = await Profile.findOne({ email });
+      const User = await User.findOne({ email });
 
-      if (!profile) {
+      if (!User) {
         throw AuthenticationError;
       }
-      const rightPw = await profile.isCorrectPassword(password);
+      const rightPw = await User.isCorrectPassword(password);
 
       if (!rightPw) {
         throw AuthenticationError;
       }
 
-      const token = signToken(profile);
-      return { token, profile };
+      const token = signToken(User);
+      return { token, User };
     },
 
-    editProfile: (parent, { input }, context) => {
-      if (!context.profile) {
+    editUser: (parent, { input }, context) => {
+      if (!context.User) {
         throw AuthenticationError;
       }
       try {
-        const user = context.profile;
+        const user = context.User;
         if (!user) {
           throw Error();
         }
         if (input.name) {
-          profile.name = input.name;
+          User.name = input.name;
         }
         if (input.username) {
-          profile.username = input.username;
+          User.username = input.username;
         }
         if (input.email) {
-          profile.email = input.email;
+          User.email = input.email;
         }
         if (input.buddyemail) {
-          profile.buddyemail = input.buddyemail;
+          User.buddyemail = input.buddyemail;
         }
         if (input.password) {
-          profile.password = input.password;
+          User.password = input.password;
         }
       } catch (err) {
         throw Error();
