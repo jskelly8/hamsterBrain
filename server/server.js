@@ -6,8 +6,9 @@ const path = require('path');
 const { authMiddleware } = require('./utils/auth');
 const { typeDefs, resolvers } = require('./schemas');
 const db = require('./config/connection');
+const cors = require('cors');
 
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 5173;
 const app = express();
 const server = new ApolloServer({
     typeDefs,
@@ -24,8 +25,15 @@ const startApolloServer = async () => {
         context: authMiddleware
     }));
 
+        app.get('/', (req, res) => {
+            res.send('Welcome to the server');
+          });
+    
+
     if (process.env.NODE_ENV === 'production') {
         app.use(express.static(path.join(__dirnace, '../client/dist')));
+ 
+        
 
         app.get('*', (req, res) => {
             res.sendFile(path.join(__dirname, '../client/dist/index.html'));

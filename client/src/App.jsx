@@ -1,4 +1,5 @@
 // React & Apollo imports
+// import React from 'react';
 import {
   ApolloClient,
   InMemoryCache,
@@ -12,10 +13,19 @@ import { Outlet } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
+// Temp Holding Place
+// import Hero from './pages/Hero';
+// import Schedule from './pages/Schedule';
+// import Tasks from './pages/Tasks';
+// import Header from './components/Header/index';
+// import Footer from './components/Footer/index';
+
 // HTTP link for GraphQL operations
 const httpLink = createHttpLink({
-  uri: '/graphql',
+  uri: 'graphql',
 });
+
+
 
 // Authentication link
 const authLink = setContext((_, { headers }) => {
@@ -31,6 +41,7 @@ const authLink = setContext((_, { headers }) => {
 // Initialize Apollo Client with the created links and cache
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
+
   cache: new InMemoryCache(),
 });
 
@@ -41,6 +52,12 @@ function App() {
         <Header />
         <main className="outlet">
           <Outlet />
+
+          {/* Temp Holding Place*/}
+          {/* <Hero />
+          <Schedule /> */}
+          {/* <Tasks /> */}
+
         </main>
         <Footer />
       </div>
