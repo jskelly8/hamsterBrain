@@ -13,7 +13,7 @@ task: {
 },
 user: {
     type: Schema.Types.ObjectId,
-    ref: 'Profile', // Should this be user???
+    ref: 'User', // Should this be user???
     required: true,
 },
 });
