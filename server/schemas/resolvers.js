@@ -1,89 +1,49 @@
-const { User } = require("../models");
+// const bcrypt = require('bcrypt');
+// const jwt = require('jsonwebtoken');
+// const { MongoClient } = require('mongodb');
+const {User} = require('../models')
+// const DATABASE_URL = 'mongodb://localhost:27017';
+// const DATABASE_NAME = 'your_database_name';
+// const COLLECTION_NAME = 'users';
 const { signToken, AuthenticationError } = require("../utils/auth");
+// const JWT_SECRET = 'your_jwt_secret';
+
+// const signUpUser = async (userData) => {
+//   const client = new MongoClient(DATABASE_URL);
+
+//   try {
+//     await client.connect();
+
+//     const db = client.db(DATABASE_NAME);
+//     const collection = db.collection(COLLECTION_NAME);
+
+//     // Hash the password
+//     const hashedPassword = await bcrypt.hash(userData.password, 10);
+//     userData.password = hashedPassword;
+
+//     // Insert user into the database
+//     const result = await collection.insertOne(userData);
+//     const user = result.ops[0];
+
+//     // Generate JWT token
+//     const token = jwt.sign({ userId: user._id }, JWT_SECRET, { expiresIn: '1h' });
+
+//     return { token, user };
+//   } finally {
+//     await client.close();
+//   }
+// };
+
 const resolvers = {
-  Query: {
-    Users: async () => {
-      return User.find();
-    },
-    User: async (parent, { UserId }) => {
-      return User.findOne({ _id: UserId });
-    },
-    me: async (parent, args, context) => {
-      if (context.user) {
-        return User.findOne({ _id: context.user._id });
-      }
-      throw AuthenticationError;
-    },
-    tasks: async (parent, { taskId }) => {
-        return Tasks.find();
-    }
-  },
-
   Mutation: {
-    addUser: async (parent, { username, email, password }) => {
-      const User = await User.create({ username, email, password });
-      const token = signToken(User);
-
-      return { token, User };
-    },
-    login: async (parent, { email, password }) => {
-      const User = await User.findOne({ email });
-
-      if (!User) {
-        throw AuthenticationError;
-      }
-      const rightPw = await User.isCorrectPassword(password);
-
-      if (!rightPw) {
-        throw AuthenticationError;
-      }
-
-      const token = signToken(User);
-      return { token, User };
-    },
-
-    editUser: (parent, { input }, context) => {
-      if (!context.User) {
-        throw AuthenticationError;
-      }
-      try {
-        const user = context.User;
-        if (!user) {
-          throw Error();
-        }
-        if (input.name) {
-          User.name = input.name;
-        }
-        if (input.username) {
-          User.username = input.username;
-        }
-        if (input.email) {
-          User.email = input.email;
-        }
-        if (input.buddyemail) {
-          User.buddyemail = input.buddyemail;
-        }
-        if (input.password) {
-          User.password = input.password;
-        }
-      } catch (err) {
-        throw Error();
-      }
-    },
-    addTask: async (parent, { task }, context) => {
-      if (!context.user) {
-        throw new Error("User not authenticated");
-      }
-
-      const newTask = await Task.create({
-        taskId: generateUniqueId(),
-        task,
-        user: context.user._id,
-      });
-
-      return newTask;
-    },
-  },
+    signUp: async (_, { input }) => {
+      // return await signUpUser(input);
+      const user = await User.create({...input});
+            const token = signToken(user);
+      
+            return { token, user};
+    }
+  }
 };
 
 module.exports = resolvers;

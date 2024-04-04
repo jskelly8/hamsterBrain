@@ -1,12 +1,15 @@
 // Temp model required to get server running
 const { Schema, model } = require('mongoose');
 
-const profileSchema = new Schema ({
+const UserSchema = new Schema ({
 username: {
     type: String,
     required: true,
     unique: true,
     trim: true,
+},
+name: {
+    type: String,
 },
 email: {
     type: String,
@@ -20,6 +23,6 @@ password: {
 },
 });
 
-const Profile = model('Profile', profileSchema);
+const User = model('User', UserSchema);
 
-module.exports = Profile;
+module.exports = User;

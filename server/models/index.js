@@ -1,4 +1,4 @@
-const Profile = require('./profile');
+const User = require('./user');
 const Tasks = require('./tasks');
 
-module.exports = { Profile };
+module.exports = { User };
