@@ -18,11 +18,7 @@ input EditUserInput{
     password: String
 }
 input AddTaskInput {
-    _id: ID!
     task: String!
-}
-input GetTaskInput {
-    _id: String!
 }
 type Auth {
     token: ID!
@@ -30,6 +26,7 @@ type Auth {
   }
 type Task {
     _id: ID!
+    taskId: String!
     task: String!
     user: User!
 }
@@ -52,7 +49,7 @@ type Mutation {
     editUser(input: EditUserInput!): User!
     login(email: String!, password: String!): Auth
     addTask(input: AddTaskInput!): Task!
-    getTask(input: GetTaskInput!): Task!
+    getTask(in)
 }`;
 
 module.exports = typeDefs;
