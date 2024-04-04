@@ -66,6 +66,9 @@ export default function Nav() {
                         <li>
                             <Link to="/tasks" onClick={closeMenu}>Tasks</Link>
                         </li>
+                        <li>
+                            <Link to="/community" onClick={closeMenu}>Social</Link>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -192,6 +192,181 @@
   }
 }
 
+/* SignUp Page Styling */
+.signupContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #151619;
+}
+
+.signupContainer h2 {
+  text-align: center;
+  color: #4fa8d1;
+  margin: 2rem;
+}
+
+.signupForm {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.signupFields label{
+  display: flex;
+  color: #4fa8d1;
+}
+
+.signupFields input {
+  display: flex;
+  margin-bottom: 0.5rem;
+  border: 2px solid #4586BF;
+  background-color: #F2E7DC;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+/* Login Page Styling */
+.loginContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #151619;
+}
+
+.loginContainer h2 {
+  text-align: center;
+  color: #4fa8d1;
+  margin: 2rem;
+}
+
+.loginForm {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3.5rem;
+}
+
+.loginFields label{
+  display: flex;
+  color: #4fa8d1;
+}
+
+.loginFields input {
+  display: flex;
+  margin-bottom: 0.5rem;
+  border: 2px solid #4586BF;
+  background-color: #F2E7DC;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+/* Profile Page Styling */
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #151619;
+}
+
+.profileContainer h2 {
+  text-align: center;
+  color: #4fa8d1;
+  margin: 2rem;
+}
+
+.avatarContainer {
+  display: flex;
+  justify-content: center;
+}
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #151619;
+  font-size: 3rem;
+  margin: 30px 20px;
+}
+
+.color-options button {
+  display: flex;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  margin: 0 5px;
+}
+
+.color-options button:focus {
+  outline: 3px solid grey;
+}
+
+.editFields {
+  display: flex;
+  justify-content: center;
+}
+
+.editFields input {
+  display: flex;
+  margin-bottom: 0.5rem;
+  border: 2px solid #4586BF;
+  background-color: #F2E7DC;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+/* Community Page Styling */
+.communityContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #151619;
+}
+
+.communityContainer h1 {
+  text-align: center;
+  color: #4fa8d1;
+  margin-top: 2rem;
+}
+
+.commP {
+  color: #4fa8d1;
+  text-align: center;
+}
+
+.featuresSection, .testimonialSection {
+  margin: 2rem;
+  background-color: #BFB3A4;
+  border: 2px solid #4586BF;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.featuresSection h5 {
+  color: #4586BF;
+}
+
+.commItems {
+  margin-top: 1rem;
+  padding: 3rem;
+  display: flex;
+  justify-content: center;
+}
+
+.commCard {
+  background-color: #151619;
+  margin: 0.5rem;
+  padding: 1rem;
+  border: 2px solid #4586BF;
+  border-radius: 8px;
+  color: #4fa8d1;
+  text-align: center;
+}
+
+.testimonialSection h2 {
+  margin-bottom: 1rem;
+}
+
 /* Navbar Styling */
 
 .white {
