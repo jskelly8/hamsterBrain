@@ -49,12 +49,12 @@ const resolvers = {
       return { token, user };
     },
     addTask: async (parent, {task, dueDate, dueTime }, context) => {
-      if (context.user){
-        const task = await Tasks.create({task, dueDate, dueTime, user: context.user._id});
-      return task;
+      if (context.user) {
+        const newTask = await Tasks.create({task, dueDate, dueTime, user: context.user._id});
+        return newTask;
       }
       throw AuthenticationError;
-    } 
+    }
   },
 };
 
