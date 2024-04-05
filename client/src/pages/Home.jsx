@@ -1,9 +1,29 @@
 // React imports
-import Hero from '../components/Hero.jsx'
-import PomodoroTimer from '../components/PomTimer.jsx'
+import { useState, useEffect } from 'react';
+import Hero from '../components/Hero.jsx';
+import PomodoroTimer from '../components/PomTimer.jsx';
+import testimonials from '../data/testimonials';
+import quotes from '../data/quotes';
 
 // Home Page
 export default function Home() {
+  // Render 2 random Testimonials from data
+  const getRandomTestimonials = () => {
+    const shuffled = testimonials.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, 2);
+  };
+
+  const randomTestimonials = getRandomTestimonials();
+
+  // Randomly render a quote from the local data
+  const [quote, setQuote] = useState({ text: '', author: '' });
+
+  useEffect(() => {
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    setQuote(randomQuote);
+  }, []);
+
+  // Page Render
   return (
     <main className='homeContainer'>
       <div className="hero">
@@ -49,7 +69,8 @@ export default function Home() {
       </div>
 
       <div className='quoteContainer'>
-        {/* Add random quote generated from API later */}
+        <p>{quote.text}</p>
+        <cite>{quote.author}</cite>
       </div>
 
       <div className='bottomSection'>
@@ -60,7 +81,14 @@ export default function Home() {
         <div className='bottomRight'>
           <div className='testimonialContainer'>
             <h3>Testimonials</h3>
-            {/* testimonials generator from seed data?*/}
+            <div className="testimonial-list">
+              {randomTestimonials.map(({ id, name, role, text }) => (
+                <div key={id} className="commCard">
+                  <blockquote>"{text}"</blockquote>
+                  <cite>- {name}, {role}</cite>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className='aboutContainer'>
