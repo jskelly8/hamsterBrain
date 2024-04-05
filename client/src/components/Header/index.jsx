@@ -1,11 +1,13 @@
 // React imports
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Auth from '../../utils/auth';
 
 // Navbar
 export default function Nav() {
     const [isOpen, setIsOpen] = useState(false);
-
+    // const [isLoggedIn, setIsLoggedIn] = useState(Auth.loggedIn);
+    // console.log(isLoggedIn);
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
@@ -13,6 +15,10 @@ export default function Nav() {
     const closeMenu = () => {
         setIsOpen(false);
     };
+    const handleLogOut = () => {
+        setIsOpen(false);
+        Auth.logout();
+    }
 
     // const isLoggedIn = /* finish later once backend up */;
 
@@ -38,22 +44,22 @@ export default function Nav() {
                             <Link to="/" onClick={closeMenu}>Home</Link>
                         </li>
                         {/* Conditional rendering based on `isLoggedIn` */}
-                        {/* {!isLoggedIn ? ( */}
-                            {/* <> */}
+                        {!Auth.loggedIn() ? (
+                            <>
                                 <li>
                                     <Link to="/login" onClick={closeMenu}>Login</Link>
                                 </li>
                                 <li>
                                     <Link to="/signup" onClick={closeMenu}>SignUp</Link>
                                 </li>
-                            {/* </> */}
-                        {/* ) :( */}
-                            {/* <> */}
+                            </>
+                        ) :(
+                            <>
                                 <li>
-                                    <Link to="#" onClick={closeMenu}>Logout</Link>
+                                    <button onClick={handleLogOut}>Logout</button>
                                 </li>
-                            {/* </> */}
-                        {/* )} */}
+                            </>
+                        )}
                         <li>
                             <Link to="/profile" onClick={closeMenu}>Profile</Link>
                         </li>

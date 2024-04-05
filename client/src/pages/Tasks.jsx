@@ -1,133 +1,74 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import '../tasks.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBan } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faBan } from '@fortawesome/free-solid-svg-icons';
+import { ADD_TASK } from '../utils/mutations';
+import { useMutation } from '@apollo/client';
+import DatePicker from 'react-datepicker';
+import TimePicker from 'react-time-picker'
+import 'react-datepicker/dist/react-datepicker.css';
 
-class Tasks extends Component {
-  constructor(props) {
-    super(props);
-    // Initial state includes the notes array (model) and input fields
-    this.state = {
-      notes: [],
-      inputText: '',
-      color: 'green',
-      alert: ''
-    };
-  }
+const Tasks = () => {
+  const [inputText, setInputText] = useState('');
+  const [addTask, {error}] = useMutation(ADD_TASK);
+  const [dueDate, setDueDate] = useState(null);
+  const [dueTime, setDueTime] = useState(null);
 
-  // Handlers for input and button actions
-  handleInputText = (e) => {
-    this.setState({ inputText: e.target.value });
-  }
+const handleTaskTextChange = (event) => {
+  setInputText(event.target.value);
+};
 
-  handleAddNote = (event) => {
-    event.preventDefault();
-    const { inputText, color, notes } = this.state;
-    if (inputText !== '') {
-      const newNote = {
-        id: notes.length + 1,
-        content: inputText,
-        bgColor: color
-      };
-      this.setState({
-        notes: [...notes, newNote],
-        inputText: '', // Reset input field
-        alert: 'Note Added!'
-      });
-      setTimeout(() => this.setState({ alert: '' }), 1000); // Hide alert after 1 sec
-    }
-  }
+const handleAddTask = async() => {
+  if (!inputText) return;
 
-  handleDeleteNote = (id) => {
-    this.setState({
-      notes: this.state.notes.filter(note => note.id !== id),
-      alert: 'Note Deleted!'
+  try {
+    await addTask({
+      variables: {
+        task: inputText,
+        dueDate: dueDate,
+        dueTime: dueTime,
+      }
     });
-    setTimeout(() => this.setState({ alert: '' }), 1000); // Hide alert after 1 sec
+    setInputText('');
+    setDueDate(null);
+    setDueTime(null);
+  } catch (error) {
+    console.log(error);
   }
 
-  // Methods for selecting note colors
-  selectColor = (color) => {
-    this.setState({ color });
-  }
+};
 
-  render() {
-    // color
-    const { notes, inputText, alert } = this.state;
-
-    return (
+return (
+<div>
+      <h2>Add Task</h2>
       <div>
-        {/* Note input form */}
-        <div className="panel panel-default ">
-          <div className="panel-body divCenter">
-            <form className="form-group divCenter">
-              <label className =" margin font100 butterfly" htmlFor="note-add">Quick Notes:</label>
-              <input
-                id="note-add"
-                className="form-control thicc"
-                type="text"
-                value={inputText}
-                placeholder="For whatever you need to remember"
-                onChange={this.handleInputText}
-              />
-              
-              
-              <button type="button" className="btn btn-success" onClick={this.handleAddNote}>Add Note</button>
-            {alert && <span className="alerts">{alert}</span>}
-              {/* <label>Select Color</label> */}
-              <div>
-                {/* Color selection options */}
-                {/* {['green', 'red', 'blue', 'orange'].map((c) => (
-                  <label key={c}>
-                    <input
-                      type="radio"
-                      name="color"
-                      checked={color === c}
-                      onChange={() => this.selectColor(c)}
-                    /> {c.charAt(0).toUpperCase() + c.slice(1)} &nbsp;
-                  </label>
-                  
-                ))} */}
-              </div>
-            </form>
-            <div className="button-container">
-            {/* <button className="btn btn-success" onClick={this.handleAddNote}>Add Note</button>
-            {alert && <span className="alerts">{alert}</span>} */}
-          </div>
-        </div>
-        </div>
-
-        {/* Notes display */}
-        
-        <hr />
-
-
-
-
-        <div className="divCenter container">
-  {notes.length === 0 ? (
-    <h3>No Notes</h3>
-  ) : (
-    notes.map(note => (
-      <div key={note.id} className="d-flex align-items-center"> {/* Flex container */}
-        <div className="col-md-1 text-center"> {/* Delete button container */}
-        
-          <button className="delete btn btn-default " 
-          onClick={() => this.handleDeleteNote(note.id)}>
-            <FontAwesomeIcon icon={faBan} className="delete-btn-transform"/>
-            &times;
-          </button>
-        </div>
-        <div className={`${note.bgColor} note-box alert col-md-11`} style={{ fontSize: '30px'}}>
-          {note.content}
-        </div>
+        <input
+          type="text"
+          placeholder="Enter task"
+          value={inputText}
+          onChange={handleTaskTextChange}
+        />
       </div>
-    ))
-  )}
-</div>
+      <div>
+        <DatePicker
+          selected={dueDate}
+          onChange={date => setDueDate(date)}
+          dateFormat="dd/MM/yyyy"
+          placeholderText="Select due date"
+        />
       </div>
-    );
-  }
-}
+      <div>
+        <TimePicker
+          value={dueTime}
+          onChange={time => setDueTime(time)}
+          clearIcon={null} // To hide the clear icon
+          disableClock={true} // Disable clock for time selection
+        />
+      </div>
+      <button onClick={handleAddTask}>Add Task</button>
+      {error && <p>Error adding task. Please try again.</p>}
+    </div>
+  );
+};
 
 export default Tasks;

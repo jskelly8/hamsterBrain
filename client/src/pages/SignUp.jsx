@@ -1,22 +1,12 @@
 
 import { useState } from 'react';
-import { useMutation, gql } from '@apollo/client';
-
-
-// Define the GraphQL mutation
-const SIGN_UP_MUTATION = gql`
-mutation SignUp($input: SignUpInput!) {
-  signUp(input: $input) {
-    token
-    user {
-      username
-      email
-    }
-  }
-}
-`;
+import { useMutation } from '@apollo/client';
+import { ADD_USER } from '../utils/mutations'
+import Auth from '../utils/auth';
+import { useNavigate } from 'react-router-dom';
 
 function SignUp() {
+  const navigate = useNavigate();
   // State for the input fields
   const [formData, setFormData] = useState({
     username: '',
@@ -25,7 +15,7 @@ function SignUp() {
   });
 
   // Apollo useMutation hook
-  const [signUp, { loading, error }] = useMutation(SIGN_UP_MUTATION);
+  const [addUser, { loading, error }] = useMutation(ADD_USER);
 
   // Handle input change
   const handleChange = (event) => {
@@ -37,12 +27,14 @@ function SignUp() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await signUp({
+      const { data } = await addUser({
         variables: {
-          input: formData,
+          ...formData,
         },
       });
-      console.log('Signup Success:', response.data.signUp);
+      console.log('Signup Success:', data.addUser);
+      Auth.login(data.addUser.token);
+      navigate('/profile');
       // Here, you could navigate to another route or write the token to local storage
       // e.g., localStorage.setItem('token', response.data.signUp.token);
     } catch (err) {

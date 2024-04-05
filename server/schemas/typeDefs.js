@@ -8,6 +8,14 @@ const typeDefs = `
     password: String
   }
 
+  type Tasks {
+    _id: ID
+    task: String
+    user: User
+    dueDate: String
+    dueTime: String
+  }
+
   type Auth {
     token: ID!
     user: User
@@ -25,9 +33,11 @@ const typeDefs = `
     me: User
    }
 
+
    type Mutation {
     addUser(username: String!, email: String!, password: String): Auth
     login(email: String!, password: String!): Auth
+    addTask(task: String!, dueDate: String, dueTime: String): Tasks
   }
 `;
 
