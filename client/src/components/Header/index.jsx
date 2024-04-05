@@ -20,7 +20,7 @@ export default function Nav() {
         <nav className="navbar">
             <div className="navbar-container">
                 <Link to="/" onClick={closeMenu}>
-                    <img src='' alt='Logo' />
+                    <img src='/ham2-removebg-icon.png' alt='Logo' />
                 </Link>
                 <div>
                     <h3 className="white">Hamster Brain</h3>

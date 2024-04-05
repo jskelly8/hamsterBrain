@@ -101,12 +101,13 @@
 }
 
 .timerContainer, .bottomRight {
-  border: 1px solid 6;
-  border-radius: 8px;
   padding: 20px;
 }
 
 .timerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-basis: 33%;
 }
 
@@ -115,11 +116,12 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  padding: 20px;
+  padding: 25px 50px;
   background-color: #282c34;
   color: #4586BF;
-  border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border: 1px solid #4fa8d1;
+  border-radius: 8px;
 }
 
 .timer h2 {
@@ -369,18 +371,6 @@
 
 /* Navbar Styling */
 
-.white {
-  color: white;
-}
-
-.black {
-  color: black;
-}
-
-.bold {
-  font-weight: bold;
-}
-
 .divCenter {
   display: flex;
   justify-content: center;
@@ -476,16 +466,6 @@
   color: #BFB3A4;
 }
 
-.butterfly {
-  font-family: "Butterfly Kids", cursive;
-  font-weight: 400;
-  font-style:inherit;
-}
-
-.font50 {
-  font-size: 50px;
-}
-
 @media (max-width: 768px) {
   .nav-links {
     display: none;
@@ -532,4 +512,27 @@
 
 .dev a:hover {
   color: #BFB3A4;
+}
+
+/* other classes */
+
+.white {
+  color: white;
+}
+
+.black {
+  color: black;
+}
+
+.bold {
+  font-weight: bold;
+}
+.butterfly {
+  font-family: "Butterfly Kids", cursive;
+  font-weight: 400;
+  font-style:inherit;
+}
+
+.font50 {
+  font-size: 50px;
 }
