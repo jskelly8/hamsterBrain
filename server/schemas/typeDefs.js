@@ -28,6 +28,7 @@ const typeDefs = `
   }
 
   type Query {
+    tasks: [Tasks]
     users: [User]
     user(username: String!): User
     me: User

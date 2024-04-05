@@ -19,6 +19,12 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    tasks: async (_, args, context) => {
+      if (context.user) {
+        return await Tasks.find({ user: context.user._id });
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
   },
 
   Mutation: {
