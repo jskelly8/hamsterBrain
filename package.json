@@ -21,6 +21,7 @@
   "dependencies": {
     "apollo-server-express": "^3.13.0",
     "bcrypt": "^5.1.1",
+    "node-fetch": "^3.3.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "uuid": "^9.0.1"

@@ -1,4 +1,5 @@
-// React imports (if needed)
+// React imports
+import testimonials from '../data/testimonials';
 
 // Page
 export default function Community() {
@@ -26,10 +27,13 @@ export default function Community() {
       </div>
       <div className="testimonialSection">
         <h2>User Testimonials</h2>
-        {/* Iterate through testimonial seeds here when able */}
-        <div className="commCard">
-          <p>"This community has been a game-changer for me. I've found not just guidance but also genuine friends who are as passionate as I am."</p>
-          <cite>- Alex</cite>
+        <div>
+          {testimonials.map(({ id, name, role, text }) => (
+            <div key={id} className="commCard">
+              <blockquote>{text}</blockquote>
+              <cite>- {name}, {role}</cite>
+            </div>
+          ))}
         </div>
       </div>
     </div>
