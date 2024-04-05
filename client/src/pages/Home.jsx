@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react';
 import Hero from '../components/Hero.jsx';
 import PomodoroTimer from '../components/PomTimer.jsx';
 import testimonials from '../data/testimonials';
+import quotes from '../data/quotes';
 
 // Home Page
 export default function Home() {
-
   // Render 2 random Testimonials from data
   const getRandomTestimonials = () => {
     const shuffled = testimonials.sort(() => 0.5 - Math.random());
@@ -14,6 +14,14 @@ export default function Home() {
   };
 
   const randomTestimonials = getRandomTestimonials();
+
+  // Randomly render a quote from the local data
+  const [quote, setQuote] = useState({ text: '', author: '' });
+
+  useEffect(() => {
+    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    setQuote(randomQuote);
+  }, []);
 
   // Page Render
   return (
@@ -61,8 +69,8 @@ export default function Home() {
       </div>
 
       <div className='quoteContainer'>
-        <p>{quote}</p>
-        <cite>{author}</cite>
+        <p>{quote.text}</p>
+        <cite>{quote.author}</cite>
       </div>
 
       <div className='bottomSection'>
