@@ -317,6 +317,67 @@
   padding: 0.5rem;
 }
 
+/* Task Page Styling */
+.taskContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #151619;
+}
+
+.addTaskTitle {
+  text-align: center;
+  color: #4fa8d1;
+  margin: 2rem;
+}
+
+.addTaskSection {
+  display: flex;
+  justify-content: center;
+}
+
+.addTaskInputs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-direction: column;
+  max-width: fit-content;
+}
+
+.addTaskInputs input {
+  display: flex;
+  margin-bottom: 0.5rem;
+  border: 2px solid #4586BF;
+  background-color: #F2E7DC;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.taskListTitle {
+  text-align: center;
+  color: #4fa8d1;
+  margin: 2rem;
+}
+
+.taskList {
+  margin: 2rem;
+  background-color: #BFB3A4;
+  border: 2px solid #4586BF;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.taskList li {
+  background-color: #151619;
+  margin: 0.5rem;
+  padding: 1rem;
+  border: 2px solid #4586BF;
+  border-radius: 8px;
+  color: #4fa8d1;
+  text-align: center;
+  list-style: none;
+}
+
 /* Community Page Styling */
 .communityContainer {
   display: flex;
