@@ -43,13 +43,17 @@ export default function Profile() {
     }
   }, [data]);
 
+  console.log(useEffect)
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditFields({
       ...editFields,
       [name]: value,
-    });
+
+      });
   };
+  console.log(handleInputChange)
 
   const handleSave = async () => {
     try {
@@ -64,6 +68,8 @@ export default function Profile() {
       alert("Error updating profile. Please try again.");
     }
   };
+
+  console.log(handleSave)
 
   // Generates avatar based on the first letter of the username
   const generateAvatar = (username) => {

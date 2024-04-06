@@ -26,7 +26,9 @@ export default function Nav() {
                     <img src='/ham2-removebg-icon.png' alt='Logo' />
                 </Link>
                 <div>
-                    <h3 className="white">Hamster Brain</h3>
+                    <Link to="/" onClick={closeMenu}>
+                    <h3>Hamster Brain</h3>
+                    </Link>
                 </div>
                 <div>
                     <div className='burgerBox'>
