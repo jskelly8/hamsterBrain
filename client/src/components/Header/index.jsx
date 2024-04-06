@@ -6,8 +6,7 @@ import Auth from '../../utils/auth';
 // Navbar
 export default function Nav() {
     const [isOpen, setIsOpen] = useState(false);
-    // const [isLoggedIn, setIsLoggedIn] = useState(Auth.loggedIn);
-    // console.log(isLoggedIn);
+
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
@@ -19,8 +18,6 @@ export default function Nav() {
         setIsOpen(false);
         Auth.logout();
     }
-
-    // const isLoggedIn = /* finish later once backend up */;
 
     return (
         <nav className="navbar">
@@ -55,24 +52,24 @@ export default function Nav() {
                                     <Link to="/signup" onClick={closeMenu}>SignUp</Link>
                                 </li>
                             </>
-                        ) :(
+                        ) : (
                             <>
                                 <li>
-                                    <button onClick={handleLogOut}>Logout</button>
+                                    <Link to="/" onClick={handleLogOut}>Logout</Link>
+                                </li>
+                                <li>
+                                    <Link to="/profile" onClick={closeMenu}>Profile</Link>
+                                </li>
+                                <li>
+                                    <Link to="/planner" onClick={closeMenu}>Planner</Link>
+                                </li>
+                                <li>
+                                    <Link to="/tasks" onClick={closeMenu}>Tasks</Link>
                                 </li>
                             </>
                         )}
                         <li>
-                            <Link to="/profile" onClick={closeMenu}>Profile</Link>
-                        </li>
-                        <li>
                             <Link to="/how-it-works" onClick={closeMenu}>How It Works</Link>
-                        </li>
-                        <li>
-                            <Link to="/planner" onClick={closeMenu}>Planner</Link>
-                        </li>
-                        <li>
-                            <Link to="/tasks" onClick={closeMenu}>Tasks</Link>
                         </li>
                         <li>
                             <Link to="/community" onClick={closeMenu}>Social</Link>

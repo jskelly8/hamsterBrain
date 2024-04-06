@@ -14,3 +14,17 @@ export const QUERY_USER = gql`
     }
   }
 `;
+
+export const QUERY_TASKS = gql`
+  query getTasks {
+    tasks {
+      _id
+      task
+      dueDate
+      dueTime
+      user {
+        _id
+      }
+    }
+  }
+`;

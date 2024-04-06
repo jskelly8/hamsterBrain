@@ -227,14 +227,22 @@
   padding: 0.5rem;
 }
 
+.loginLink {
+  display: flex;
+  color: #4fa8d1;
+  flex-direction: column;
+  text-align: center;
+}
+
 /* Login Page Styling */
 .loginContainer {
   display: flex;
   flex-direction: column;
   background-color: #151619;
+  
 }
 
-.loginContainer h2 {
+.loginTitle {
   text-align: center;
   color: #4fa8d1;
   margin: 2rem;
@@ -243,21 +251,31 @@
 .loginForm {
   display: flex;
   justify-content: center;
-  margin-bottom: 3.5rem;
-}
-
-.loginFields label{
-  display: flex;
-  color: #4fa8d1;
+  margin-bottom: 5rem;
 }
 
 .loginFields input {
   display: flex;
   margin-bottom: 0.5rem;
-  border: 2px solid #4586BF;
   background-color: #F2E7DC;
+  border: 2px solid #4586BF;
   border-radius: 8px;
   padding: 0.5rem;
+}
+
+.loginError {
+  border: 2px solid #4586BF;
+  border-radius: 8px;
+  padding: 0.5rem;
+  margin-top: 2rem;
+  color: red;
+}
+
+.signupLink {
+  display: flex;
+  color: #4fa8d1;
+  flex-direction: column;
+  text-align: center;
 }
 
 /* Profile Page Styling */
@@ -316,6 +334,80 @@
   border-radius: 8px;
   padding: 0.5rem;
 }
+
+/* Task Page Styling */
+.taskContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: #151619;
+}
+
+.addTaskTitle {
+  text-align: center;
+  color: #4fa8d1;
+  margin: 2rem;
+}
+
+.addTaskSection {
+  display: flex;
+  justify-content: center;
+}
+
+.addTaskInputs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  flex-direction: column;
+  max-width: fit-content;
+}
+
+.addTaskInputs input {
+  display: flex;
+  margin-bottom: 0.5rem;
+  border: 2px solid #4586BF;
+  background-color: #F2E7DC;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.taskListTitle {
+  text-align: center;
+  color: #4fa8d1;
+  margin: 2rem;
+}
+
+.taskList {
+  margin: 2rem;
+  background-color: #BFB3A4;
+  border: 2px solid #4586BF;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+}
+
+.taskList li {
+  background-color: #151619;
+  margin: 0.5rem;
+  padding: 1rem;
+  border: 2px solid #4586BF;
+  border-radius: 8px;
+  color: #4fa8d1;
+  text-align: center;
+  list-style: none;
+  font-size: 18px;
+}
+
+.taskList button {
+  margin-right: 0.5rem;
+}
+
+.taskBtn {
+  /* margin-left: 5rem; */
+  display: flex;
+  justify-content: center;
+  
+}
+
 
 /* Community Page Styling */
 .communityContainer {

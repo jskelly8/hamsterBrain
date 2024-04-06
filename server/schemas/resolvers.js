@@ -19,6 +19,12 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
+    tasks: async (_, args, context) => {
+      if (context.user) {
+        return await Tasks.find({ user: context.user._id });
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
   },
 
   Mutation: {
@@ -48,13 +54,30 @@ const resolvers = {
 
       return { token, user };
     },
-    addTask: async (parent, {task, dueDate, dueTime }, context) => {
-      if (context.user){
-        const task = await Tasks.create({task, dueDate, dueTime, user: context.user._id});
-      return task;
+    addTask: async (parent, { task, dueDate, dueTime }, context) => {
+      if (context.user) {
+        const newTask = await Tasks.create({ task, dueDate, dueTime, user: context.user._id });
+        return newTask;
       }
       throw AuthenticationError;
-    } 
+    },
+    deleteTask: async (parent, { taskId }, context) => {
+      if (context.user) {
+        return await Tasks.findByIdAndDelete(taskId);
+      }
+      throw new AuthenticationError('You need to be logged in!');
+    },
+    updateTask: async (_, { taskId, task, dueDate, dueTime }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError("You must be logged in");
+      }
+      const updateData = {
+        task,
+        dueDate: dueDate ? new Date(dueDate) : null,
+        dueTime
+      };
+      return await Tasks.findByIdAndUpdate(taskId, updateData, { new: true });
+    }
   },
 };
 

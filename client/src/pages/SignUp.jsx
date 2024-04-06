@@ -34,9 +34,7 @@ function SignUp() {
       });
       console.log('Signup Success:', data.addUser);
       Auth.login(data.addUser.token);
-      navigate('/profile');
-      // Here, you could navigate to another route or write the token to local storage
-      // e.g., localStorage.setItem('token', response.data.signUp.token);
+      navigate('/profile', { replace: true });
     } catch (err) {
       console.error('Signup Error:', err);
     }
@@ -81,6 +79,9 @@ function SignUp() {
         </div>
       </form>
       {error && <p>Error signing up: {error.message}</p>}
+      <p className='loginLink'>Already have an account? 
+        <a href="/login" className='btn'><button>Login</button></a>
+      </p>
     </div>
   );
 }

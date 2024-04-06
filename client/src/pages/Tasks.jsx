@@ -1,72 +1,153 @@
 import { useState } from 'react';
-import '../tasks.css'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faBan } from '@fortawesome/free-solid-svg-icons';
-import { ADD_TASK } from '../utils/mutations';
-import { useMutation } from '@apollo/client';
+import { ADD_TASK, UPDATE_TASK, DELETE_TASK } from '../utils/mutations';
+import { useMutation, useQuery } from '@apollo/client';
 import DatePicker from 'react-datepicker';
-import TimePicker from 'react-time-picker'
 import 'react-datepicker/dist/react-datepicker.css';
+import { QUERY_TASKS } from '../utils/queries';
 
 const Tasks = () => {
   const [inputText, setInputText] = useState('');
-  const [addTask, {error}] = useMutation(ADD_TASK);
-  const [dueDate, setDueDate] = useState(null);
-  const [dueTime, setDueTime] = useState(null);
+  const [editText, setEditText] = useState('');
+  const [dueDateTime, setDueDateTime] = useState(null);
+  const [editDueDateTime, setEditDueDateTime] = useState(null);
+  const [isEditing, setIsEditing] = useState(null);
+  const [addTask, { error: addError }] = useMutation(ADD_TASK);
+  const [updateTask, { error: updateError }] = useMutation(UPDATE_TASK);
+  const [deleteTask, { error: deleteError }] = useMutation(DELETE_TASK);
+  const { data, loading, error: queryError, refetch } = useQuery(QUERY_TASKS);
 
-const handleTaskTextChange = (event) => {
-  setInputText(event.target.value);
-};
+  const handleTaskTextChange = (event) => {
+    setInputText(event.target.value);
+  };
 
-const handleAddTask = async() => {
-  if (!inputText) return;
+  const handleAddTask = async () => {
+    if (!inputText) return;
+    try {
+      await addTask({
+        variables: {
+          task: inputText,
+          dueDate: dueDateTime ? dueDateTime.toISOString().split('T')[0] : null,
+          dueTime: dueDateTime ? `${dueDateTime.getHours()}:${dueDateTime.getMinutes()}` : null,
+        }
+      });
+      setInputText('');
+      setDueDateTime(null);
+      refetch();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  try {
-    await addTask({
-      variables: {
-        task: inputText,
-        dueDate: dueDate,
-        dueTime: dueTime,
-      }
+  const handleDeleteTask = async (taskId) => {
+    try {
+      await deleteTask({
+        variables: { taskId }
+      });
+      refetch();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleEditTask = (task) => {
+    setIsEditing(task._id);
+    setEditText(task.task);
+
+    const editDate = new Date(parseInt(task.dueDate, 10));
+    if (!isNaN(editDate.valueOf())) {
+      setEditDueDateTime(editDate);
+    } else {
+      setEditDueDateTime(new Date());
+    }
+  };
+
+  const handleUpdateTask = async () => {
+    try {
+      await updateTask({
+        variables: {
+          taskId: isEditing,
+          task: editText,
+          dueDate: editDueDateTime ? editDueDateTime.toISOString() : null,
+        }
+      });
+      setIsEditing(null);
+      refetch();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (data) {
+    console.log("Task data fetched:", data.tasks);
+    data.tasks.forEach(task => {
+      console.log(`Raw date for task ${task._id}:`, task.dueDate);
     });
-    setInputText('');
-    setDueDate(null);
-    setDueTime(null);
-  } catch (error) {
-    console.log(error);
   }
 
-};
-
-return (
-<div>
-      <h2>Add Task</h2>
-      <div>
-        <input
-          type="text"
-          placeholder="Enter task"
-          value={inputText}
-          onChange={handleTaskTextChange}
-        />
+  return (
+    <div className='taskContainer'>
+      <h2 className='addTaskTitle'>Add Task</h2>
+      <div className='addTaskSection'>
+        <div className='addTaskInputs btn'>
+          <div>
+            <input
+              type="text"
+              placeholder="Enter task"
+              value={inputText}
+              onChange={handleTaskTextChange}
+            />
+          </div>
+          <div>
+            <DatePicker
+              selected={dueDateTime}
+              onChange={setDueDateTime}
+              dateFormat="dd/MM/yyyy h:mm aa"
+              showTimeSelect
+              timeFormat="HH:mm"
+              placeholderText="Select due date and time"
+            />
+          </div>
+          <button onClick={handleAddTask}>Add Task</button>
+          {addError && <p>Error adding task. Please try again.</p>}
+        </div>
       </div>
-      <div>
-        <DatePicker
-          selected={dueDate}
-          onChange={date => setDueDate(date)}
-          dateFormat="dd/MM/yyyy"
-          placeholderText="Select due date"
-        />
+      <h2 className='taskListTitle'>Task List</h2>
+      <div className='taskList'>
+        {loading ? <p>Loading tasks...</p> : queryError ? <p>Error loading tasks!</p> : (
+          <ul>
+            {data && data.tasks.map(task => (
+              <li key={task._id}>
+                {isEditing === task._id ? (
+                  <>
+                    {/* Edit mode inputs and buttons */}
+                    <input type="text" value={editText} onChange={(e) => setEditText(e.target.value)} />
+                    <DatePicker
+                      selected={editDueDateTime}
+                      onChange={setEditDueDateTime}
+                      dateFormat="dd/MM/yyyy h:mm aa"
+                      showTimeSelect
+                      timeFormat="HH:mm"
+                    />
+                    <div className='taskBtn btn'>
+                      <button onClick={handleUpdateTask}>Save</button>
+                      <button onClick={() => setIsEditing(null)}>Cancel</button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {task.task} - Due: {new Date(parseInt(task.dueDate, 10)).toLocaleString()}
+                    <div className='taskBtn btn'>
+                      <button onClick={() => handleEditTask(task)}>Edit</button>
+                      <button onClick={() => handleDeleteTask(task._id)}>Delete</button>
+                    </div>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+        {updateError && <p>Error updating task. Please try again.</p>}
       </div>
-      <div>
-        <TimePicker
-          value={dueTime}
-          onChange={time => setDueTime(time)}
-          clearIcon={null} // To hide the clear icon
-          disableClock={true} // Disable clock for time selection
-        />
-      </div>
-      <button onClick={handleAddTask}>Add Task</button>
-      {error && <p>Error adding task. Please try again.</p>}
     </div>
   );
 };
