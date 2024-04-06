@@ -27,7 +27,6 @@ mutation Mutation($email: String!, $password: String!) {
 }
 `;
 
-
 export const ADD_TASK = gql`
 mutation addTask($task: String!, $dueDate: String, $dueTime: String) {
   addTask(task: $task, dueDate: $dueDate, dueTime: $dueTime) {
@@ -39,4 +38,23 @@ mutation addTask($task: String!, $dueDate: String, $dueTime: String) {
       _id
     }
   }
-}`
+}`;
+
+export const DELETE_TASK = gql`
+mutation DeleteTask($taskId: ID!) {
+  deleteTask(taskId: $taskId) {
+    _id
+  }
+}
+`;
+
+export const UPDATE_TASK = gql`
+mutation UpdateTask($taskId: ID!, $task: String, $dueDate: String, $dueTime: String) {
+  updateTask(taskId: $taskId, task: $task, dueDate: $dueDate, dueTime: $dueTime) {
+    _id
+    task
+    dueDate
+    dueTime
+  }
+}
+`;
