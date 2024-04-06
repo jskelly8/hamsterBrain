@@ -394,7 +394,20 @@
   color: #4fa8d1;
   text-align: center;
   list-style: none;
+  font-size: 18px;
 }
+
+.taskList button {
+  margin-right: 0.5rem;
+}
+
+.taskBtn {
+  /* margin-left: 5rem; */
+  display: flex;
+  justify-content: center;
+  
+}
+
 
 /* Community Page Styling */
 .communityContainer {

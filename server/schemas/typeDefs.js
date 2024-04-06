@@ -39,6 +39,8 @@ const typeDefs = `
     addUser(username: String!, email: String!, password: String): Auth
     login(email: String!, password: String!): Auth
     addTask(task: String!, dueDate: String, dueTime: String): Tasks
+    deleteTask(taskId: ID!): Tasks
+    updateTask(taskId: ID!, task: String, dueDate: String, dueTime: String): Tasks
   }
 `;
 
