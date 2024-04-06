@@ -1,6 +1,6 @@
 const { User, Tasks } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
-
+const { generateBuddyCode } = require('../utils/helpers');
 
 const resolvers = {
   Query: {
@@ -28,10 +28,17 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
+    addUser: async (parent, { username, email, password}) => {
+      const buddyId = await generateBuddyCode();
+      const user = await User.create({ username, email, password, buddyId });
       const token = signToken(user);
       return { token, user };
+    },
+    updateUser: async ( parent, {userId, buddyId}) => {
+      const updatedUser = await User.findByIdAndUpdate(
+        userId, {buddyId}, {new:true}
+      );
+      return updatedUser;
     },
     login: async (parent, { email, password }) => {
       // const {email, password} = {...input};

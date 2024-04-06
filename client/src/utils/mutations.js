@@ -9,7 +9,19 @@ mutation addUser($username: String!, $email: String!, $password: String) {
       _id
       email
       username
+      buddyId
     }
+  }
+}
+`;
+
+export const UPDATE_USER = gql`
+mutation updateUser($buddyId: String!) {
+  updateUser(buddyId: $buddyId) {
+    _id
+    email
+    username
+    buddyId
   }
 }
 `;

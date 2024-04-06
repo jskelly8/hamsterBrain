@@ -6,6 +6,7 @@ const typeDefs = `
     username: String
     email: String
     password: String
+    buddyId: String
   }
 
   type Tasks {
@@ -37,6 +38,7 @@ const typeDefs = `
 
    type Mutation {
     addUser(username: String!, email: String!, password: String): Auth
+    updateUser(buddyId: String): User
     login(email: String!, password: String!): Auth
     addTask(task: String!, dueDate: String, dueTime: String): Tasks
     deleteTask(taskId: ID!): Tasks
