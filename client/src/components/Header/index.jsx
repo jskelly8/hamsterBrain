@@ -6,12 +6,9 @@ import Auth from '../../utils/auth';
 // Navbar
 export default function Nav() {
     const [isOpen, setIsOpen] = useState(false);
-    useEffect(() => {
-        if (Auth.loggedIn()) {
-            const user = Auth.getProfile()
-            console.log(user)
-        }
-    }, [])  
+    const userProfile = Auth.loggedIn() ? Auth.getProfile() : null;
+    const initials = userProfile ? userProfile.data.username[0].toUpperCase() : '';
+    const userAvatar = userProfile ? userProfile.data.avatarColor || '#F2E7DC' : '#F2E7DC';
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -31,17 +28,16 @@ export default function Nav() {
                 <Link to="/" onClick={closeMenu}>
                     <img src='/ham2-removebg-icon.png' alt='Logo' />
                 </Link>
-                <div>
+                <div className='titleAvatar'>
                     <Link to="/" onClick={closeMenu}>
-                    <h3 className="quicksand font50">Hamster Brain</h3>
+                        <h3 className="quicksand font50">Hamster Brain</h3>
                     </Link>
+                    {userProfile && (
+                        <div className="navAvatar" style={{ backgroundColor: userAvatar }}>
+                            {initials}
+                        </div>
+                    )}
                 </div>
-                {/* Add in conditional rendering for avatar based on auth.loggedin and auth.getprofile */}
-                { Auth.loggedIn() ? (
-                    <div>
-                        {/* add Avatar */}
-                    </div>
-                ): ("")}
                 <div>
                     <div className='burgerBox'>
                         <div className={`menu-toggle ${isOpen ? 'active' : ''}`} onClick={toggleMenu}>

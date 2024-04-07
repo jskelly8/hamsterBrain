@@ -13,7 +13,7 @@ const resolvers = {
     },
     me: async (_, args, context) => {
       if (context.user) {
-        const user = await User.findById(context.user.id);
+        const user = await User.findById(context.user._id);
         return user;
       }
       throw AuthenticationError;

@@ -20,8 +20,7 @@ password: {
     minlength: 3
 },
 avatarColor: {
-  type: String,
-  default: '#000000' 
+  type: String
 }
 });
 
