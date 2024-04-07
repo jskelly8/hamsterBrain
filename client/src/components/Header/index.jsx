@@ -1,11 +1,17 @@
 // React imports
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Auth from '../../utils/auth';
 
 // Navbar
 export default function Nav() {
     const [isOpen, setIsOpen] = useState(false);
+    useEffect(() => {
+        if (Auth.loggedIn()) {
+            const user = Auth.getProfile()
+            console.log(user)
+        }
+    }, [])  
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -30,6 +36,12 @@ export default function Nav() {
                     <h3 className="quicksand font50">Hamster Brain</h3>
                     </Link>
                 </div>
+                {/* Add in conditional rendering for avatar based on auth.loggedin and auth.getprofile */}
+                { Auth.loggedIn() ? (
+                    <div>
+                        {/* add Avatar */}
+                    </div>
+                ): ("")}
                 <div>
                     <div className='burgerBox'>
                         <div className={`menu-toggle ${isOpen ? 'active' : ''}`} onClick={toggleMenu}>

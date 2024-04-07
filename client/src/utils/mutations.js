@@ -9,6 +9,7 @@ mutation addUser($username: String!, $email: String!, $password: String) {
       _id
       email
       username
+      avatarColor
     }
   }
 }
@@ -21,6 +22,8 @@ mutation Mutation($email: String!, $password: String!) {
     user {
       email
       password
+      username
+      avatarColor
     }
     token
   }
@@ -59,16 +62,28 @@ mutation UpdateTask($taskId: ID!, $task: String, $dueDate: String, $dueTime: Str
 }
 `;
 
-export const UPDATE_PROFILE = gql`
-mutation Mutation($updateUserId: ID!, $username: String, $email: String, $avatarColor: String) {
-  updateUser(id: $updateUserId, username: $username, email: $email, avatarColor: $avatarColor) {
-    token
-    user {
+export const ADD_POST = gql`
+mutation AddPost($title: String!, $content: String!) {
+  addPost(title: $title, content: $content) {
+    _id
+    title
+    content
+    author {
       _id
-      email
-      password
       username
     }
+    createdAt
+  }
+}
+`;
+
+export const UPDATE_USER = gql`
+mutation UpdateUser($username: String, $email: String, $avatarColor: String) {
+  updateUser(username: $username, email: $email, avatarColor: $avatarColor) {
+    _id
+    email
+    username
+    avatarColor
   }
 }
 `;
