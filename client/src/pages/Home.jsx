@@ -28,7 +28,7 @@ export default function Home() {
     <main className='homeContainer'>
       <div className="hero">
         <Hero />
-        <div className="btn divCenter">
+        <div className="btn divCenter quicksand">
           <a href="/how-it-works"><button>How It Works</button></a>
         </div>
       </div>
@@ -38,8 +38,8 @@ export default function Home() {
           <div className='cardImg'>
             <img></img>
           </div>
-          <h4>Customize your schedule</h4>
-          <p>Get started planning your life!</p>
+          <h4 className="quicksand">Customize your schedule</h4>
+          <p className="quicksand">Get started planning your life!</p>
           <div className="btn">
             <a href="/planner"><button>Planner</button></a>
           </div>
@@ -49,8 +49,8 @@ export default function Home() {
           <div className='cardImg'>
             <img></img>
           </div>
-          <h4>Track your tasks with motivation</h4>
-          <p>Create task lists and set up rewards!</p>
+          <h4 className="quicksand">Track your tasks with motivation</h4>
+          <p className="quicksand">Create task lists and set up rewards!</p>
           <div className="btn">
             <a href="/tasks"><button>Tasks</button></a>
           </div>
@@ -60,8 +60,8 @@ export default function Home() {
           <div className='cardImg'>
             <img></img>
           </div>
-          <h4>Join the community</h4>
-          <p>Meet others and get your friends to help!</p>
+          <h4 className="quicksand">Join the community</h4>
+          <p className="quicksand">Meet others and get your friends to help!</p>
           <div className="btn">
             <a href="/community"><button>Social</button></a>
           </div>
@@ -80,7 +80,7 @@ export default function Home() {
 
         <div className='bottomRight'>
           <div className='testimonialContainer'>
-            <h3>Testimonials</h3>
+            <h3 className="quicksand">Testimonials</h3>
             <div className="testimonial-list">
               {randomTestimonials.map(({ id, name, role, text }) => (
                 <div key={id} className="commCard">
