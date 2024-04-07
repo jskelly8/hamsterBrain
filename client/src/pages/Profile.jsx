@@ -14,12 +14,14 @@ const GET_PROFILE = gql`
 
 // GraphQL Mutation to update the user's profile
 const UPDATE_PROFILE = gql`
-  mutation UpdateProfile($id: ID!, $username: String!, $email: String!) {
-    updateUser(id: $id, username: $username, email: $email) {
+  mutation UpdateProfile($id: ID!, $username: String, $email: String, $avatarColor: String) {
+    updateUser(id: $id, username: $username, email: $email, avatarColor: $avatarColor) {
       id
       username
       email
+      avatar
     }
+    token
   }
 `;
 
@@ -43,8 +45,6 @@ export default function Profile() {
     }
   }, [data]);
 
-  console.log(useEffect)
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditFields({
@@ -53,13 +53,13 @@ export default function Profile() {
 
       });
   };
-  console.log(handleInputChange)
 
   const handleSave = async () => {
     try {
       await updateProfile({
         variables: {
           ...editFields,
+          avatarColor: avatarColor
         },
       });
       alert("Profile updated successfully");
@@ -68,8 +68,6 @@ export default function Profile() {
       alert("Error updating profile. Please try again.");
     }
   };
-
-  console.log(handleSave)
 
   // Generates avatar based on the first letter of the username
   const generateAvatar = (username) => {
