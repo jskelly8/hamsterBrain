@@ -27,7 +27,7 @@ export default function Nav() {
                 </Link>
                 <div>
                     <Link to="/" onClick={closeMenu}>
-                    <h3>Hamster Brain</h3>
+                    <h3 className="quicksand font50">Hamster Brain</h3>
                     </Link>
                 </div>
                 <div>
