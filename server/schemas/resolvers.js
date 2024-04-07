@@ -1,4 +1,4 @@
-const { User, Tasks } = require("../models");
+const { User, Tasks, Post} = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
 
 
@@ -25,7 +25,20 @@ const resolvers = {
       }
       throw new AuthenticationError('You need to be logged in!');
     },
+  
+
+  // Fetches all posts
+  posts: async () => {
+    return await Post.find().sort({ createdAt: -1 });
   },
+
+  // Fetches a single post
+  post: async (_, { id }) => {
+    return await Post.findById(id);
+    },
+  },
+
+
 
   Mutation: {
     addUser: async (parent, { username, email, password }) => {
@@ -43,8 +56,6 @@ const resolvers = {
       }
 
       const correctPw = await user.isCorrectPassword(password);
-
-      console.log(correctPw);
 
       if (!correctPw) {
         throw AuthenticationError;
@@ -77,7 +88,29 @@ const resolvers = {
         dueTime
       };
       return await Tasks.findByIdAndUpdate(taskId, updateData, { new: true });
-    }
+    },
+
+    addPost: async (_, { title, content }, context) => {
+      if (context.user) {
+        const newPost = new Post ({
+          title,
+          content,
+          author: context.user._id,
+        });
+        await newPost.save();
+        return newPost;
+      }
+      throw new AuthenticationError('Log-in required for posting');
+    },
+
+    // CRUD operations for posting
+  },
+  // If your Post model references other models (like User), you might need to add field resolvers
+  Post: {
+    author: async (post, args, context) => {
+      // Assuming 'author' stores the ID
+      return await User.findById(post.author);
+    },
   },
 };
 

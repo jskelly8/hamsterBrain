@@ -58,3 +58,18 @@ mutation UpdateTask($taskId: ID!, $task: String, $dueDate: String, $dueTime: Str
   }
 }
 `;
+
+export const ADD_POST = gql`
+mutation AddPost($title: String!, $content: String!) {
+  addPost(title: $title, content: $content) {
+    _id
+    title
+    content
+    author {
+      _id
+      username
+    }
+    createdAt
+  }
+}
+`;
