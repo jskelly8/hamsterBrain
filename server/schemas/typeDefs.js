@@ -17,7 +17,7 @@ const typeDefs = `
   }
 
   type Auth {
-    token: ID!
+    token: ID
     user: User
   }
 
@@ -41,6 +41,7 @@ const typeDefs = `
     addTask(task: String!, dueDate: String, dueTime: String): Tasks
     deleteTask(taskId: ID!): Tasks
     updateTask(taskId: ID!, task: String, dueDate: String, dueTime: String): Tasks
+    updateUser(id: ID!, username: String, email: String, avatarColor: String): Auth
   }
 `;
 
