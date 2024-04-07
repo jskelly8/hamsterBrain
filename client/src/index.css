@@ -9,6 +9,21 @@
 @import "../node_modules/@syncfusion/ej2-react-schedule/styles/material.css";
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh
+}
+
+.outlet {
+  flex: 1;
+  margin-bottom: 100px;
+}
+
+.blackbkgrnd {
+  background-color: black !important;
+}
 .carousel-item img {
     max-width: 25%; /* or any specific pixel value */
     height: auto; /* maintain aspect ratio */
@@ -21,6 +36,9 @@
     max-height: 20%;
 }
 
+.custom-scheduler .e-content-wrap {
+  background-color: black !important;
+}
 /* End Schedule CSS */
 
 /* Homepage Styling */
@@ -579,7 +597,9 @@
   background-color: #151619;
   font-size: 18px;
   border-top: 1px solid #4586BF;
-}
+  padding: .1rem;
+  z-index: 1;
+  }
 
 .footerContainer a {
   margin-left: 0.3rem;
@@ -631,6 +651,14 @@
   font-weight: 400;
   font-style:inherit;
 }
+
+.quicksand {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 0;
+  font-style: normal;
+}
+
 
 .font50 {
   font-size: 50px;
