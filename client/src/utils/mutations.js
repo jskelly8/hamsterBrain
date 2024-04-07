@@ -58,3 +58,17 @@ mutation UpdateTask($taskId: ID!, $task: String, $dueDate: String, $dueTime: Str
   }
 }
 `;
+
+export const UPDATE_PROFILE = gql`
+mutation Mutation($updateUserId: ID!, $username: String, $email: String, $avatarColor: String) {
+  updateUser(id: $updateUserId, username: $username, email: $email, avatarColor: $avatarColor) {
+    token
+    user {
+      _id
+      email
+      password
+      username
+    }
+  }
+}
+`;

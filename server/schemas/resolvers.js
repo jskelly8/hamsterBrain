@@ -34,7 +34,6 @@ const resolvers = {
       return { token, user };
     },
     login: async (parent, { email, password }) => {
-      // const {email, password} = {...input};
       const user = await User.findOne({ email });
       console.log(user);
 
@@ -77,8 +76,35 @@ const resolvers = {
         dueTime
       };
       return await Tasks.findByIdAndUpdate(taskId, updateData, { new: true });
+    },
+    updateUser: async (_, { id, username, email, avatarColor }) => {
+      try {
+        // Find the user by ID
+        const user = await User.findById(id);
+    
+        // Check if the user exists
+        if (!user) {
+          throw new Error('User not found');
+        }
+    
+        // Update user data
+        user.username = username;
+        user.email = email;
+        user.avatarColor = avatarColor;
+    
+        // Save the updated user data
+        await user.save();
+    
+        // Return the updated user object
+        return user;
+      } catch (error) {
+        // Handle errors (e.g., database errors, validation errors)
+        console.error('Error updating user:', error);
+        throw new Error('Failed to update user');
+      }
     }
   },
 };
 
 module.exports = resolvers;
+ports = resolvers;
