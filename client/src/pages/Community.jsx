@@ -10,7 +10,8 @@ export default function Community() {
   const [content, setContent] = useState('');
   const [addPost, { data, loading, error }] = useMutation(ADD_POST);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => { // Make sure this function is marked as async
+    e.preventDefault();
   e.preventDefault();
   try {
     await addPost({
@@ -31,39 +32,35 @@ export default function Community() {
 
   return (
 
-    <div className="communityContainer">
-    <h1>Welcome to the community!</h1>
-    {/* Existing content */}
-    {/* Add a new section for post creation */}
-    <div className="postCreationSection">
-      <h2>Create a New Post</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-        <textarea
-          placeholder="Share your thoughts..."
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          required
-        />
-        <button type="submit" disabled={loading}>Post</button>
-      </form>
-      {error && <p>Error creating post. Please try again.</p>}
-    </div>
-    {/* Continue with the rest of your component */}
-  </div>
-);
-}
 
-
-
-
-
+      <div className="communityContainer">
+        <h1>Welcome to the community!</h1>
+        {/* Existing content */}
+        {/* Add a new section for post creation */}
+        <div className="postCreationSection">
+          <h2>Create a New Post</h2>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+            <textarea
+              placeholder="Share your thoughts..."
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              required
+            />
+            <button type="submit" disabled={loading}>Post</button>
+          </form>
+          {error && <p>Error creating post. Please try again.</p>}
+        </div>
+        {/* Continue with the rest of your component */}
+      </div>
+    );
+  }
 
 
 

@@ -5,6 +5,7 @@ const typeDefs = `
     _id: ID
     username: String
     email: String
+    avatarColor: String
     password: String
     posts: [Post]
   }
@@ -32,6 +33,13 @@ const typeDefs = `
     comments: [Comment]
   }
 
+  type Comment {
+    _id: ID
+    user: User
+    text: String
+    createdAt: String  
+  }
+
   type Auth {
     token: ID
     user: User
@@ -54,9 +62,9 @@ const typeDefs = `
     deleteTask(taskId: ID!): Tasks
     updateTask(taskId: ID!, task: String, dueDate: String, dueTime: String): Tasks
 
-    addPost(title: String!, content: String!); Post
+    addPost(title: String!, content: String!): Post
 
-    updateUser(id: ID!, username: String, email: String, avatarColor: String): Auth
+    updateUser(username: String, email: String, avatarColor: String): User
 
   }
 `;

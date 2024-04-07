@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
+import { UPDATE_USER } from '../utils/mutations'; 
 
 // GraphQL Query to fetch current user's profile
 const GET_PROFILE = gql`
@@ -13,24 +14,12 @@ const GET_PROFILE = gql`
 `;
 
 // GraphQL Mutation to update the user's profile
-const UPDATE_PROFILE = gql`
-  mutation UpdateProfile($id: ID!, $username: String, $email: String, $avatarColor: String) {
-    updateUser(id: $id, username: $username, email: $email, avatarColor: $avatarColor) {
-      id
-      username
-      email
-      avatar
-    }
-    token
-  }
-`;
 
 export default function Profile() {
   const { data, loading, error } = useQuery(GET_PROFILE);
-  const [updateProfile] = useMutation(UPDATE_PROFILE);
+  const [updateProfile] = useMutation(UPDATE_USER);
 
   const [editFields, setEditFields] = useState({
-    id: '',
     username: '',
     email: '',
   });

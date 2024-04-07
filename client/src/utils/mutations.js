@@ -9,6 +9,7 @@ mutation addUser($username: String!, $email: String!, $password: String) {
       _id
       email
       username
+      avatarColor
     }
   }
 }
@@ -21,6 +22,8 @@ mutation Mutation($email: String!, $password: String!) {
     user {
       email
       password
+      username
+      avatarColor
     }
     token
   }
@@ -70,6 +73,17 @@ mutation AddPost($title: String!, $content: String!) {
       username
     }
     createdAt
+  }
+}
+`;
+
+export const UPDATE_USER = gql`
+mutation UpdateUser($username: String, $email: String, $avatarColor: String) {
+  updateUser(username: $username, email: $email, avatarColor: $avatarColor) {
+    _id
+    email
+    username
+    avatarColor
   }
 }
 `;
