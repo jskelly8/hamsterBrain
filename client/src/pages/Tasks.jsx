@@ -1,133 +1,155 @@
-import { Component } from 'react';
-import '../tasks.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBan } from '@fortawesome/free-solid-svg-icons';
+import { useState } from 'react';
+import { ADD_TASK, UPDATE_TASK, DELETE_TASK } from '../utils/mutations';
+import { useMutation, useQuery } from '@apollo/client';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import { QUERY_TASKS } from '../utils/queries';
 
-class Tasks extends Component {
-  constructor(props) {
-    super(props);
-    // Initial state includes the notes array (model) and input fields
-    this.state = {
-      notes: [],
-      inputText: '',
-      color: 'green',
-      alert: ''
-    };
-  }
+const Tasks = () => {
+  const [inputText, setInputText] = useState('');
+  const [editText, setEditText] = useState('');
+  const [dueDateTime, setDueDateTime] = useState(null);
+  const [editDueDateTime, setEditDueDateTime] = useState(null);
+  const [isEditing, setIsEditing] = useState(null);
+  const [addTask, { error: addError }] = useMutation(ADD_TASK);
+  const [updateTask, { error: updateError }] = useMutation(UPDATE_TASK);
+  const [deleteTask, { error: deleteError }] = useMutation(DELETE_TASK);
+  const { data, loading, error: queryError, refetch } = useQuery(QUERY_TASKS);
 
-  // Handlers for input and button actions
-  handleInputText = (e) => {
-    this.setState({ inputText: e.target.value });
-  }
+  const handleTaskTextChange = (event) => {
+    setInputText(event.target.value);
+  };
 
-  handleAddNote = (event) => {
-    event.preventDefault();
-    const { inputText, color, notes } = this.state;
-    if (inputText !== '') {
-      const newNote = {
-        id: notes.length + 1,
-        content: inputText,
-        bgColor: color
-      };
-      this.setState({
-        notes: [...notes, newNote],
-        inputText: '', // Reset input field
-        alert: 'Note Added!'
+  const handleAddTask = async () => {
+    if (!inputText) return;
+    try {
+      await addTask({
+        variables: {
+          task: inputText,
+          dueDate: dueDateTime ? dueDateTime.toISOString().split('T')[0] : null,
+          dueTime: dueDateTime ? `${dueDateTime.getHours()}:${dueDateTime.getMinutes()}` : null,
+        }
       });
-      setTimeout(() => this.setState({ alert: '' }), 1000); // Hide alert after 1 sec
+      setInputText('');
+      setDueDateTime(null);
+      refetch();
+    } catch (error) {
+      console.error(error);
     }
-  }
+  };
 
-  handleDeleteNote = (id) => {
-    this.setState({
-      notes: this.state.notes.filter(note => note.id !== id),
-      alert: 'Note Deleted!'
+  const handleDeleteTask = async (taskId) => {
+    try {
+      await deleteTask({
+        variables: { taskId }
+      });
+      refetch();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleEditTask = (task) => {
+    setIsEditing(task._id);
+    setEditText(task.task);
+
+    const editDate = new Date(parseInt(task.dueDate, 10));
+    if (!isNaN(editDate.valueOf())) {
+      setEditDueDateTime(editDate);
+    } else {
+      setEditDueDateTime(new Date());
+    }
+  };
+
+  const handleUpdateTask = async () => {
+    try {
+      await updateTask({
+        variables: {
+          taskId: isEditing,
+          task: editText,
+          dueDate: editDueDateTime ? editDueDateTime.toISOString() : null,
+        }
+      });
+      setIsEditing(null);
+      refetch();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (data) {
+    console.log("Task data fetched:", data.tasks);
+    data.tasks.forEach(task => {
+      console.log(`Raw date for task ${task._id}:`, task.dueDate);
     });
-    setTimeout(() => this.setState({ alert: '' }), 1000); // Hide alert after 1 sec
   }
 
-  // Methods for selecting note colors
-  selectColor = (color) => {
-    this.setState({ color });
-  }
-
-  render() {
-    // color
-    const { notes, inputText, alert } = this.state;
-
-    return (
-      <div>
-        {/* Note input form */}
-        <div className="panel panel-default ">
-          <div className="panel-body divCenter">
-            <form className="form-group divCenter">
-              <label className =" margin font100 butterfly" htmlFor="note-add">Quick Notes:</label>
-              <input
-                id="note-add"
-                className="form-control thicc"
-                type="text"
-                value={inputText}
-                placeholder="For whatever you need to remember"
-                onChange={this.handleInputText}
-              />
-              
-              
-              <button type="button" className="btn btn-success" onClick={this.handleAddNote}>Add Note</button>
-            {alert && <span className="alerts">{alert}</span>}
-              {/* <label>Select Color</label> */}
-              <div>
-                {/* Color selection options */}
-                {/* {['green', 'red', 'blue', 'orange'].map((c) => (
-                  <label key={c}>
-                    <input
-                      type="radio"
-                      name="color"
-                      checked={color === c}
-                      onChange={() => this.selectColor(c)}
-                    /> {c.charAt(0).toUpperCase() + c.slice(1)} &nbsp;
-                  </label>
-                  
-                ))} */}
-              </div>
-            </form>
-            <div className="button-container">
-            {/* <button className="btn btn-success" onClick={this.handleAddNote}>Add Note</button>
-            {alert && <span className="alerts">{alert}</span>} */}
+  return (
+    <div className='taskContainer'>
+      <h2 className='addTaskTitle'>Add Task</h2>
+      <div className='addTaskSection'>
+        <div className='addTaskInputs btn'>
+          <div>
+            <input
+              type="text"
+              placeholder="Enter task"
+              value={inputText}
+              onChange={handleTaskTextChange}
+            />
           </div>
-        </div>
-        </div>
-
-        {/* Notes display */}
-        
-        <hr />
-
-
-
-
-        <div className="divCenter container">
-  {notes.length === 0 ? (
-    <h3>No Notes</h3>
-  ) : (
-    notes.map(note => (
-      <div key={note.id} className="d-flex align-items-center"> {/* Flex container */}
-        <div className="col-md-1 text-center"> {/* Delete button container */}
-        
-          <button className="delete btn btn-default " 
-          onClick={() => this.handleDeleteNote(note.id)}>
-            <FontAwesomeIcon icon={faBan} className="delete-btn-transform"/>
-            &times;
-          </button>
-        </div>
-        <div className={`${note.bgColor} note-box alert col-md-11`} style={{ fontSize: '30px'}}>
-          {note.content}
+          <div>
+            <DatePicker
+              selected={dueDateTime}
+              onChange={setDueDateTime}
+              dateFormat="dd/MM/yyyy h:mm aa"
+              showTimeSelect
+              timeFormat="HH:mm"
+              placeholderText="Select due date and time"
+            />
+          </div>
+          <button onClick={handleAddTask}>Add Task</button>
+          {addError && <p>Error adding task. Please try again.</p>}
         </div>
       </div>
-    ))
-  )}
-</div>
+      <h2 className='taskListTitle'>Task List</h2>
+      <div className='taskList'>
+        {loading ? <p>Loading tasks...</p> : queryError ? <p>Error loading tasks!</p> : (
+          <ul>
+            {data && data.tasks.map(task => (
+              <li key={task._id}>
+                {isEditing === task._id ? (
+                  <>
+                    {/* Edit mode inputs and buttons */}
+                    <input type="text" value={editText} onChange={(e) => setEditText(e.target.value)} />
+                    <DatePicker
+                      selected={editDueDateTime}
+                      onChange={setEditDueDateTime}
+                      dateFormat="dd/MM/yyyy h:mm aa"
+                      showTimeSelect
+                      timeFormat="HH:mm"
+                    />
+                    <div className='taskBtn btn'>
+                      <button onClick={handleUpdateTask}>Save</button>
+                      <button onClick={() => setIsEditing(null)}>Cancel</button>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    {task.task} - Due: {new Date(parseInt(task.dueDate, 10)).toLocaleString()}
+                    <div className='taskBtn btn'>
+                      <button onClick={() => handleEditTask(task)}>Edit</button>
+                      <button onClick={() => handleDeleteTask(task._id)}>Delete</button>
+                    </div>
+                  </>
+                )}
+              </li>
+            ))}
+          </ul>
+        )}
+        {updateError && <p>Error updating task. Please try again.</p>}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Tasks;

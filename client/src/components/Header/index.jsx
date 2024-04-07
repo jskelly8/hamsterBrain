@@ -1,6 +1,7 @@
 // React imports
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Auth from '../../utils/auth';
 
 // Navbar
 export default function Nav() {
@@ -13,17 +14,21 @@ export default function Nav() {
     const closeMenu = () => {
         setIsOpen(false);
     };
-
-    // const isLoggedIn = /* finish later once backend up */;
+    const handleLogOut = () => {
+        setIsOpen(false);
+        Auth.logout();
+    }
 
     return (
         <nav className="navbar">
             <div className="navbar-container">
                 <Link to="/" onClick={closeMenu}>
-                    <img src='' alt='Logo' />
+                    <img src='/ham2-removebg-icon.png' alt='Logo' />
                 </Link>
                 <div>
-                    <h3 className="white">Hamster Brain</h3>
+                    <Link to="/" onClick={closeMenu}>
+                    <h3 className="quicksand font50">Hamster Brain</h3>
+                    </Link>
                 </div>
                 <div>
                     <div className='burgerBox'>
@@ -38,33 +43,36 @@ export default function Nav() {
                             <Link to="/" onClick={closeMenu}>Home</Link>
                         </li>
                         {/* Conditional rendering based on `isLoggedIn` */}
-                        {/* {!isLoggedIn ? ( */}
-                            {/* <> */}
+                        {!Auth.loggedIn() ? (
+                            <>
                                 <li>
                                     <Link to="/login" onClick={closeMenu}>Login</Link>
                                 </li>
                                 <li>
                                     <Link to="/signup" onClick={closeMenu}>SignUp</Link>
                                 </li>
-                            {/* </> */}
-                        {/* ) :( */}
-                            {/* <> */}
+                            </>
+                        ) : (
+                            <>
                                 <li>
-                                    <Link to="#" onClick={closeMenu}>Logout</Link>
+                                    <Link to="/" onClick={handleLogOut}>Logout</Link>
                                 </li>
-                            {/* </> */}
-                        {/* )} */}
-                        <li>
-                            <Link to="/profile" onClick={closeMenu}>Profile</Link>
-                        </li>
+                                <li>
+                                    <Link to="/profile" onClick={closeMenu}>Profile</Link>
+                                </li>
+                                <li>
+                                    <Link to="/planner" onClick={closeMenu}>Planner</Link>
+                                </li>
+                                <li>
+                                    <Link to="/tasks" onClick={closeMenu}>Tasks</Link>
+                                </li>
+                            </>
+                        )}
                         <li>
                             <Link to="/how-it-works" onClick={closeMenu}>How It Works</Link>
                         </li>
                         <li>
-                            <Link to="/planner" onClick={closeMenu}>Planner</Link>
-                        </li>
-                        <li>
-                            <Link to="/tasks" onClick={closeMenu}>Tasks</Link>
+                            <Link to="/community" onClick={closeMenu}>Social</Link>
                         </li>
                     </ul>
                 </div>

@@ -1,71 +1,93 @@
 import { useState } from 'react';
-import { useMutation, gql } from '@apollo/client';
-
-// Define the login mutation
-const LOGIN_MUTATION = gql`
-  mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      _id
-      username
-      name
-      email
-    }
-  }
-`;
+import { Link } from 'react-router-dom';
+import { useMutation } from '@apollo/client';
+import { LOGIN_USER } from '../utils/mutations';
+import Auth from '../utils/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const [formState, setFormState] = useState({ email: '', password: '' });
+  const [login, { error, data }] = useMutation(LOGIN_USER);
 
-  // useMutation hook
-  const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION);
+  // update state based on form input changes
+  const handleChange = (event) => {
+    const { name, value } = event.target;
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+    setFormState({
+      ...formState,
+      [name]: value,
+    });
+  };
+
+  // submit form
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    console.log(formState);
     try {
-      // Execute the login mutation
-      await login({
-        variables: {
-          email,
-          password,
-        },
+      const { data } = await login({
+        variables: { ...formState },
       });
-      // Handle success (e.g., redirect, show message)
-      console.log('Login successful', data);
-    } catch (error) {
-      // Handle error (e.g., show error message)
-      console.error('Error logging in', error);
+
+      Auth.login(data.login.token);
+      navigate('/profile', { replace: true });
+    } catch (e) {
+      console.error(e);
     }
+
+    // clear form values
+    setFormState({
+      email: '',
+      password: '',
+    });
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+    <main className="loginContainer">
+      <h4 className="loginTitle">Login</h4>
+      <div className="loginForm">
+        <div className="loginFields btn">
+          {data ? (
+            <p>
+              Success! You may now head{' '}
+              <Link to="/">back to the homepage.</Link>
+            </p>
+          ) : (
+            <form onSubmit={handleFormSubmit}>
+              <input
+                placeholder="Your email"
+                name="email"
+                type="email"
+                value={formState.email}
+                onChange={handleChange}
+              />
+              <input
+                placeholder="******"
+                name="password"
+                type="password"
+                value={formState.password}
+                onChange={handleChange}
+              />
+              <button
+                style={{ cursor: 'pointer' }}
+                type="submit"
+              >
+                Submit
+              </button>
+            </form>
+          )}
+
+          {error && (
+            <div className="loginError">
+              {error.message}
+            </div>
+          )}
         </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit" disabled={loading}>
-          {loading ? 'Logging in...' : 'Login'}
-        </button>
-      </form>
-      {error && <p>Error logging in. Please try again.</p>}
-    </div>
+      </div>
+      <p className='signupLink'>Don't have an account yet? 
+        <a href="/signup" className='btn'><button>Sign Up</button></a>
+      </p>
+    </main>
   );
 };
 

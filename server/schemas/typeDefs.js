@@ -1,56 +1,47 @@
 const { gql } = require('@apollo/server');
 
 const typeDefs = `
-type Profile {
-    _id: ID!
-    username: String!
-    name: String!
-    email: String!
-    buddyemail: String
-    password: String!
-}
-input EditProfileInput{
-    id: ID!
+  type User {
+    _id: ID
     username: String
-    name: String
     email: String
-    buddyemail: String
     password: String
-}
-input AddTaskInput {
-    task: String!
-}
-type Auth {
+  }
+
+  type Tasks {
+    _id: ID
+    task: String
+    user: User
+    dueDate: String
+    dueTime: String
+  }
+
+  type Auth {
     token: ID!
     user: User
   }
-type Task {
-    _id: ID!
-    taskId: String!
-    task: String!
-    user: Profile!
-}
-type Query {
-    profiles: [Profile]!
-    profile(profileId: ID!): Profile
-    me: Profile
-    tasks: [Task]!
-}
 
-type User {
-    id: ID!
-    username: String!
-    email: String!
-}
+  input SignUpInput {
+    username: String
+    email: String
+    password: String
+  }
 
-type Mutation {
-    addProfile(username: String!, email: String!, password: String!): Auth
-    add(name:String!): Profile
-    editProfile(input: EditProfileInput!): Profile!
+  type Query {
+    tasks: [Tasks]
+    users: [User]
+    user(username: String!): User
+    me: User
+   }
+
+
+   type Mutation {
+    addUser(username: String!, email: String!, password: String): Auth
     login(email: String!, password: String!): Auth
-    addTask(input: AddTaskInput!): Task!
-    getTask(in)
-}`;
+    addTask(task: String!, dueDate: String, dueTime: String): Tasks
+    deleteTask(taskId: ID!): Tasks
+    updateTask(taskId: ID!, task: String, dueDate: String, dueTime: String): Tasks
+  }
+`;
 
 module.exports = typeDefs;
-
