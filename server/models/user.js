@@ -19,6 +19,10 @@ password: {
     required: true,
     minlength: 3
 },
+avatarColor: {
+  type: String,
+  default: '#000000' 
+}
 });
 
 UserSchema.pre('save', async function (next) {
@@ -32,6 +36,13 @@ UserSchema.pre('save', async function (next) {
   
   UserSchema.methods.isCorrectPassword = async function (password) {
     return bcrypt.compare(password, this.password);
+  };
+ 
+  UserSchema.methods.updateProfile = async function(username, email, avatarColor){
+    this.username = username;
+    this.email = email;
+    this.avatarColor = avatarColor;
+    await this.save();
   };
 
 const User = model('User', UserSchema);

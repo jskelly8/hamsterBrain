@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useQuery, useMutation, gql } from '@apollo/client';
+import { UPDATE_USER } from '../utils/mutations'; 
 
 // GraphQL Query to fetch current user's profile
 const GET_PROFILE = gql`
@@ -13,22 +14,12 @@ const GET_PROFILE = gql`
 `;
 
 // GraphQL Mutation to update the user's profile
-const UPDATE_PROFILE = gql`
-  mutation UpdateProfile($id: ID!, $username: String!, $email: String!) {
-    updateUser(id: $id, username: $username, email: $email) {
-      id
-      username
-      email
-    }
-  }
-`;
 
 export default function Profile() {
   const { data, loading, error } = useQuery(GET_PROFILE);
-  const [updateProfile] = useMutation(UPDATE_PROFILE);
+  const [updateProfile] = useMutation(UPDATE_USER);
 
   const [editFields, setEditFields] = useState({
-    id: '',
     username: '',
     email: '',
   });
@@ -43,8 +34,6 @@ export default function Profile() {
     }
   }, [data]);
 
-  console.log(useEffect)
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setEditFields({
@@ -53,13 +42,13 @@ export default function Profile() {
 
       });
   };
-  console.log(handleInputChange)
 
   const handleSave = async () => {
     try {
       await updateProfile({
         variables: {
           ...editFields,
+          avatarColor: avatarColor
         },
       });
       alert("Profile updated successfully");
@@ -68,8 +57,6 @@ export default function Profile() {
       alert("Error updating profile. Please try again.");
     }
   };
-
-  console.log(handleSave)
 
   // Generates avatar based on the first letter of the username
   const generateAvatar = (username) => {
