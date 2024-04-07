@@ -40,6 +40,9 @@ export default function Nav() {
                 { Auth.loggedIn() ? (
                     <div>
                         {/* add Avatar */}
+                        {/* add Avatar */}
+                        {/* add Avatar */}
+                        
                     </div>
                 ): ("")}
                 <div>
