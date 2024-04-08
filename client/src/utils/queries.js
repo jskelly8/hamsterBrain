@@ -40,3 +40,21 @@ export const GET_PROFILE = gql`
     }
   }
 `;
+
+export const FIND_TASK_BY_BUDDYID = gql`
+query FindTaskByBuddyId {
+  findTaskByBuddyId {
+    _id
+    task
+    user {
+      _id
+      username
+      email
+    }
+    dueDate
+    dueTime
+    completed
+    buddyId
+  }
+}
+`

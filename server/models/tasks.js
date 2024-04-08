@@ -17,6 +17,10 @@ dueDate: {
 completed: {
     type: Boolean,
     default: false,
+},
+buddyId: {
+    type: String,
+    required: true,
 }
 });
 
