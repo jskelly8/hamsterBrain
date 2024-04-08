@@ -1,6 +1,8 @@
+
 // React imports
 import testimonials from '../data/testimonials';
 import { useState } from 'react';
+
 import { useMutation } from '@apollo/client';
 import { ADD_POST } from '../utils/mutations';
 
@@ -32,6 +34,14 @@ export default function Community() {
   };
 
   return (
+
+     <div className="communityContainer">
+        <h1>Welcome to the community!</h1>
+        {/* Existing content */}
+        {/* Add a new section for post creation */}
+        <div className="postCreationSection postCenter">
+          <h2 className="white postCenter">Create a New Post</h2>
+
     <div className="communityContainer">
       <h1>Welcome to the community!</h1>
       <p className="commP">This is a place for all users to share, connect, and grow together. Here, you can find motivation, support, and advice as you work towards your personal and professional goals.</p>
@@ -58,6 +68,7 @@ export default function Community() {
       <div className="postCreationSection">
         <h2>Create a New Post</h2>
         <div className='postForm btn'>
+
           <form onSubmit={handleSubmit}>
             <input
               type="text"
@@ -77,7 +88,11 @@ export default function Community() {
         </div>
         <div className="postsList">
           {posts.map((post, index) => (
+
+            <div key={index} className="post">
+
             <div key={index} className="commCard">
+
               <h3>{post.title}</h3>
               <p>{post.content}</p>
               {/* <cite>{post.author}</cite> */}
