@@ -1,80 +1,75 @@
 import { useState, useEffect } from 'react';
-import { useQuery, useMutation, gql } from '@apollo/client';
-
-// GraphQL Query to fetch current user's profile
-const GET_PROFILE = gql`
-  query GetProfile {
-    me {
-      id
-      username
-      email
-    }
-  }
-`;
-
-// GraphQL Mutation to update the user's profile
-const UPDATE_PROFILE = gql`
-  mutation UpdateProfile($id: ID!, $username: String!, $email: String!) {
-    updateUser(id: $id, username: $username, email: $email) {
-      id
-      username
-      email
-    }
-  }
-`;
+import { useQuery, useMutation } from '@apollo/client';
+import { UPDATE_USER } from '../utils/mutations';
+import { GET_PROFILE } from '../utils/queries';
 
 export default function Profile() {
-  const { data, loading, error } = useQuery(GET_PROFILE);
-  const [updateProfile] = useMutation(UPDATE_PROFILE);
+  const { data, loading, error } = useQuery(GET_PROFILE, {
+    onCompleted: () => {
+      if (!sessionStorage.getItem('reloaded')) {
+        sessionStorage.setItem('reloaded', 'true');
+        window.location.reload();
+      } else {
+        sessionStorage.removeItem('reloaded');
+      }
+    }
+  });
+  const [updateProfile] = useMutation(UPDATE_USER);
 
   const [editFields, setEditFields] = useState({
     id: '',
     username: '',
     email: '',
+    points: '0'
   });
 
   const [avatarColor, setAvatarColor] = useState('');
   const colorOptions = ['#F2E7DC', '#BFB3A4', '#4586BF', '#1F5AA6', '#151619'];
 
   useEffect(() => {
+    console.log(data); // This will log the data fetched from the server
     if (data && data.me) {
-      setEditFields({ ...data.me });
-      setAvatarColor(colorOptions[0]); // Default = first color
+      setEditFields({
+        username: data.me.username || '',
+        email: data.me.email || '',
+        points: data.me.points || 0
+      });
+      setAvatarColor(data.me.avatarColor || colorOptions[0]);
     }
   }, [data]);
 
-  console.log(useEffect)
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditFields({
-      ...editFields,
+    setEditFields(prevFields => ({
+      ...prevFields,
       [name]: value,
-
-      });
+    }));
   };
-  console.log(handleInputChange)
 
   const handleSave = async () => {
     try {
-      await updateProfile({
+      const response = await updateProfile({
         variables: {
           ...editFields,
+          avatarColor: avatarColor
         },
       });
-      alert("Profile updated successfully");
+      if (response.data) {
+        alert("Profile updated successfully");
+      }
     } catch (e) {
       console.error("Error saving profile:", e);
       alert("Error updating profile. Please try again.");
     }
   };
 
-  console.log(handleSave)
-
   // Generates avatar based on the first letter of the username
   const generateAvatar = (username) => {
     return username ? username.charAt(0).toUpperCase() : '';
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>An error occurred: {error.message}</p>;
 
   return (
     <div className="profileContainer">
@@ -97,7 +92,10 @@ export default function Profile() {
           <input type="email" name="email" value={editFields.email} onChange={handleInputChange} placeholder="Email" />
           <button onClick={handleSave}>Save Changes</button>
         </div>
-
+      </div>
+      <div className='points'>
+        {/* Display points */}
+        <p>Points: {editFields.points}</p>
       </div>
     </div>
   );

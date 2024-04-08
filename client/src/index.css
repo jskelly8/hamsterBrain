@@ -353,6 +353,10 @@
   padding: 0.5rem;
 }
 
+.points {
+  color: #4fa8d1;
+}
+
 /* Task Page Styling */
 .taskContainer {
   display: flex;
@@ -420,7 +424,6 @@
 }
 
 .taskBtn {
-  /* margin-left: 5rem; */
   display: flex;
   justify-content: center;
   
@@ -445,7 +448,7 @@
   text-align: center;
 }
 
-.featuresSection, .testimonialSection {
+.featuresSection, .testimonialSection, .postCreationSection {
   margin: 2rem;
   background-color: #BFB3A4;
   border: 2px solid #4586BF;
@@ -475,6 +478,27 @@
   text-align: center;
 }
 
+.postForm {
+  display: flex;
+  justify-content: center;
+}
+
+.postForm form {
+  display: flex;
+  flex-direction: column;
+}
+
+.postForm form input, .postForm form textarea {
+  width: 40rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  margin-bottom: 0.5rem;
+  border: 2px solid #4586BF;
+  background-color: #F2E7DC;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
 .testimonialSection h2 {
   margin-bottom: 1rem;
 }
@@ -495,6 +519,7 @@
   padding: 1rem;
   background-color: #151619;
   border-bottom: 1px solid #4586BF;
+  position: relative;
 }
 
 .navbar-container {
@@ -504,12 +529,32 @@
   width: 100%;
 }
 
+.titleAvatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: #151619; 
+  background-color: #4586BF;
+  border: 2px solid #FFF; 
+}
+
 .navbar-container a {
   text-decoration: none;
 }
 
 .navbar-container h3 {
   color: #4586BF;
+  text-align: center;
 }
 
 .burgerBox {
@@ -551,6 +596,7 @@
   left: 0;
   width: 100%;
   background-color: #151619;
+  margin-top: 80px;
 }
 
 .nav-links.open {
@@ -583,6 +629,13 @@
 @media (max-width: 768px) {
   .nav-links {
     display: none;
+  }
+}
+
+@media (max-width: 425px) {
+  .nav-links {
+    display: none;
+    margin-top: 130px;
   }
 }
 

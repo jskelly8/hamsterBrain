@@ -40,15 +40,8 @@ function App() {
     <ApolloProvider client={client}>
       <div className="app">
         <Header />
-        {/* Needed for scheduler */}
         <main className="outlet blackbkgrnd">
           <Outlet />
-
-          {/* Temp Holding Place*/}
-          {/* <Hero />
-          <Schedule /> */}
-          {/* <Tasks /> */}
-
         </main>
         <Footer />
       </div>

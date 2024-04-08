@@ -5,6 +5,15 @@ const typeDefs = `
     _id: ID
     username: String
     email: String
+    avatarColor: String
+    password: String
+    posts: [Post]
+    points: Int
+  }
+
+  input SignUpInput {
+    username: String
+    email: String
     password: String
   }
 
@@ -14,17 +23,28 @@ const typeDefs = `
     user: User
     dueDate: String
     dueTime: String
+    completed: Boolean
+  }
+
+  type Post {
+    _id: ID
+    title: String
+    content: String
+    author: User
+    createdAt: String
+    comments: [Comment]
+  }
+
+  type Comment {
+    _id: ID
+    user: User
+    text: String
+    createdAt: String  
   }
 
   type Auth {
-    token: ID!
+    token: ID
     user: User
-  }
-
-  input SignUpInput {
-    username: String
-    email: String
-    password: String
   }
 
   type Query {
@@ -32,6 +52,8 @@ const typeDefs = `
     users: [User]
     user(username: String!): User
     me: User
+    posts: [Post]
+    post(_id: ID!): Post
    }
 
 
@@ -40,7 +62,12 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
     addTask(task: String!, dueDate: String, dueTime: String): Tasks
     deleteTask(taskId: ID!): Tasks
-    updateTask(taskId: ID!, task: String, dueDate: String, dueTime: String): Tasks
+    updateTask(taskId: ID!, task: String, dueDate: String, dueTime: String, completed: Boolean): Tasks
+
+    addPost(title: String!, content: String!): Post
+
+    updateUser(username: String, email: String, avatarColor: String): User
+
   }
 `;
 
