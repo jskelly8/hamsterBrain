@@ -1,5 +1,3 @@
-// React imports
-// import testimonials from '../data/testimonials';
 import  { useState } from 'react';
 import { useMutation } from '@apollo/client';
 import { ADD_POST } from '../utils/mutations';
@@ -38,8 +36,8 @@ export default function Community() {
         <h1>Welcome to the community!</h1>
         {/* Existing content */}
         {/* Add a new section for post creation */}
-        <div className="postCreationSection">
-          <h2>Create a New Post</h2>
+        <div className="postCreationSection postCenter">
+          <h2 className="white postCenter">Create a New Post</h2>
           <form onSubmit={handleSubmit}>
             <input
               type="text"
@@ -61,8 +59,8 @@ export default function Community() {
         {/* Continue with the rest of your component */}
         <div className="postsList">
           {posts.map((post, index) => (
-            <div key={index} className="post">
-              <h3>{post.titel}</h3>
+            <div key={index} className="post white postCenter">
+              <h3>{post.title}</h3>
               <p>{post.content}</p>
               </div>
           ))}
