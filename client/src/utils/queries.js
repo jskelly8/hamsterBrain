@@ -58,3 +58,23 @@ query FindTaskByBuddyId {
   }
 }
 `
+
+export const ALL_POSTS = gql`
+query Posts {
+  posts {
+    _id
+    title
+    content
+    author {
+      _id
+      username
+    }
+    createdAt
+    comments {
+      _id
+      text
+      createdAt
+    }
+  }
+}
+`;

@@ -38,7 +38,7 @@ const resolvers = {
     },
     // Fetches all posts
     posts: async () => {
-      return await Post.find().sort({ createdAt: -1 });
+      return await Post.find().sort({ createdAt: -1 }).populate("author");
     },
 
     // Fetches a single post
@@ -157,15 +157,6 @@ const resolvers = {
           throw new Error("User not found");
         }
 
-        // // Update user data
-        // user.username = username;
-        // user.email = email;
-        // user.avatarColor = avatarColor;
-
-        // // Save the updated user data
-        // await user.save();
-
-        // Return the updated user object
         return user;
       } catch (error) {
         // Handle errors (e.g., database errors, validation errors)
@@ -174,15 +165,17 @@ const resolvers = {
       }
     },
 
-    // CRUD operations for posting
+    deletePost: async (parent, {_id}, context ) => {
+      try {
+        const post = await Post.findByIdAndDelete (_id)
+        return post
+      } catch (error) {
+        console.error("Error Deleting Post", error);
+        throw new Error("Failed to delete post");
+      }
+    }
+
   },
-  // If your Post model references other models (like User), you might need to add field resolvers
-  // Post: {
-  //   author: async (post, args, context) => {
-  //     // Assuming 'author' stores the ID
-  //     return await User.findById(post.author);
-  //   },
-  // },
 };
 
 module.exports = resolvers;

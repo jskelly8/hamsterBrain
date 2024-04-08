@@ -424,7 +424,6 @@
 }
 
 .taskBtn {
-  /* margin-left: 5rem; */
   display: flex;
   justify-content: center;
   
@@ -449,7 +448,7 @@
   text-align: center;
 }
 
-.featuresSection, .testimonialSection {
+.featuresSection, .testimonialSection, .postCreationSection {
   margin: 2rem;
   background-color: #BFB3A4;
   border: 2px solid #4586BF;
@@ -479,6 +478,27 @@
   text-align: center;
 }
 
+.postForm {
+  display: flex;
+  justify-content: center;
+}
+
+.postForm form {
+  display: flex;
+  flex-direction: column;
+}
+
+.postForm form input, .postForm form textarea {
+  width: 40rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  margin-bottom: 0.5rem;
+  border: 2px solid #4586BF;
+  background-color: #F2E7DC;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
 .testimonialSection h2 {
   margin-bottom: 1rem;
 }
@@ -486,6 +506,13 @@
 /* Navbar Styling */
 
 .divCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100vh */
+}
+
+.postCenter {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -695,4 +722,8 @@
 
 .font50 {
   font-size: 50px;
+}
+
+.white {
+  color: white;
 }
