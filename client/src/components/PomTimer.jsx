@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function PomodoroTimer() {
     const [secondsLeft, setSecondsLeft] = useState(25 * 60); // 25 min work interval
@@ -56,4 +56,4 @@ export default function PomodoroTimer() {
             </div>
         </div>
     );
-};
+}

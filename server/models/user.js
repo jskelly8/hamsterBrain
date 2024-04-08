@@ -22,6 +22,13 @@ password: {
 buddyId: {
   type: String,
   required: false
+},
+avatarColor: {
+  type: String
+},
+points: {
+  type: Number,
+  default: 0,
 }
 });
 
@@ -36,6 +43,13 @@ UserSchema.pre('save', async function (next) {
   
   UserSchema.methods.isCorrectPassword = async function (password) {
     return bcrypt.compare(password, this.password);
+  };
+ 
+  UserSchema.methods.updateProfile = async function(username, email, avatarColor){
+    this.username = username;
+    this.email = email;
+    this.avatarColor = avatarColor;
+    await this.save();
   };
 
 const User = model('User', UserSchema);

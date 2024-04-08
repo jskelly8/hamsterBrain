@@ -28,3 +28,15 @@ export const QUERY_TASKS = gql`
     }
   }
 `;
+
+export const GET_PROFILE = gql`
+  query GetProfile {
+    me {
+      _id
+      username
+      email
+      avatarColor
+      points
+    }
+  }
+`;

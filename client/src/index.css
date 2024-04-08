@@ -9,6 +9,21 @@
 @import "../node_modules/@syncfusion/ej2-react-schedule/styles/material.css";
 @import 'bootstrap/dist/css/bootstrap.min.css';
 
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh
+}
+
+.outlet {
+  flex: 1;
+  margin-bottom: 100px;
+}
+
+.blackbkgrnd {
+  background-color: black !important;
+}
 .carousel-item img {
     max-width: 25%; /* or any specific pixel value */
     height: auto; /* maintain aspect ratio */
@@ -21,6 +36,9 @@
     max-height: 20%;
 }
 
+.custom-scheduler .e-content-wrap {
+  background-color: black !important;
+}
 /* End Schedule CSS */
 
 /* Homepage Styling */
@@ -335,6 +353,10 @@
   padding: 0.5rem;
 }
 
+.points {
+  color: #4fa8d1;
+}
+
 /* Task Page Styling */
 .taskContainer {
   display: flex;
@@ -477,6 +499,7 @@
   padding: 1rem;
   background-color: #151619;
   border-bottom: 1px solid #4586BF;
+  position: relative;
 }
 
 .navbar-container {
@@ -486,8 +509,32 @@
   width: 100%;
 }
 
+.titleAvatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: #151619; 
+  background-color: #4586BF;
+  border: 2px solid #FFF; 
+}
+
+.navbar-container a {
+  text-decoration: none;
+}
+
 .navbar-container h3 {
   color: #4586BF;
+  text-align: center;
 }
 
 .burgerBox {
@@ -529,6 +576,7 @@
   left: 0;
   width: 100%;
   background-color: #151619;
+  margin-top: 80px;
 }
 
 .nav-links.open {
@@ -564,15 +612,27 @@
   }
 }
 
+@media (max-width: 425px) {
+  .nav-links {
+    display: none;
+    margin-top: 130px;
+  }
+}
+
 /* Footer styling */
 .footerContainer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   background-color: #151619;
   font-size: 18px;
-  padding: 1.5rem;
   border-top: 1px solid #4586BF;
-}
+  padding: .1rem;
+  z-index: 1;
+  }
 
 .footerContainer a {
   margin-left: 0.3rem;
@@ -624,6 +684,14 @@
   font-weight: 400;
   font-style:inherit;
 }
+
+.quicksand {
+  font-family: "Quicksand", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 0;
+  font-style: normal;
+}
+
 
 .font50 {
   font-size: 50px;
