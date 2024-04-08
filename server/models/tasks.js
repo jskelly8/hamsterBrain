@@ -13,6 +13,10 @@ user: {
 },
 dueDate: {
     type: Date,
+},
+completed: {
+    type: Boolean,
+    default: false,
 }
 });
 
