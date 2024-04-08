@@ -28,6 +28,7 @@ export default function Nav() {
                 <Link to="/" onClick={closeMenu}>
                     <img src='/ham2-removebg-icon.png' alt='Logo' />
                 </Link>
+                
                 <div className='titleAvatar'>
                     <Link to="/" onClick={closeMenu}>
                         <h3 className="quicksand font50">Hamster Brain</h3>
@@ -38,16 +39,6 @@ export default function Nav() {
                         </div>
                     )}
                 </div>
-
-                {/* Add in conditional rendering for avatar based on auth.loggedin and auth.getprofile */}
-                { Auth.loggedIn() ? (
-                    <div>
-                        {/* add Avatar */}
-                        {/* add Avatar */}
-                        {/* add Avatar */}
-                        
-                    </div>
-                ): ("")}
 
                 <div>
                     <div className='burgerBox'>
