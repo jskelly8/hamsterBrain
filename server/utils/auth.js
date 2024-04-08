@@ -19,12 +19,13 @@ module.exports = {
     }
 
     if (!token) {
-      return req;
+      return { user: null };
     }
 
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
+      return { user: data };
     } catch (e) {
       console.log('Invalid token:', e.message);
       throw new GraphQLError('Could not authenticate user due to invalid token.', {

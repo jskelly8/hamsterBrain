@@ -495,6 +495,7 @@
   padding: 1rem;
   background-color: #151619;
   border-bottom: 1px solid #4586BF;
+  position: relative;
 }
 
 .navbar-container {
@@ -504,12 +505,32 @@
   width: 100%;
 }
 
+.titleAvatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.navAvatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: #151619; 
+  background-color: #4586BF;
+  border: 2px solid #FFF; 
+}
+
 .navbar-container a {
   text-decoration: none;
 }
 
 .navbar-container h3 {
   color: #4586BF;
+  text-align: center;
 }
 
 .burgerBox {
@@ -551,6 +572,7 @@
   left: 0;
   width: 100%;
   background-color: #151619;
+  margin-top: 80px;
 }
 
 .nav-links.open {
@@ -583,6 +605,13 @@
 @media (max-width: 768px) {
   .nav-links {
     display: none;
+  }
+}
+
+@media (max-width: 425px) {
+  .nav-links {
+    display: none;
+    margin-top: 130px;
   }
 }
 

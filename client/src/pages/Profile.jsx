@@ -1,19 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useQuery, useMutation, gql } from '@apollo/client';
-import { UPDATE_USER } from '../utils/mutations'; 
-
-// GraphQL Query to fetch current user's profile
-const GET_PROFILE = gql`
-  query GetProfile {
-    me {
-      id
-      username
-      email
-    }
-  }
-`;
-
-// GraphQL Mutation to update the user's profile
+import { useQuery, useMutation } from '@apollo/client';
+import { UPDATE_USER } from '../utils/mutations';
+import { GET_PROFILE } from '../utils/queries';
 
 export default function Profile() {
   const { data, loading, error } = useQuery(GET_PROFILE);
@@ -29,29 +17,33 @@ export default function Profile() {
 
   useEffect(() => {
     if (data && data.me) {
-      setEditFields({ ...data.me });
-      setAvatarColor(colorOptions[0]); // Default = first color
+      setEditFields({
+        username: data.me.username || '',
+        email: data.me.email || '',
+      });
+      setAvatarColor(data.me.avatarColor || colorOptions[0]);  // Default = first color
     }
   }, [data]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setEditFields({
-      ...editFields,
+    setEditFields(prevFields => ({
+      ...prevFields,
       [name]: value,
-
-      });
+    }));
   };
 
   const handleSave = async () => {
     try {
-      await updateProfile({
+      const response = await updateProfile({
         variables: {
           ...editFields,
           avatarColor: avatarColor
         },
       });
-      alert("Profile updated successfully");
+      if (response.data) {
+        alert("Profile updated successfully");
+      }
     } catch (e) {
       console.error("Error saving profile:", e);
       alert("Error updating profile. Please try again.");
@@ -62,6 +54,9 @@ export default function Profile() {
   const generateAvatar = (username) => {
     return username ? username.charAt(0).toUpperCase() : '';
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>An error occurred: {error.message}</p>;
 
   return (
     <div className="profileContainer">
