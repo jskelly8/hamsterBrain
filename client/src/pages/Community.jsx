@@ -8,11 +8,17 @@ import { ADD_POST } from '../utils/mutations';
 export default function Community() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [addPost, { data, loading, error }] = useMutation(ADD_POST);
+  const [posts, setPosts] = useState([]);
+  const [addPost, { loading, error }] = useMutation(ADD_POST, {
+    onCompleted: (data) => {
+      setPosts(currentPosts => [data.addPost, ...currentPosts]);
+      setTitle('');
+      setContent('');
+    }
+  });
 
   const handleSubmit = async (e) => { // Make sure this function is marked as async
     e.preventDefault();
-  e.preventDefault();
   try {
     await addPost({
       variables: {
@@ -20,9 +26,6 @@ export default function Community() {
         content,
       },
     });
-    // Reset form or show success message
-    setTitle('');
-    setContent('');
     // Optionally, refetch posts or update the cache to include the new post
   } catch (err) {
     console.error("Error creating post: ", err);
@@ -31,9 +34,7 @@ export default function Community() {
 };
 
   return (
-
-
-      <div className="communityContainer">
+     <div className="communityContainer">
         <h1>Welcome to the community!</h1>
         {/* Existing content */}
         {/* Add a new section for post creation */}
@@ -58,6 +59,14 @@ export default function Community() {
           {error && <p>Error creating post. Please try again.</p>}
         </div>
         {/* Continue with the rest of your component */}
+        <div className="postsList">
+          {posts.map((post, index) => (
+            <div key={index} className="post">
+              <h3>{post.titel}</h3>
+              <p>{post.content}</p>
+              </div>
+          ))}
+        </div>
       </div>
     );
   }

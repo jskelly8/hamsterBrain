@@ -16,7 +16,7 @@ const resolvers = {
         const user = await User.findById(context.user._id);
         return user;
       }
-      throw AuthenticationError;
+      throw new AuthenticationError;
     },
     tasks: async (_, args, context) => {
       if (context.user) {
@@ -47,13 +47,13 @@ const resolvers = {
       console.log(user);
 
       if (!user) {
-        throw AuthenticationError;
+        throw new AuthenticationError;
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw AuthenticationError;
+        throw new AuthenticationError;
       }
 
       const token = signToken(user);
@@ -70,7 +70,7 @@ const resolvers = {
         });
         return newTask;
       }
-      throw AuthenticationError;
+      throw new AuthenticationError;
     },
     deleteTask: async (parent, { taskId }, context) => {
       if (context.user) {
