@@ -38,6 +38,17 @@ export default function Nav() {
                         </div>
                     )}
                 </div>
+
+                {/* Add in conditional rendering for avatar based on auth.loggedin and auth.getprofile */}
+                { Auth.loggedIn() ? (
+                    <div>
+                        {/* add Avatar */}
+                        {/* add Avatar */}
+                        {/* add Avatar */}
+                        
+                    </div>
+                ): ("")}
+
                 <div>
                     <div className='burgerBox'>
                         <div className={`menu-toggle ${isOpen ? 'active' : ''}`} onClick={toggleMenu}>
