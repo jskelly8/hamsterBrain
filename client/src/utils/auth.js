@@ -3,6 +3,7 @@ import decode from 'jwt-decode';
 class AuthService {
   getProfile() {
     return decode(this.getToken());
+    // Users avatar color is stored in getToken
   }
 
   loggedIn() {

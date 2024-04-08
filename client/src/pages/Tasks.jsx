@@ -84,6 +84,21 @@ const Tasks = () => {
     });
   }
 
+  const handleCompleteTask = async (taskId, completed) => {
+    try {
+      // Call updateTask mutation with completion status
+      await updateTask({
+        variables: {
+          taskId,
+          completed,
+        }
+      });
+      refetch(); 
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className='taskContainer'>
       <h2 className='addTaskTitle'>Add Task</h2>
@@ -139,6 +154,7 @@ const Tasks = () => {
                     <div className='taskBtn btn'>
                       <button onClick={() => handleEditTask(task)}>Edit</button>
                       <button onClick={() => handleDeleteTask(task._id)}>Delete</button>
+                      <button onClick={() => handleCompleteTask(task._id, !task.completed)}>Complete</button>
                     </div>
                   </>
                 )}
