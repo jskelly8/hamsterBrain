@@ -52,12 +52,13 @@ mutation DeleteTask($taskId: ID!) {
 `;
 
 export const UPDATE_TASK = gql`
-mutation UpdateTask($taskId: ID!, $task: String, $dueDate: String, $dueTime: String) {
-  updateTask(taskId: $taskId, task: $task, dueDate: $dueDate, dueTime: $dueTime) {
+mutation UpdateTask($taskId: ID!, $task: String, $dueDate: String, $dueTime: String, $completed: Boolean) {
+  updateTask(taskId: $taskId, task: $task, dueDate: $dueDate, dueTime: $dueTime, completed: $completed) {
     _id
     task
     dueDate
     dueTime
+    completed
   }
 }
 `;

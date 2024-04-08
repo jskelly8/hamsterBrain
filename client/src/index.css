@@ -353,6 +353,10 @@
   padding: 0.5rem;
 }
 
+.points {
+  color: #4fa8d1;
+}
+
 /* Task Page Styling */
 .taskContainer {
   display: flex;

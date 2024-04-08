@@ -21,6 +21,10 @@ password: {
 },
 avatarColor: {
   type: String
+},
+points: {
+  type: Number,
+  default: 0,
 }
 });
 

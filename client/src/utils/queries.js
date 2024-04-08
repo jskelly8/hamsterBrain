@@ -36,6 +36,7 @@ export const GET_PROFILE = gql`
       username
       email
       avatarColor
+      points
     }
   }
 `;

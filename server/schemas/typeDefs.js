@@ -8,6 +8,7 @@ const typeDefs = `
     avatarColor: String
     password: String
     posts: [Post]
+    points: Int
   }
 
   input SignUpInput {
@@ -22,6 +23,7 @@ const typeDefs = `
     user: User
     dueDate: String
     dueTime: String
+    completed: Boolean
   }
 
   type Post {
@@ -60,7 +62,7 @@ const typeDefs = `
     login(email: String!, password: String!): Auth
     addTask(task: String!, dueDate: String, dueTime: String): Tasks
     deleteTask(taskId: ID!): Tasks
-    updateTask(taskId: ID!, task: String, dueDate: String, dueTime: String): Tasks
+    updateTask(taskId: ID!, task: String, dueDate: String, dueTime: String, completed: Boolean): Tasks
 
     addPost(title: String!, content: String!): Post
 
