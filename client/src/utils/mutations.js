@@ -111,3 +111,12 @@ mutation DeletePost($id: ID!) {
   }
 }
 `
+
+export const ADD_COMMENT = gql`
+mutation AddComment($postId: ID!, $text: String!) {
+  addComment(postId: $postId, text: $text) {
+    _id
+    text
+  }
+}
+`
