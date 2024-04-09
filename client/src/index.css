@@ -539,6 +539,24 @@
   }
 }
 
+.commentInputSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.commentInputSection input {
+  width: calc(100% - 2rem); /* Match input width styling */
+  margin-bottom: 0.5rem; /* Consistent spacing */
+  border: 2px solid #4586BF;
+  background-color: #F2E7DC;
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+
+
 /* Navbar Styling */
 .divCenter {
   display: flex;
