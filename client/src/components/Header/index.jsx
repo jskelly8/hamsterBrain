@@ -28,7 +28,7 @@ export default function Nav() {
                 <Link to="/" onClick={closeMenu}>
                     <img src='/ham2-removebg-icon.png' alt='Logo' />
                 </Link>
-                
+
                 <div className='titleAvatar'>
                     <Link to="/" onClick={closeMenu}>
                         <h3 className="quicksand font50">Hamster Brain</h3>
@@ -76,13 +76,13 @@ export default function Nav() {
                                 <li>
                                     <Link to="/tasks" onClick={closeMenu}>Tasks</Link>
                                 </li>
+                                <li>
+                                    <Link to="/community" onClick={closeMenu}>Social</Link>
+                                </li>
                             </>
                         )}
                         <li>
                             <Link to="/how-it-works" onClick={closeMenu}>How It Works</Link>
-                        </li>
-                        <li>
-                            <Link to="/community" onClick={closeMenu}>Social</Link>
                         </li>
                     </ul>
                 </div>

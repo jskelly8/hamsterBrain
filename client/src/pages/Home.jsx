@@ -4,6 +4,7 @@ import Hero from '../components/Hero.jsx';
 import PomodoroTimer from '../components/PomTimer.jsx';
 import testimonials from '../data/testimonials';
 import quotes from '../data/quotes';
+import Auth from '../utils/auth';
 
 // Home Page
 export default function Home() {
@@ -38,17 +39,6 @@ export default function Home() {
           <div className='cardImg'>
             <img></img>
           </div>
-          <h4 className="quicksand">Customize your schedule</h4>
-          <p className="quicksand">Get started planning your life!</p>
-          <div className="btn">
-            <a href="/planner"><button>Planner</button></a>
-          </div>
-        </div>
-
-        <div className='card'>
-          <div className='cardImg'>
-            <img></img>
-          </div>
           <h4 className="quicksand">Track your tasks with motivation</h4>
           <p className="quicksand">Create task lists and set up rewards!</p>
           <div className="btn">
@@ -60,10 +50,26 @@ export default function Home() {
           <div className='cardImg'>
             <img></img>
           </div>
+          <h4 className="quicksand">Customize your schedule</h4>
+          <p className="quicksand">Get started planning your life!</p>
+          <div className="btn">
+            <a href="/planner"><button>Planner</button></a>
+          </div>
+        </div>
+
+        <div className='card'>
+          <div className='cardImg'>
+            <img></img>
+          </div>
           <h4 className="quicksand">Join the community</h4>
           <p className="quicksand">Meet others and get your friends to help!</p>
           <div className="btn">
-            <a href="/community"><button>Social</button></a>
+            <div className="btn">
+              {/* Conditional link based on user authentication status */}
+              <a href={Auth.loggedIn() ? "/community" : "/login"}>
+                <button>Social</button>
+              </a>
+            </div>
           </div>
         </div>
       </div>
