@@ -134,17 +134,17 @@ export default function Community() {
         {error && <p>Error creating post. Please try again.</p>}
       </div>
 
-      <div className="testimonialSection">
-        <h2>User Testimonials</h2>
-        <div>
-          {testimonials.map(({ id, name, role, text }) => (
-            <div key={id} className="commCard">
-              <blockquote>{text}</blockquote>
-              <cite>- {name}, {role}</cite>
-            </div>
-          ))}
-        </div>
+    <div className="testimonialSection">
+      <h2>User Testimonials</h2>
+      <div>
+        {testimonials.map(({ id, name, role, text }) => (
+          <div key={id} className="commCard">
+            <blockquote>{text}</blockquote>
+            <cite>- {name}, {role}</cite>
+          </div>
+        ))}
       </div>
     </div>
-  );
-};
+  </div>
+);
+}
