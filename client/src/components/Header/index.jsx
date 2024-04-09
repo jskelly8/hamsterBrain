@@ -26,8 +26,9 @@ export default function Nav() {
         <nav className="navbar">
             <div className="navbar-container">
                 <Link to="/" onClick={closeMenu}>
-                    <img src='/ham2-removebg-icon.png' alt='Logo' />
+                    <img src='/hamsterbrainsmall.png' alt='Logo' />
                 </Link>
+
                 <div className='titleAvatar'>
                     <Link to="/" onClick={closeMenu}>
                         <h3 className="quicksand font50">Hamster Brain</h3>
@@ -39,16 +40,6 @@ export default function Nav() {
                     )}
                 </div>
 
-                {/* Add in conditional rendering for avatar based on auth.loggedin and auth.getprofile */}
-                { Auth.loggedIn() ? (
-                    <div>
-                        {/* add Avatar */}
-                        {/* add Avatar */}
-                        {/* add Avatar */}
-                        
-                    </div>
-                ): ("")}
-
                 <div>
                     <div className='burgerBox'>
                         <div className={`menu-toggle ${isOpen ? 'active' : ''}`} onClick={toggleMenu}>
@@ -57,7 +48,7 @@ export default function Nav() {
                             <div className="bar"></div>
                         </div>
                     </div>
-                    <ul className={`nav-links ${isOpen ? 'open' : ''}`}>
+                    <ul className={`nav-links ${isOpen ? 'open' : 'closed'}`}>
                         <li>
                             <Link to="/" onClick={closeMenu}>Home</Link>
                         </li>
@@ -85,13 +76,13 @@ export default function Nav() {
                                 <li>
                                     <Link to="/tasks" onClick={closeMenu}>Tasks</Link>
                                 </li>
+                                <li>
+                                    <Link to="/community" onClick={closeMenu}>Social</Link>
+                                </li>
                             </>
                         )}
                         <li>
                             <Link to="/how-it-works" onClick={closeMenu}>How It Works</Link>
-                        </li>
-                        <li>
-                            <Link to="/community" onClick={closeMenu}>Social</Link>
                         </li>
                     </ul>
                 </div>
