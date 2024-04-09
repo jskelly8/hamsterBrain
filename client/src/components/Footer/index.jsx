@@ -13,7 +13,7 @@ export default function Footer() {
     {
       name: 'Justin',
       gitLink: 'https://github.com/Justinh144',
-      linkedInLink: ''
+      linkedInLink: 'https://www.linkedin.com/in/justin-hodges-2462ab2bb/'
     },
     {
       name: 'Matt',
@@ -23,7 +23,7 @@ export default function Footer() {
     {
       name: 'Joseph',
       gitLink: 'https://github.com/warhawk1950',
-      linkedInLink: ''
+      linkedInLink: 'https://www.linkedin.com/in/joseph-padilla-0053a8303/'
     }
   ];
 
