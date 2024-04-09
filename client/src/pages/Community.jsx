@@ -34,10 +34,12 @@ export default function Community() {
    onError: (error) => {
     console.error("Error adding comment:", error);
    },
+   refetchQueries: [{ query: ALL_POSTS }],
   });
 
   const handleAddComment = async (postId) => {
-    if (!commentText[postId]) return;
+    const text = commentText[postId]
+    if (!text) return;
     try {
       await addComment({
         variables: {
@@ -45,9 +47,9 @@ export default function Community() {
           text: commentText[postId],
         },
       });
-      setCommentText({...commentText, [postId]: ""});
+      setCommentText({...commentText, [postId]: ''});
     } catch (error) {
-      console.error("Error adding comment:", error);
+      console.error("Error adding comment:", error.message);
     }
   };
 
@@ -139,6 +141,12 @@ export default function Community() {
             <button type="submit" disabled={loading}>Post</button>
           </form>
         </div>
+
+
+
+
+
+
         {/* Handles post mapping */}
         <div className="postsList">
           {posts.map((post, index) => (
@@ -146,10 +154,28 @@ export default function Community() {
               <div className="commCard">
                 <h3>{post.title}</h3>
                 <p>{post.content}</p>
-                <cite>{post.author}</cite>
+                <cite>{post.author?.username}</cite>
                 {(userId === post.author._id) ? (
                   <button onClick={handleDelete} value={post._id}> Delete </button>
                 ) : ("")}
+
+              {post.comments && post.comments.map((comment, cIndex) => (
+              <div key={cIndex} className="comment">
+                <p>{comment.text}</p>
+                <cite>{comment.user?.username}</cite>
+                </div>
+              ))}
+
+
+
+                <input
+                  type="text"
+                  placeholder="Add a comment..."
+                  value={commentText[post._id] || ""}
+                  onChange={(e) => setCommentText({ ...commentText, [post._id]: e.target.value })}
+                  />
+                  <button onClick={() => handleAddComment(post._id)}>Comment</button>
+
               </div>
             </div>
           ))}
