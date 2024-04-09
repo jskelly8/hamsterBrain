@@ -432,15 +432,15 @@
 @media (max-width: 600px) {
   .addTaskInputs, .taskList li {
     padding: 5px;
-    text-align: left; /* Align text to the left for a clearer structure */
+    text-align: left;
   }
 
   .addTaskInputs input, .addTaskInputs button, .addTaskInputs div {
-    width: 100%; /* Maximize width utilization on very small screens */
+    width: 100%;
   }
 
   .taskBtn button {
-    flex: 1; /* Buttons take equal space in the container */
+    flex: 1;
   }
 }
 
@@ -519,7 +519,6 @@
   margin-bottom: 1rem;
 }
 
-/* Media Queries for Mobile Responsiveness */
 @media (max-width: 600px) {
   .featuresSection, .testimonialSection, .postCreationSection {
     padding: 10px;
@@ -531,11 +530,11 @@
   }
 
   .postForm form input, .postForm form textarea {
-    width: calc(100% - 1rem); /* Smaller padding on smaller screens */
+    width: calc(100% - 1rem);
   }
 
   .commCard {
-    flex: 1 1 100%; /* Stacks the cards vertically on very small screens */
+    flex: 1 1 100%; 
   }
 }
 
@@ -547,15 +546,13 @@
 }
 
 .commentInputSection input {
-  width: calc(100% - 2rem); /* Match input width styling */
-  margin-bottom: 0.5rem; /* Consistent spacing */
+  width: calc(100% - 2rem); 
+  margin-bottom: 0.5rem; 
   border: 2px solid #4586BF;
   background-color: #F2E7DC;
   border-radius: 8px;
   padding: 0.5rem;
 }
-
-
 
 /* Navbar Styling */
 .divCenter {

@@ -27,7 +27,6 @@ export default function Profile() {
   const colorOptions = ['#F2E7DC', '#BFB3A4', '#4586BF', '#1F5AA6', '#151619'];
 
   useEffect(() => {
-    console.log(data); // This will log the data fetched from the server
     if (data && data.me) {
       setEditFields({
         username: data.me.username || '',
@@ -51,7 +50,22 @@ export default function Profile() {
       const response = await updateProfile({
         variables: {
           ...editFields,
-          avatarColor: avatarColor
+          avatarColor: avatarColor,
+        },
+        update: (cache, { data }) => {
+          if (!data) return;
+          const existingProfile = cache.readQuery({
+            query: GET_PROFILE,
+          });
+          cache.writeQuery({
+            query: GET_PROFILE,
+            data: {
+              me: {
+                ...existingProfile.me,
+                avatarColor: avatarColor,
+              },
+            },
+          });
         },
       });
       if (response.data) {
