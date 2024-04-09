@@ -26,7 +26,7 @@ export default function Nav() {
         <nav className="navbar">
             <div className="navbar-container">
                 <Link to="/" onClick={closeMenu}>
-                    <img src='/ham2-removebg-icon.png' alt='Logo' />
+                    <img src='/hamsterbrainsmall.png' alt='Logo' />
                 </Link>
 
                 <div className='titleAvatar'>
@@ -48,7 +48,7 @@ export default function Nav() {
                             <div className="bar"></div>
                         </div>
                     </div>
-                    <ul className={`nav-links ${isOpen ? 'open' : ''}`}>
+                    <ul className={`nav-links ${isOpen ? 'open' : 'closed'}`}>
                         <li>
                             <Link to="/" onClick={closeMenu}>Home</Link>
                         </li>
