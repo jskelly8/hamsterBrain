@@ -65,8 +65,8 @@ const typeDefs = `
     updateTask(taskId: ID!, task: String, dueDate: String, dueTime: String, completed: Boolean): Tasks
     addPost(title: String!, content: String!): Post
     updateUser(username: String, email: String, avatarColor: String): User
-
     deletePost(_id: ID!): Post
+    addComment(postId: ID!, text: String!): Comment
 
   }
 `;
