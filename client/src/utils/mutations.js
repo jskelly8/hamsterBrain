@@ -120,3 +120,34 @@ mutation AddComment($postId: ID!, $text: String!) {
   }
 }
 `
+
+export const ADD_PARTNER = gql`
+mutation AddPartner($partner: String!) {
+  addPartner(partner: $partner) {
+    buddyId
+    partner
+    _id
+    username
+  }
+}
+`
+
+export const QUERY_PARTNER_TASKS = gql `
+query PartnerTasks {
+  partnerTasks {
+    _id
+    task
+    dueDate
+    completed
+    dueTime
+    partner
+    buddyId
+    user {
+      username
+      partner
+      buddyId
+      _id
+    }
+  }
+}
+`

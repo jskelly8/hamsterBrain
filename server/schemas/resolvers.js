@@ -51,6 +51,14 @@ const resolvers = {
     }
     throw new AuthenticationError("No buddy found!");
   },
+  partnerTasks: async (_, args, context) => {
+    if (!context.user) {
+      throw new Error('Authentication required.');
+    }
+    const partnerId = context.user.partner;
+    const tasks = await Tasks.find({user: partnerId});
+    return tasks;
+  }
 },
 
   Mutation: {
@@ -200,26 +208,25 @@ const resolvers = {
 
       return updatedPost;
     },
-    },
+    
 
     addPartner: async (parent, {partner}, context) => {
       try{
-        const user = await User.findByIdAndUpdate(context.user._id,{
+        const updatedUser = await User.findByIdAndUpdate(context.user._id,{
           $set: {partner}
         }, {new: true, runValidators: false});
-        console.log(user)
+        console.log(updatedUser)
 
-        if (!user) {
+        if (!updatedUser) {
           throw new Error("User not found.");
         }
-        return user;
+        return updatedUser;
       } catch (error) {
         console.error("Error adding buddy:", error);
         throw new error("Failed to add buddy.")
       }
     },
-
   },
-};
+  };
 
 module.exports = resolvers;

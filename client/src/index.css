@@ -754,3 +754,15 @@
 .white {
   color: white;
 }
+
+
+/* Matt adding profileCenter class for profile page */
+
+.profileCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.buddyBox {
+  
+}
