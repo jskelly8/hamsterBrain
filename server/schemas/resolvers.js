@@ -74,42 +74,40 @@ const resolvers = {
     },
     deleteTask: async (parent, { taskId }, context) => {
       if (!context.user) {
-          throw new AuthenticationError("You need to be logged in!");
+        throw new AuthenticationError("You need to be logged in!");
       }
       const taskToDelete = await Tasks.findById(taskId);
       if (!taskToDelete) {
-          throw new Error("Task not found");
+        throw new Error("Task not found");
       }
-      const result = await User.findByIdAndUpdate(context.user._id, {
-          $inc: { points: taskToDelete.points }
-      }, { new: true }); 
-      console.log("Updated user points:", result);
-      return await Tasks.findByIdAndDelete(taskId);
-  },
-  updateTask: async (parent, { taskId, task, dueDate, dueTime, completed }, context) => {
-    if (!context.user) {
-      throw new AuthenticationError("You must be logged in");
-    }
-    const updateData = {
-      task,
-      dueDate: dueDate ? new Date(dueDate) : null,
-      dueTime,
-      completed
-    };
-
-    // Updating task completion and incrementing points if the task is marked completed
-    const updatedTask = await Tasks.findByIdAndUpdate(taskId, updateData, { new: true });
-    if (completed) {
-      await User.findByIdAndUpdate(context.user._id, {
-        $inc: { points: 10 } // Increment points by 10
-      });
+      
       await Tasks.findByIdAndDelete(taskId);
-      return { ...updatedTask.toObject(), completed };
-    } else {
-      await Tasks.findByIdAndUpdate(taskId, updateData, { new: true });
-    }
-    return updatedTask;
-  },
+      return taskToDelete;
+    },
+    updateTask: async (parent, { taskId, task, dueDate, dueTime, completed }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError("You must be logged in");
+      }
+      const updateData = {
+        task,
+        dueDate: dueDate ? new Date(dueDate) : null,
+        dueTime,
+        completed
+      };
+
+      // Updating task completion and incrementing points if the task is marked completed
+      const updatedTask = await Tasks.findByIdAndUpdate(taskId, updateData, { new: true });
+      if (completed) {
+        await User.findByIdAndUpdate(context.user._id, {
+          $inc: { points: 10 } // Increment points by 10
+        });
+        await Tasks.findByIdAndDelete(taskId);
+        return { ...updatedTask.toObject(), completed };
+      } else {
+        await Tasks.findByIdAndUpdate(taskId, updateData, { new: true });
+      }
+      return updatedTask;
+    },
 
     addPost: async (_, { title, content }, context) => {
       if (context.user) {
@@ -127,10 +125,10 @@ const resolvers = {
     updateUser: async (_, { username, email, avatarColor }, context) => {
       try {
         // Find the user by ID
-        const user = await User.findByIdAndUpdate(context.user._id,{
+        const user = await User.findByIdAndUpdate(context.user._id, {
           $set: { username, email, avatarColor }
         }, { new: true, runValidators: true });
-        
+
         console.log(user)
 
         // Check if the user exists
@@ -146,9 +144,9 @@ const resolvers = {
       }
     },
 
-    deletePost: async (parent, {_id}, context ) => {
+    deletePost: async (parent, { _id }, context) => {
       try {
-        const post = await Post.findByIdAndDelete (_id)
+        const post = await Post.findByIdAndDelete(_id)
         return post
       } catch (error) {
         console.error("Error Deleting Post", error);
