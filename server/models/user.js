@@ -29,6 +29,10 @@ avatarColor: {
 points: {
   type: Number,
   default: 0,
+},
+partner: {
+  type: String,
+  required: false,
 }
 });
 

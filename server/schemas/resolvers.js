@@ -40,12 +40,18 @@ const resolvers = {
     posts: async () => {
       return await Post.find().sort({ createdAt: -1 }).populate("author");
     },
-
     // Fetches a single post
     post: async (_, { id }) => {
       return await Post.findById(id);
     },
+    partner: async (_, args, context) => {
+      if (context.user) {
+        const partner = await User.find({partner: context.user.partner}).populate('tasks');
+        return partner;
+    }
+    throw new AuthenticationError("No buddy found!");
   },
+},
 
   Mutation: {
     addUser: async (parent, { username, email, password}) => {
@@ -173,7 +179,24 @@ const resolvers = {
         console.error("Error Deleting Post", error);
         throw new Error("Failed to delete post");
       }
-    }
+    },
+
+    addPartner: async (parent, {partner}, context) => {
+      try{
+        const user = await User.findByIdAndUpdate(context.user._id,{
+          $set: {partner}
+        }, {new: true, runValidators: false});
+        console.log(user)
+
+        if (!user) {
+          throw new Error("User not found.");
+        }
+        return user;
+      } catch (error) {
+        console.error("Error adding buddy:", error);
+        throw new error("Failed to add buddy.")
+      }
+    },
 
   },
 };
