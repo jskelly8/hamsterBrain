@@ -99,3 +99,16 @@ mutation DeletePost($id: ID!) {
   }
 }
 `
+
+export const ADD_COMMENT = gql`
+mutation AddComment($postId: ID!, $text: STring!) {
+  addComment(postId: $postId, text: $text) {
+    id
+    text
+    user {
+      id
+      username
+    }
+  }
+}
+`

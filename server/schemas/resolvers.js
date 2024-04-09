@@ -154,7 +154,29 @@ const resolvers = {
         console.error("Error Deleting Post", error);
         throw new Error("Failed to delete post");
       }
-    }
+    },
+
+    addComment: async (_, { postId, text }, context) => {
+      if (!context.user) throw new AuthenticationError('You must be logged in to comment');
+
+      const userId = context.user.id;
+
+      const comment = {
+        text,
+        user: userId,
+        createdAt: new Date().toISOString(),
+      };
+
+      const updatedPost = await Post.findByIdAndUpdate(
+        postId,
+        { $push: { comments: comment } },
+        { new: true, runValidators: true }
+      ).populate('comments.user');
+
+      if (!updatedPost) throw new Error('Post not found');
+
+      return updatedPost;
+    },
 
   },
 };
