@@ -27,12 +27,6 @@ const startApolloServer = async () => {
         context: authMiddleware
     }));
 
-        app.get('/', (req, res) => {
-            res.send('Welcome to the server');
-          });
-    
-          console.log('StartApollo')
-
     if (process.env.NODE_ENV === 'production') {
         app.use(express.static(path.join(__dirname, '../client/dist')));
  
