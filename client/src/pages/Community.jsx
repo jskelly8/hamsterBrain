@@ -118,7 +118,7 @@ export default function Community() {
         {/* Handles post mapping */}
         <div className="postsList">
           {posts.map((post, index) => (
-            <div key={index} className="post white postCenter">
+            <div key={index} className="post white postCenter btn">
               <div className="commCard">
                 <h3>{post.title}</h3>
                 <p>{post.content}</p>
