@@ -10,6 +10,7 @@ const typeDefs = `
     posts: [Post]
     points: Int
     buddyId: String
+    partner: String
   }
 
   input SignUpInput {
@@ -26,6 +27,7 @@ const typeDefs = `
     dueTime: String
     completed: Boolean
     buddyId: String
+ 
   }
 
   type Post {
@@ -58,6 +60,7 @@ const typeDefs = `
     post(_id: ID!): Post
     findTaskByBuddyId: [Tasks]
     checkBuddyId(buddyId: String!): User
+    partner: String
   }
 
   
@@ -71,8 +74,8 @@ const typeDefs = `
     updateTask(taskId: ID!, task: String, dueDate: String, dueTime: String, completed: Boolean): Tasks
     addPost(title: String!, content: String!): Post
     updateUser(username: String, email: String, avatarColor: String): User
-
     deletePost(_id: ID!): Post
+    addPartner(partner: String!): User
 
   }
 `;
