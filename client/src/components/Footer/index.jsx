@@ -29,7 +29,7 @@ export default function Footer() {
 
   // Site Repo Data
   const siteRepo = {
-    name: 'Site',
+    name: 'Hamster Brain',
     gitLink: 'https://github.com/jskelly8/hamsterBrain'
   };
 
