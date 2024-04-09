@@ -9,8 +9,20 @@ mutation addUser($username: String!, $email: String!, $password: String) {
       _id
       email
       username
+      buddyId
       avatarColor
     }
+  }
+}
+`;
+
+export const UPDATE_BUDDY_CODE = gql`
+mutation updateBuddyCode($buddyId: String!) {
+  updateBuddyCode(buddyId: $buddyId) {
+    _id
+    email
+    username
+    buddyId
   }
 }
 `;

@@ -19,6 +19,10 @@ password: {
     required: true,
     minlength: 3
 },
+buddyId: {
+  type: String,
+  required: false
+},
 avatarColor: {
   type: String
 },

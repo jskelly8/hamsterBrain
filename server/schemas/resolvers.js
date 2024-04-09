@@ -1,5 +1,6 @@
 const { User, Tasks, Post } = require("../models");
 const { signToken, AuthenticationError } = require("../utils/auth");
+const { generateBuddyCode } = require('../utils/helpers');
 
 const resolvers = {
   Query: {
@@ -24,7 +25,17 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-
+    // checkBuddyId: async (_, {buddyId}, context) => {
+    //   const user = await User.find({ buddyId });
+    //   return user ? user: null;
+    // },
+    findTaskByBuddyId: async (_, args, context) => {
+      if (context.user) {
+        const tasks = await Tasks.find({buddyId: context.user.buddyId}).populate('user');
+        return tasks;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
     // Fetches all posts
     posts: async () => {
       return await Post.find().sort({ createdAt: -1 }).populate("author");
@@ -37,10 +48,17 @@ const resolvers = {
   },
 
   Mutation: {
-    addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
+    addUser: async (parent, { username, email, password}) => {
+      const buddyId = await generateBuddyCode();
+      const user = await User.create({ username, email, password, buddyId });
       const token = signToken(user);
       return { token, user };
+    },
+    updateBuddyCode: async ( parent, {userId, buddyId}) => {
+      const updatedUser = await User.findByIdAndUpdate(
+        userId, {buddyId}, {new:true}
+      );
+      return updatedUser;
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -67,6 +85,7 @@ const resolvers = {
           dueDate,
           dueTime,
           user: context.user._id,
+          buddyId: context.user.buddyId,
         });
         return newTask;
       }

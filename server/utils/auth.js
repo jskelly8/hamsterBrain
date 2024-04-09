@@ -48,8 +48,8 @@ module.exports = {
   },
 
   // Function for signing tokens
-  signToken: function ({ email, username, _id, avatarColor }) {
-    const payload = { email, username, _id, avatarColor };
+  signToken: function ({ email, username, _id, avatarColor, buddyId }) {
+    const payload = { email, username, _id, avatarColor, buddyId };
     // Sign and return the JWT
     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
   },
