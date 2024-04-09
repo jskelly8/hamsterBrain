@@ -116,7 +116,7 @@ const Tasks = () => {
             <DatePicker
               selected={dueDateTime}
               onChange={setDueDateTime}
-              dateFormat="dd/MM/yyyy h:mm aa"
+              dateFormat="MM/dd/yyyy h:mm aa"
               showTimeSelect
               timeFormat="HH:mm"
               placeholderText="Select due date and time"

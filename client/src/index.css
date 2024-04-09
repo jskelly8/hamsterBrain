@@ -426,7 +426,22 @@
 .taskBtn {
   display: flex;
   justify-content: center;
-  
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .addTaskInputs, .taskList li {
+    padding: 5px;
+    text-align: left; /* Align text to the left for a clearer structure */
+  }
+
+  .addTaskInputs input, .addTaskInputs button, .addTaskInputs div {
+    width: 100%; /* Maximize width utilization on very small screens */
+  }
+
+  .taskBtn button {
+    flex: 1; /* Buttons take equal space in the container */
+  }
 }
 
 
@@ -449,7 +464,7 @@
 }
 
 .featuresSection, .testimonialSection, .postCreationSection {
-  margin: 2rem;
+  margin: 1rem;
   background-color: #BFB3A4;
   border: 2px solid #4586BF;
   border-radius: 8px;
@@ -462,10 +477,10 @@
 }
 
 .commItems {
-  margin-top: 1rem;
-  padding: 3rem;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  padding: 1rem;
 }
 
 .commCard {
@@ -476,6 +491,7 @@
   border-radius: 8px;
   color: #4fa8d1;
   text-align: center;
+  flex: 1 1 200px; 
 }
 
 .postForm {
@@ -486,12 +502,12 @@
 .postForm form {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 70%;
 }
 
 .postForm form input, .postForm form textarea {
-  width: 40rem;
-  margin-bottom: 0.5rem;
-  display: flex;
+  width: calc(100% - 2rem);
   margin-bottom: 0.5rem;
   border: 2px solid #4586BF;
   background-color: #F2E7DC;
@@ -503,20 +519,37 @@
   margin-bottom: 1rem;
 }
 
-/* Navbar Styling */
+/* Media Queries for Mobile Responsiveness */
+@media (max-width: 600px) {
+  .featuresSection, .testimonialSection, .postCreationSection {
+    padding: 10px;
+    margin: 0.5rem;
+  }
 
+  .commItems {
+    padding: 0;
+  }
+
+  .postForm form input, .postForm form textarea {
+    width: calc(100% - 1rem); /* Smaller padding on smaller screens */
+  }
+
+  .commCard {
+    flex: 1 1 100%; /* Stacks the cards vertically on very small screens */
+  }
+}
+
+/* Navbar Styling */
 .divCenter {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* height: 100vh */
 }
 
 .postCenter {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* height: 100vh */
 }
 
 .navbar {
@@ -526,7 +559,6 @@
   padding: 1rem;
   background-color: #151619;
   border-bottom: 1px solid #4586BF;
-  position: relative;
 }
 
 .navbar-container {
@@ -550,9 +582,8 @@
   justify-content: center;
   align-items: center;
   font-size: 24px;
-  color: #151619; 
-  background-color: #4586BF;
-  border: 2px solid #FFF; 
+  color: #151619;
+  border: 2px solid #F2E7DC;
 }
 
 .navbar-container a {
@@ -597,53 +628,49 @@
 
 .nav-links {
   list-style: none;
-  display: none;
+  display: flex;
+  flex-direction: column;
   position: absolute;
   top: 100%;
-  left: 0;
-  width: 100%;
+  right: 0;
   background-color: #151619;
-  margin-top: 80px;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 0 0 10px 10px;
+  z-index: 10;
 }
 
 .nav-links.open {
   display: flex;
-  justify-content: center;
-  padding: 0;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
+  flex-direction: column;
   position: absolute;
-  top: 70px;
-  right: 1rem;
+  top: 55%;
+  right: 0;
   background-color: #151619;
+  padding: 1rem;
+  margin-top: 1rem;
+  border-radius: 0 0 10px 10px;
   z-index: 10;
+  width: 200px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.25);
+}
+
+.nav-links.closed {
+  display: none;
 }
 
 .nav-links li {
-  margin: 0.5rem 0;
+  margin: 10px 0;
 }
 
 .nav-links li a {
-  text-decoration: none;
   color: #4586BF;
   padding: 0.5rem;
+  display: block; 
 }
 
 .nav-links li a:hover {
   color: #BFB3A4;
-}
-
-@media (max-width: 768px) {
-  .nav-links {
-    display: none;
-  }
-}
-
-@media (max-width: 425px) {
-  .nav-links {
-    display: none;
-    margin-top: 130px;
-  }
 }
 
 /* Footer styling */

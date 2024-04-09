@@ -88,3 +88,14 @@ mutation UpdateUser($username: String, $email: String, $avatarColor: String) {
   }
 }
 `;
+
+export const DELETE_POST = gql`
+mutation DeletePost($id: ID!) {
+  deletePost(_id: $id) {
+    _id
+    content
+    createdAt
+    title
+  }
+}
+`
