@@ -52,6 +52,9 @@ export default function Nav() {
                         <li>
                             <Link to="/" onClick={closeMenu}>Home</Link>
                         </li>
+                        <li>
+                            <Link to="/how-it-works" onClick={closeMenu}>How It Works</Link>
+                        </li>
                         {/* Conditional rendering based on `isLoggedIn` */}
                         {!Auth.loggedIn() ? (
                             <>
@@ -63,27 +66,24 @@ export default function Nav() {
                                 </li>
                             </>
                         ) : (
-                            <>
-                                <li>
-                                    <Link to="/" onClick={handleLogOut}>Logout</Link>
-                                </li>
+                            <>                               
                                 <li>
                                     <Link to="/profile" onClick={closeMenu}>Profile</Link>
-                                </li>
-                                <li>
-                                    <Link to="/planner" onClick={closeMenu}>Planner</Link>
                                 </li>
                                 <li>
                                     <Link to="/tasks" onClick={closeMenu}>Tasks</Link>
                                 </li>
                                 <li>
+                                    <Link to="/planner" onClick={closeMenu}>Planner</Link>
+                                </li>                              
+                                <li>
                                     <Link to="/community" onClick={closeMenu}>Social</Link>
                                 </li>
+                                <li>
+                                    <Link to="/" onClick={handleLogOut}>Logout</Link>
+                                </li>
                             </>
-                        )}
-                        <li>
-                            <Link to="/how-it-works" onClick={closeMenu}>How It Works</Link>
-                        </li>
+                        )}                       
                     </ul>
                 </div>
             </div>
