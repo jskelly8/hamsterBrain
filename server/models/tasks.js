@@ -17,6 +17,10 @@ dueDate: {
 completed: {
     type: Boolean,
     default: false,
+},
+partner: {
+    type: String,
+    required: false,
 }
 });
 

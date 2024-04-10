@@ -2,7 +2,7 @@
 import testimonials from '../data/testimonials';
 import { useState, useEffect } from 'react';
 import { useMutation } from '@apollo/client';
-import { ADD_POST, DELETE_POST } from '../utils/mutations';
+import { ADD_POST, DELETE_POST, ADD_COMMENT } from '../utils/mutations';
 import { useQuery } from '@apollo/client';
 import { ALL_POSTS } from '../utils/queries';
 import Auth from '../utils/auth'
@@ -12,20 +12,73 @@ export default function Community() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [posts, setPosts] = useState([]);
+  const [commentText, setCommentText] = useState({});
   const [userId, setUserId] = useState('')
   const [addPost, { loading, error }] = useMutation(ADD_POST, {
     onCompleted: (data) => {
-      setPosts([data.addPost, ...posts]);
+      const newPostWithAuthor = {
+        ...data.addPost,
+        author: {
+          ...data.addPost.author,
+          username: Auth.getProfile().data.username
+        }
+      };
+      setPosts([newPostWithAuthor, ...posts]);
       setTitle('');
       setContent('');
+      window.location.reload();
     }
   });
-
 
   const [deletePost, { error: deleteError }] = useMutation(DELETE_POST)
 
   const { loading: postLoading, data } = useQuery(ALL_POSTS)
   const allPosts = data?.posts || []
+
+  const [addComment] = useMutation(ADD_COMMENT, {
+    onCompleted: (data) => {
+      const userProfile = Auth.getProfile();
+      const newCommentWithUser = {
+        ...data.addComment,
+        user: {
+          _id: userProfile.data._id,
+          username: userProfile.data.username
+        }
+      };
+
+      const updatedPosts = posts.map(post => {
+        if (post._id === newCommentWithUser.postId) {
+          return {
+            ...post,
+            comments: [...post.comments, newCommentWithUser]
+          };
+        }
+        return post;
+      });
+
+      setPosts(updatedPosts);
+    },
+    onError: (error) => {
+      console.error("Error adding comment:", error);
+    },
+    refetchQueries: [{ query: ALL_POSTS }],
+  });
+
+  const handleAddComment = async (postId) => {
+    const text = commentText[postId]
+    if (!text) return;
+    try {
+      await addComment({
+        variables: {
+          postId,
+          text: commentText[postId],
+        },
+      });
+      setCommentText({ ...commentText, [postId]: '' });
+    } catch (error) {
+      console.error("Error adding comment:", error.message);
+    }
+  };
 
   console.log(allPosts)
 
@@ -115,18 +168,38 @@ export default function Community() {
             <button type="submit" disabled={loading}>Post</button>
           </form>
         </div>
+
         {/* Handles post mapping */}
         <div className="postsList">
           {posts.map((post, index) => (
             <div key={index} className="post white postCenter btn">
               <div className="commCard">
-                <h3>{post.title}</h3>
-                <p>{post.content}</p>
-                {/* Uncomment the next line if you wish to display the post's author */}
-                {/* <cite>{post.author}</cite> */}
-                {(userId === post.author._id) ? (
-                  <button onClick={handleDelete} value={post._id}> Delete </button>
-                ) : ("")}
+                <cite className="font50 bold quicksand">{post.author?.username}:</cite>
+                <h3 className="font30 quicksand">{post.title}</h3>
+                <p className="font20 quicksand">{post.content}</p>
+                <div className="authDelete">
+                  {/* <cite>{post.author?.username}</cite> */}
+                  {(userId === post.author._id) ? (
+                    <button onClick={handleDelete} value={post._id}> Delete </button>
+                    // ) : ("")}
+                  ) : null}
+                </div>
+
+                {post.comments && post.comments.map((comment, cIndex) => (
+                  <div key={cIndex} className="comment">
+                    <p className="font20 quicksand marg20">{comment.text}</p>
+                    <cite>{comment.user?.username}</cite>
+                  </div>
+                ))}
+                <div className='commentInputSection btn'>
+                  <input
+                    type="text"
+                    placeholder="Add a comment..."
+                    value={commentText[post._id] || ""}
+                    onChange={(e) => setCommentText({ ...commentText, [post._id]: e.target.value })}
+                  />
+                  <button onClick={() => handleAddComment(post._id)}>Comment</button>
+                </div>
               </div>
             </div>
           ))}
@@ -134,17 +207,17 @@ export default function Community() {
         {error && <p>Error creating post. Please try again.</p>}
       </div>
 
-    <div className="testimonialSection">
-      <h2>User Testimonials</h2>
-      <div>
-        {testimonials.map(({ id, name, role, text }) => (
-          <div key={id} className="commCard">
-            <blockquote>{text}</blockquote>
-            <cite>- {name}, {role}</cite>
-          </div>
-        ))}
+      <div className="testimonialSection">
+        <h2>User Testimonials</h2>
+        <div>
+          {testimonials.map(({ id, name, role, text }) => (
+            <div key={id} className="commCard">
+              <blockquote>{text}</blockquote>
+              <cite>- {name}, {role}</cite>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 }
