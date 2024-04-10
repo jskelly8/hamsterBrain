@@ -766,6 +766,32 @@
   font-size: 50px;
 }
 
+.font40 {
+  font-size: 40px;
+}
+
+.font30 {
+  font-size: 30px;
+}
+
+.font20 {
+  font-size: 20px;
+}
+
+.marg20 {
+  margin-top: 20px;
+}
+
 .white {
   color: white;
 }
+
+.authDelete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .commCard cite {
+  font-
+} */
