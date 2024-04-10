@@ -26,6 +26,7 @@ export default function Community() {
       setPosts([newPostWithAuthor, ...posts]);
       setTitle('');
       setContent('');
+      window.location.reload();
     }
   });
 

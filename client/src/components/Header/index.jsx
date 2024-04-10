@@ -12,7 +12,7 @@ export default function Nav() {
 
     const isLoggedIn = Auth.loggedIn();  // Check if user is logged in
     const userAvatar = data?.me?.avatarColor || '#F2E7DC';
-    const initials = data?.me?.username[0].toUpperCase() || '';
+    const initials = data?.me?.username?.[0].toUpperCase() || '';
 
     const toggleMenu = () => setIsOpen(!isOpen);
     const closeMenu = () => setIsOpen(false);
