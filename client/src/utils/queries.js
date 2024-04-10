@@ -37,6 +37,8 @@ export const GET_PROFILE = gql`
       email
       avatarColor
       points
+      buddyId
+      partner
     }
   }
 `;
@@ -78,3 +80,17 @@ query Posts {
   }
 }
 `;
+export const QUERY_PARTNER_TASKS = gql `
+query Me {
+  me {
+    partner {
+      tasks {
+        _id
+        task
+        dueDate
+        dueTime
+        completed
+      }
+    }
+  }
+}`

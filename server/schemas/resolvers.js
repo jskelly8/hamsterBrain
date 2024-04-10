@@ -51,6 +51,14 @@ const resolvers = {
     }
     throw new AuthenticationError("No buddy found!");
   },
+  partnerTasks: async (_, args, context) => {
+    if (!context.user) {
+      throw new Error('Authentication required.');
+    }
+    const partnerId = context.user.partner;
+    const tasks = await Tasks.find({user: partnerId});
+    return tasks;
+  }
 },
 
   Mutation: {
@@ -99,42 +107,40 @@ const resolvers = {
     },
     deleteTask: async (parent, { taskId }, context) => {
       if (!context.user) {
-          throw new AuthenticationError("You need to be logged in!");
+        throw new AuthenticationError("You need to be logged in!");
       }
       const taskToDelete = await Tasks.findById(taskId);
       if (!taskToDelete) {
-          throw new Error("Task not found");
+        throw new Error("Task not found");
       }
-      const result = await User.findByIdAndUpdate(context.user._id, {
-          $inc: { points: taskToDelete.points }
-      }, { new: true }); 
-      console.log("Updated user points:", result);
-      return await Tasks.findByIdAndDelete(taskId);
-  },
-  updateTask: async (parent, { taskId, task, dueDate, dueTime, completed }, context) => {
-    if (!context.user) {
-      throw new AuthenticationError("You must be logged in");
-    }
-    const updateData = {
-      task,
-      dueDate: dueDate ? new Date(dueDate) : null,
-      dueTime,
-      completed
-    };
-
-    // Updating task completion and incrementing points if the task is marked completed
-    const updatedTask = await Tasks.findByIdAndUpdate(taskId, updateData, { new: true });
-    if (completed) {
-      await User.findByIdAndUpdate(context.user._id, {
-        $inc: { points: 10 } // Increment points by 10
-      });
+      
       await Tasks.findByIdAndDelete(taskId);
-      return { ...updatedTask.toObject(), completed };
-    } else {
-      await Tasks.findByIdAndUpdate(taskId, updateData, { new: true });
-    }
-    return updatedTask;
-  },
+      return taskToDelete;
+    },
+    updateTask: async (parent, { taskId, task, dueDate, dueTime, completed }, context) => {
+      if (!context.user) {
+        throw new AuthenticationError("You must be logged in");
+      }
+      const updateData = {
+        task,
+        dueDate: dueDate ? new Date(dueDate) : null,
+        dueTime,
+        completed
+      };
+
+      // Updating task completion and incrementing points if the task is marked completed
+      const updatedTask = await Tasks.findByIdAndUpdate(taskId, updateData, { new: true });
+      if (completed) {
+        await User.findByIdAndUpdate(context.user._id, {
+          $inc: { points: 10 } // Increment points by 10
+        });
+        await Tasks.findByIdAndDelete(taskId);
+        return { ...updatedTask.toObject(), completed };
+      } else {
+        await Tasks.findByIdAndUpdate(taskId, updateData, { new: true });
+      }
+      return updatedTask;
+    },
 
     addPost: async (_, { title, content }, context) => {
       if (context.user) {
@@ -152,10 +158,10 @@ const resolvers = {
     updateUser: async (_, { username, email, avatarColor }, context) => {
       try {
         // Find the user by ID
-        const user = await User.findByIdAndUpdate(context.user._id,{
+        const user = await User.findByIdAndUpdate(context.user._id, {
           $set: { username, email, avatarColor }
         }, { new: true, runValidators: true });
-        
+
         console.log(user)
 
         // Check if the user exists
@@ -171,9 +177,9 @@ const resolvers = {
       }
     },
 
-    deletePost: async (parent, {_id}, context ) => {
+    deletePost: async (parent, { _id }, context) => {
       try {
-        const post = await Post.findByIdAndDelete (_id)
+        const post = await Post.findByIdAndDelete(_id)
         return post
       } catch (error) {
         console.error("Error Deleting Post", error);
@@ -181,24 +187,46 @@ const resolvers = {
       }
     },
 
+    addComment: async (_, { postId, text }, context) => {
+      if (!context.user) throw new AuthenticationError('You must be logged in to comment');
+
+      const userId = context.user.id;
+
+      const comment = {
+        text,
+        user: userId,
+        createdAt: new Date().toISOString(),
+      };
+
+      const updatedPost = await Post.findByIdAndUpdate(
+        postId,
+        { $push: { comments: comment } },
+        { new: true, runValidators: true }
+      ).populate('comments.user');
+
+      if (!updatedPost) throw new Error('Post not found');
+
+      return updatedPost;
+    },
+    
+
     addPartner: async (parent, {partner}, context) => {
       try{
-        const user = await User.findByIdAndUpdate(context.user._id,{
+        const updatedUser = await User.findByIdAndUpdate(context.user._id,{
           $set: {partner}
         }, {new: true, runValidators: false});
-        console.log(user)
+        console.log(updatedUser)
 
-        if (!user) {
+        if (!updatedUser) {
           throw new Error("User not found.");
         }
-        return user;
+        return updatedUser;
       } catch (error) {
         console.error("Error adding buddy:", error);
         throw new error("Failed to add buddy.")
       }
     },
-
   },
-};
+  };
 
 module.exports = resolvers;

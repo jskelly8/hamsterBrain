@@ -111,3 +111,43 @@ mutation DeletePost($id: ID!) {
   }
 }
 `
+
+export const ADD_COMMENT = gql`
+mutation AddComment($postId: ID!, $text: String!) {
+  addComment(postId: $postId, text: $text) {
+    _id
+    text
+  }
+}
+`
+
+export const ADD_PARTNER = gql`
+mutation AddPartner($partner: String!) {
+  addPartner(partner: $partner) {
+    buddyId
+    partner
+    _id
+    username
+  }
+}
+`
+
+export const QUERY_PARTNER_TASKS = gql `
+query PartnerTasks {
+  partnerTasks {
+    _id
+    task
+    dueDate
+    completed
+    dueTime
+    partner
+    buddyId
+    user {
+      username
+      partner
+      buddyId
+      _id
+    }
+  }
+}
+`
