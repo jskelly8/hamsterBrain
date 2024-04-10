@@ -16,12 +16,18 @@ export default function Community() {
   const [userId, setUserId] = useState('')
   const [addPost, { loading, error }] = useMutation(ADD_POST, {
     onCompleted: (data) => {
-      setPosts([data.addPost, ...posts]);
+      const newPostWithAuthor = {
+        ...data.addPost,
+        author: {
+          ...data.addPost.author,
+          username: Auth.getProfile().data.username
+        }
+      };
+      setPosts([newPostWithAuthor, ...posts]);
       setTitle('');
       setContent('');
     }
   });
-
 
   const [deletePost, { error: deleteError }] = useMutation(DELETE_POST)
 
@@ -29,7 +35,27 @@ export default function Community() {
   const allPosts = data?.posts || []
 
   const [addComment] = useMutation(ADD_COMMENT, {
-    onCompleted: () => {
+    onCompleted: (data) => {
+      const userProfile = Auth.getProfile();
+      const newCommentWithUser = {
+        ...data.addComment,
+        user: {
+          _id: userProfile.data._id,
+          username: userProfile.data.username
+        }
+      };
+
+      const updatedPosts = posts.map(post => {
+        if (post._id === newCommentWithUser.postId) {
+          return {
+            ...post,
+            comments: [...post.comments, newCommentWithUser]
+          };
+        }
+        return post;
+      });
+
+      setPosts(updatedPosts);
     },
     onError: (error) => {
       console.error("Error adding comment:", error);
@@ -147,16 +173,20 @@ export default function Community() {
           {posts.map((post, index) => (
             <div key={index} className="post white postCenter btn">
               <div className="commCard">
-                <h3>{post.title}</h3>
-                <p>{post.content}</p>
-                <cite>{post.author?.username}</cite>
-                {(userId === post.author._id) ? (
-                  <button onClick={handleDelete} value={post._id}> Delete </button>
-                ) : ("")}
+                <cite className="font50 bold quicksand">{post.author?.username}:</cite>
+                <h3 className="font30 quicksand">{post.title}</h3>
+                <p className="font20 quicksand">{post.content}</p>
+                <div className="authDelete">
+                  {/* <cite>{post.author?.username}</cite> */}
+                  {(userId === post.author._id) ? (
+                    <button onClick={handleDelete} value={post._id}> Delete </button>
+                    // ) : ("")}
+                  ) : null}
+                </div>
 
                 {post.comments && post.comments.map((comment, cIndex) => (
                   <div key={cIndex} className="comment">
-                    <p>{comment.text}</p>
+                    <p className="font20 quicksand marg20">{comment.text}</p>
                     <cite>{comment.user?.username}</cite>
                   </div>
                 ))}
