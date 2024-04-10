@@ -114,6 +114,7 @@ const handleAddPartner = async () => {
       <h2>Edit Profile</h2>
     <div className="profileCenter">
       <div className='avatarContainer'>
+        <div><h4>Choose an avatar color:</h4></div>
         <div className="avatar" style={{ backgroundColor: avatarColor }}>
           {generateAvatar(editFields.username)}
         </div>
@@ -123,13 +124,13 @@ const handleAddPartner = async () => {
           ))}
         </div>
       </div>
-      <div className="buddyBox white">
-            <h5>Your Buddy Id is: </h5>
+      <div className="buddyBox">
+            <div className="testing"><h5>Your Buddy Id is:
             {`\n`}{data.me.buddyId}
-            {`\n`}{`\n`}
+            {`\n`} </h5></div>
             {data.me.partner ? (
               <>
-            <h5> View your Buddy&apos;s tasks:
+            <h5 className="testing2"> View your Buddy&apos;s tasks:
               {`\n`}
               <Link to="/partnertasks">{data.me.partner}</Link>
             </h5>

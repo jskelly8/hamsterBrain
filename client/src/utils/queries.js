@@ -56,7 +56,7 @@ query FindTaskByBuddyId {
     dueDate
     dueTime
     completed
-    buddyId
+    partner
   }
 }
 `
@@ -81,16 +81,18 @@ query Posts {
 }
 `;
 export const QUERY_PARTNER_TASKS = gql `
-query Me {
-  me {
-    partner {
-      tasks {
-        _id
-        task
-        dueDate
-        dueTime
-        completed
-      }
+query Partner {
+  partner {
+    _id
+    buddyId
+    tasks {
+      _id
+      completed
+      dueDate
+      dueTime
+      partner
+      task
     }
+    username
   }
 }`

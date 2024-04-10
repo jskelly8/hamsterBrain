@@ -60,7 +60,7 @@ const typeDefs = `
     post(_id: ID!): Post
     findTaskByBuddyId: [Tasks]
     checkBuddyId(buddyId: String!): User
-    partner: String
+    partner: User
     partnerTasks: [Tasks]
   }
 

@@ -3,7 +3,8 @@ import { ADD_TASK, UPDATE_TASK, DELETE_TASK } from '../utils/mutations';
 import { useMutation, useQuery } from '@apollo/client';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { QUERY_PARTNER_TASKS } from '../utils/queries';
+import { QUERY_PARTNER_TASKS, FIND_TASK_BY_BUDDYID } from '../utils/queries';
+
 
 const Tasks = () => {
   const [inputText, setInputText] = useState('');
@@ -14,7 +15,7 @@ const Tasks = () => {
   const [addTask, { error: addError }] = useMutation(ADD_TASK);
   const [updateTask, { error: updateError }] = useMutation(UPDATE_TASK);
   const [deleteTask, { error: deleteError }] = useMutation(DELETE_TASK);
-  const { data, loading, error: queryError, refetch } = useQuery(QUERY_PARTNER_TASKS);
+  const { data, loading, error: queryError, refetch } = useQuery(FIND_TASK_BY_BUDDYID);
 
   const handleTaskTextChange = (event) => {
     setInputText(event.target.value);
@@ -78,8 +79,8 @@ const Tasks = () => {
   };
 
   if (data) {
-    console.log("Task data fetched:", data.tasks);
-    data.tasks.forEach(task => {
+    console.log("Task data fetched:", data.findTaskByBuddyId);
+    data.findTaskByBuddyId.forEach(task => {
       console.log(`Raw date for task ${task._id}:`, task.dueDate);
     });
   }
@@ -101,7 +102,7 @@ const Tasks = () => {
 
   return (
     <div className='taskContainer'>
-      <h2 className='addTaskTitle'>Add Task</h2>
+      {/* <h2 className='addTaskTitle'>Add Task</h2>
       <div className='addTaskSection'>
         <div className='addTaskInputs btn'>
           <div>
@@ -125,12 +126,12 @@ const Tasks = () => {
           <button onClick={handleAddTask}>Add Task</button>
           {addError && <p>Error adding task. Please try again.</p>}
         </div>
-      </div>
-      <h2 className='taskListTitle'>Task List</h2>
+      </div> */}
+      <h2 className='taskListTitle'>{data?.findTaskByBuddyId[0]?.user?.username}Task List</h2>
       <div className='taskList'>
         {loading ? <p>Loading tasks...</p> : queryError ? <p>Error loading tasks!</p> : (
           <ul>
-            {data && data.tasks.map(task => (
+            {data && data.findTaskByBuddyId.map(task => (
               <li key={task._id}>
                 {isEditing === task._id ? (
                   <>

@@ -31,7 +31,7 @@ const resolvers = {
     // },
     findTaskByBuddyId: async (_, args, context) => {
       if (context.user) {
-        const tasks = await Tasks.find({buddyId: context.user.buddyId}).populate('user');
+        const tasks = await Tasks.find({partner: context.user.partner}).populate('user');
         return tasks;
       }
       throw new AuthenticationError("You need to be logged in!");
@@ -46,7 +46,7 @@ const resolvers = {
     },
     partner: async (_, args, context) => {
       if (context.user) {
-        const partner = await User.find({partner: context.user.partner}).populate('tasks');
+        const partner = await User.find({buddyId: context.user.partner}).populate('tasks');
         return partner;
     }
     throw new AuthenticationError("No buddy found!");
@@ -99,7 +99,7 @@ const resolvers = {
           dueDate,
           dueTime,
           user: context.user._id,
-          partner: context.user.partner,
+          partner: context.user.buddyId,
         });
         return newTask;
       }
