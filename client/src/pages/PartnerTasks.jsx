@@ -78,8 +78,8 @@ const Tasks = () => {
   };
 
   if (data) {
-    console.log("Task data fetched:", data.tasks);
-    data.tasks.forEach(task => {
+    console.log("Task data fetched:", data.me.partner.tasks);
+    data.me.partner.tasks.forEach(task => {
       console.log(`Raw date for task ${task._id}:`, task.dueDate);
     });
   }
