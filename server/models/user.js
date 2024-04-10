@@ -19,12 +19,20 @@ password: {
     required: true,
     minlength: 3
 },
+buddyId: {
+  type: String,
+  required: false
+},
 avatarColor: {
   type: String
 },
 points: {
   type: Number,
   default: 0,
+},
+partner: {
+  type: String,
+  required: false,
 }
 });
 

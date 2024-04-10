@@ -27,42 +27,12 @@ export default function Community() {
       setTitle('');
       setContent('');
     }
-   });
-
+  });
 
   const [deletePost, { error: deleteError }] = useMutation(DELETE_POST)
 
   const { loading: postLoading, data } = useQuery(ALL_POSTS)
   const allPosts = data?.posts || []
-
-  // const [addComment] = useMutation(ADD_COMMENT, {
-  //   onCompleted: (data) => {
-  //     const userProfile = Auth.getProfile();
-  //     const newCommentWithUser = {
-  //       ...data.addComment,
-  //       user: {
-  //         _id: userProfile.data._id,
-  //         username: userProfile.data.username
-  //       }
-  //     };
-
-  //     const updatedPosts = posts.map(post => {
-  //       if(post._id === newCommentWithUser.postId) {
-  //         return {
-  //           ...post,
-  //           comments: [...post.comments, newCommentWithUser]
-  //         }
-  //       }
-  //       return post;
-  //     });
-
-  //     setPosts(updatedPosts);
-  //   },
-  //   onError: (error) => {
-  //     console.error("Error adding comment:", error);
-  //   },
-  //   refetchQueries: [{ query: ALL_POSTS }],
-  // });
 
   const [addComment] = useMutation(ADD_COMMENT, {
     onCompleted: (data) => {
@@ -74,9 +44,9 @@ export default function Community() {
           username: userProfile.data.username
         }
       };
-  
+
       const updatedPosts = posts.map(post => {
-        if(post._id === newCommentWithUser.postId) {
+        if (post._id === newCommentWithUser.postId) {
           return {
             ...post,
             comments: [...post.comments, newCommentWithUser]
@@ -84,7 +54,7 @@ export default function Community() {
         }
         return post;
       });
-  
+
       setPosts(updatedPosts);
     },
     onError: (error) => {
@@ -93,13 +63,7 @@ export default function Community() {
     refetchQueries: [{ query: ALL_POSTS }],
   });
 
-
-
-
-
-  
-
-   const handleAddComment = async (postId) => {
+  const handleAddComment = async (postId) => {
     const text = commentText[postId]
     if (!text) return;
     try {
@@ -209,15 +173,15 @@ export default function Community() {
           {posts.map((post, index) => (
             <div key={index} className="post white postCenter btn">
               <div className="commCard">
-              <cite className="font50 bold quicksand">{post.author?.username}:</cite>
+                <cite className="font50 bold quicksand">{post.author?.username}:</cite>
                 <h3 className="font30 quicksand">{post.title}</h3>
                 <p className="font20 quicksand">{post.content}</p>
                 <div className="authDelete">
-                {/* <cite>{post.author?.username}</cite> */}
-                {(userId === post.author._id) ? (
-                  <button onClick={handleDelete} value={post._id}> Delete </button>
-                // ) : ("")}
-                ) : null}
+                  {/* <cite>{post.author?.username}</cite> */}
+                  {(userId === post.author._id) ? (
+                    <button onClick={handleDelete} value={post._id}> Delete </button>
+                    // ) : ("")}
+                  ) : null}
                 </div>
 
                 {post.comments && post.comments.map((comment, cIndex) => (
