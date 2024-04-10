@@ -18,9 +18,9 @@ completed: {
     type: Boolean,
     default: false,
 },
-buddyId: {
+partner: {
     type: String,
-    required: true,
+    required: false,
 }
 });
 

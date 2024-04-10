@@ -27,8 +27,7 @@ const typeDefs = `
     dueDate: String
     dueTime: String
     completed: Boolean
-    buddyId: String
-    partner: User
+    partner: String
   }
 
   type Post {

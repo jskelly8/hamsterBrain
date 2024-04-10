@@ -99,7 +99,7 @@ const resolvers = {
           dueDate,
           dueTime,
           user: context.user._id,
-          buddyId: context.user.buddyId,
+          partner: context.user.partner,
         });
         return newTask;
       }
