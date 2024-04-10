@@ -25,7 +25,7 @@ export default function Nav() {
         <nav className="navbar">
             <div className="navbar-container">
                 <Link to="/" onClick={closeMenu}>
-                    <img src='/hamsterbrainsmall.png' alt='Logo' />
+                    <img className="hamsterlogo" src='/hamsterbrain_dark.png' alt='Logo' />
                 </Link>
 
                 <div className='titleAvatar'>
