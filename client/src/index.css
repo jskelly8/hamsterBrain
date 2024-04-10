@@ -595,6 +595,11 @@
   width: 100%;
 }
 
+.hamsterlogo {
+  width: 6em;
+  height: auto;
+}
+
 .titleAvatar {
   display: flex;
   flex-direction: column;
@@ -867,4 +872,50 @@
   width: 40%;
   border-radius: 15px;
   height: auto;
+}
+
+.how-it-works {
+  display: flex;
+  justify-content: center;
+
+}
+.how-it-works-container {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+  margin: 1em;
+padding: 1em;
+border-radius: 15px;
+  background-color:#f2f2f2 ;
+
+}
+
+.how-box {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: #BFB3A4;
+  margin: 1em;
+  border-radius: 15px;
+  padding: 1em 10em 1em 10em;
+}
+
+.how-box p {
+  font-size: 1.25em;
+}
+
+
+.how-intro {
+  background-color:#4fa8d1;
+}
+
+.how-closing {
+  background-color:#4fa8d1;
+}
+
+.how-hamsterlogo {
+  display: flex;
+  justify-content: center;
 }
