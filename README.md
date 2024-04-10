@@ -26,7 +26,7 @@ To get started with `hamsterBrain`, simply run the application following the ins
 The site has been deployed through Render (*link below as image of logo*). To just use the site, sign up with a username, name, and password (protected by bcrypt), from there, just check out the site! The homepage shows the three major parts of the site, being a task list tracker that holds a points rewards system that can be turned in for rewards (*coming soon*), a full planner for any scheduled events in your future you wish to add, and a community page that shows blog posts from users, testimonials, and sets a basis for communal help in your productivity journey. The homepage also holds a Pomodoro Timer at the bottom to assist in anything you may need an interval timer so you can make sure to take those brain breaks! 
 
 Deployed site: (**click on the logo**)
-[![Hamster face with a large brain](./client/public/hamsterbrain.png)](https://hamsterbrain.onrender.com/tasks)
+[![Hamster face with a large brain](./client/public/hamsterbrain.png)](https://hamsterbrain.onrender.com)
 
 ## Contributors
 * [Jess Skelton](https://github.com/jskelly8)

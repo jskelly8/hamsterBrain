@@ -301,6 +301,7 @@
   display: flex;
   flex-direction: column;
   background-color: #151619;
+  align-items: center;
 }
 
 .profileContainer h2 {
@@ -312,6 +313,9 @@
 .avatarContainer {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items:center;
+  background-color: #f2f2f2;
 }
 .avatar {
   width: 100px;
@@ -323,6 +327,14 @@
   color: #151619;
   font-size: 3rem;
   margin: 30px 20px;
+}
+
+.color-options {
+  display: flex;
+  flex-direction: row;
+  background-color: #3F4037;
+  padding: 5px;
+  border-radius: 15px;
 }
 
 .color-options button {
@@ -432,15 +444,15 @@
 @media (max-width: 600px) {
   .addTaskInputs, .taskList li {
     padding: 5px;
-    text-align: left; /* Align text to the left for a clearer structure */
+    text-align: left;
   }
 
   .addTaskInputs input, .addTaskInputs button, .addTaskInputs div {
-    width: 100%; /* Maximize width utilization on very small screens */
+    width: 100%;
   }
 
   .taskBtn button {
-    flex: 1; /* Buttons take equal space in the container */
+    flex: 1;
   }
 }
 
@@ -519,7 +531,6 @@
   margin-bottom: 1rem;
 }
 
-/* Media Queries for Mobile Responsiveness */
 @media (max-width: 600px) {
   .featuresSection, .testimonialSection, .postCreationSection {
     padding: 10px;
@@ -531,12 +542,28 @@
   }
 
   .postForm form input, .postForm form textarea {
-    width: calc(100% - 1rem); /* Smaller padding on smaller screens */
+    width: calc(100% - 1rem);
   }
 
   .commCard {
-    flex: 1 1 100%; /* Stacks the cards vertically on very small screens */
+    flex: 1 1 100%; 
   }
+}
+
+.commentInputSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.commentInputSection input {
+  width: calc(100% - 2rem); 
+  margin-bottom: 0.5rem; 
+  border: 2px solid #4586BF;
+  background-color: #F2E7DC;
+  border-radius: 8px;
+  padding: 0.5rem;
 }
 
 /* Navbar Styling */
@@ -751,6 +778,93 @@
   font-size: 50px;
 }
 
+.font40 {
+  font-size: 40px;
+}
+
+.font30 {
+  font-size: 30px;
+}
+
+.font20 {
+  font-size: 20px;
+}
+
+.marg20 {
+  margin-top: 20px;
+}
+
 .white {
   color: white;
+}
+
+.authDelete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* .commCard cite {
+  font-
+} */
+
+/* Matt adding profileCenter class for profile page */
+
+.profileCenter {
+  display: flex;
+  /* background-color: blue; */
+  justify-content: space-around;
+  width: 60%;
+}
+
+.buddyBox {
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
+  padding: 10px;
+  margin: 10px;
+  width: 40%;
+  border-radius: 15px;
+  height: auto;
+  
+}
+
+.buddyBox a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.testing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 50%;
+  width: 90%;
+  background-color: #BFB3A4;
+  padding: 10px;
+  border-radius: 15px;
+  margin: 5px;
+}
+
+.testing2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #BFB3A4;
+  padding: 10px;
+  border-radius: 15px;
+  height: 50%;
+  width: 90%;
+  margin: 5px;
+}
+
+.avatarContainer {
+  padding: 10px;
+  margin: 10px;
+  width: 40%;
+  border-radius: 15px;
+  height: auto;
 }

@@ -14,6 +14,7 @@ import Planner from './pages/Planner.jsx';
 import Profile from './pages/Profile.jsx';
 import SignUp from './pages/SignUp.jsx';
 import Tasks from './pages/Tasks.jsx';
+import PartnerTasks from './pages/PartnerTasks.jsx';
 
 const router = createBrowserRouter([
   {
@@ -30,6 +31,7 @@ const router = createBrowserRouter([
       { path: 'profile', element: <Profile /> },
       { path: 'signup', element: <SignUp /> },
       { path: 'tasks', element: <Tasks /> },
+      { path: 'partnertasks', element: <PartnerTasks />},
       { path: '*', element: <Error /> }
     ],
   },

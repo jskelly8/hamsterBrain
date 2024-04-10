@@ -9,13 +9,15 @@ const typeDefs = `
     password: String
     posts: [Post]
     points: Int
+    buddyId: String
+    partner: String
+    tasks: [Tasks]
   }
 
   input SignUpInput {
     username: String
     email: String
     password: String
-    buddyId: String
   }
 
   type Tasks {
@@ -25,6 +27,7 @@ const typeDefs = `
     dueDate: String
     dueTime: String
     completed: Boolean
+    partner: String
   }
 
   type Post {
@@ -55,12 +58,17 @@ const typeDefs = `
     me: User
     posts: [Post]
     post(_id: ID!): Post
-   }
+    findTaskByBuddyId: [Tasks]
+    checkBuddyId(buddyId: String!): User
+    partner: User
+    partnerTasks: [Tasks]
+  }
 
+  
 
    type Mutation {
     addUser(username: String!, email: String!, password: String): Auth
-    updateUser(buddyId: String): User
+    updateBuddyCode(buddyId: String): User
     login(email: String!, password: String!): Auth
     addTask(task: String!, dueDate: String, dueTime: String): Tasks
     deleteTask(taskId: ID!): Tasks
@@ -69,6 +77,7 @@ const typeDefs = `
     updateUser(username: String, email: String, avatarColor: String): User
     deletePost(_id: ID!): Post
     addComment(postId: ID!, text: String!): Comment
+    addPartner(partner: String!): User
 
   }
 `;

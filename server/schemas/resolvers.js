@@ -25,17 +25,41 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
-
+    // checkBuddyId: async (_, {buddyId}, context) => {
+    //   const user = await User.find({ buddyId });
+    //   return user ? user: null;
+    // },
+    findTaskByBuddyId: async (_, args, context) => {
+      if (context.user) {
+        const tasks = await Tasks.find({partner: context.user.partner}).populate('user');
+        return tasks;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
     // Fetches all posts
     posts: async () => {
       return await Post.find().sort({ createdAt: -1 }).populate("author");
     },
-
     // Fetches a single post
     post: async (_, { id }) => {
       return await Post.findById(id);
     },
+    partner: async (_, args, context) => {
+      if (context.user) {
+        const partner = await User.find({buddyId: context.user.partner}).populate('tasks');
+        return partner;
+    }
+    throw new AuthenticationError("No buddy found!");
   },
+  partnerTasks: async (_, args, context) => {
+    if (!context.user) {
+      throw new Error('Authentication required.');
+    }
+    const partnerId = context.user.partner;
+    const tasks = await Tasks.find({user: partnerId});
+    return tasks;
+  }
+},
 
   Mutation: {
     addUser: async (parent, { username, email, password}) => {
@@ -44,7 +68,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    updateUser: async ( parent, {userId, buddyId}) => {
+    updateBuddyCode: async ( parent, {userId, buddyId}) => {
       const updatedUser = await User.findByIdAndUpdate(
         userId, {buddyId}, {new:true}
       );
@@ -75,6 +99,7 @@ const resolvers = {
           dueDate,
           dueTime,
           user: context.user._id,
+          partner: context.user.buddyId,
         });
         return newTask;
       }
@@ -183,8 +208,25 @@ const resolvers = {
 
       return updatedPost;
     },
+    
 
+    addPartner: async (parent, {partner}, context) => {
+      try{
+        const updatedUser = await User.findByIdAndUpdate(context.user._id,{
+          $set: {partner}
+        }, {new: true, runValidators: false});
+        console.log(updatedUser)
+
+        if (!updatedUser) {
+          throw new Error("User not found.");
+        }
+        return updatedUser;
+      } catch (error) {
+        console.error("Error adding buddy:", error);
+        throw new error("Failed to add buddy.")
+      }
+    },
   },
-};
+  };
 
 module.exports = resolvers;
