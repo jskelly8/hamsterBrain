@@ -1,23 +1,55 @@
 import Carousel from 'react-bootstrap/Carousel';
-import Cat1 from '../assets/images/Cat1.webp';
-import Cat2 from '../assets/images/Cat2.webp';
-import Cat3 from '../assets/images/Cat3.webp';
-
+import img1 from '../assets/images/AdobeStock_1.jpeg';
+import img2 from '../assets/images/AdobeStock_2.jpeg';
+import img3 from '../assets/images/AdobeStock_3.jpeg';
+import img4 from '../assets/images/AdobeStock_4.jpeg';
+import img5 from '../assets/images/AdobeStock_5.jpeg';
 
 function Hero() {
   return (
-    <div style={{ width: '50%', margin: 'auto' }}>
-    <Carousel interval={3000}>
-      <Carousel.Item>
-        <img className="d-block w-100" src={Cat1} alt="First slide" style={{ width: "50%", margin: "auto" }}/>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img className="d-block w-100" src={Cat2} alt="Second slide" style={{ width: "50%", margin: "auto" }}/>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img className="d-block w-100" src={Cat3} alt="Third slide" style={{ width: "50%", margin: "auto" }}/>
-      </Carousel.Item>
-    </Carousel>
+    <div style={{ width: '100%', height: '75vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <Carousel interval={3000} style={{ width: '100%', height: '75vh' }}>
+        <Carousel.Item>
+          <img
+            className="d-block"
+            src={img1}
+            alt="Stained wooden blocks that make out the phrase 'Make it happen'"
+            style={{ maxHeight: '75vh', maxWidth: '75%', objectFit: 'contain', margin: 'auto', display: 'block' }}
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block"
+            src={img2}
+            alt="Blue sky with boy standing in a victorious pose as a silhouette"
+            style={{ maxHeight: '75vh', maxWidth: '75%', objectFit: 'contain', margin: 'auto', display: 'block' }}
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block"
+            src={img3}
+            alt="Notepad with a pen on top that says 'Dream It Wish IT Do It'"
+            style={{ maxHeight: '75vh', maxWidth: '75%', objectFit: 'contain', margin: 'auto', display: 'block' }}
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block"
+            src={img4}
+            alt="Small wooden blocks with stamped letters that spell out 'work hard dream big stay positive'"
+            style={{ maxHeight: '75vh', maxWidth: '75%', objectFit: 'contain', margin: 'auto', display: 'block' }}
+          />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block"
+            src={img5}
+            alt="Hiker with a backpack hiking up a hill as a silhouette in front of a sunrise"
+            style={{ maxHeight: '75vh', maxWidth: '75%', objectFit: 'contain', margin: 'auto', display: 'block' }}
+          />
+        </Carousel.Item>
+      </Carousel>
     </div>
   );
 }

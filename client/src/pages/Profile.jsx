@@ -28,7 +28,7 @@ export default function Profile() {
   });
 
   const [avatarColor, setAvatarColor] = useState('');
-  const colorOptions = ['#F2E7DC', '#BFB3A4', '#4586BF', '#1F5AA6', '#151619'];
+  const colorOptions = ['#F2E7DC', '#BFB3A4', '#4586BF', '#1F5AA6'];
 
   useEffect(() => {
     if (data && data.me) {

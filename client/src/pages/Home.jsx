@@ -99,7 +99,7 @@ export default function Home() {
 
           <div className='aboutContainer'>
             <h3>About Us</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p>Welcome to HamsterBrain, the innovative productivity tool tailored for individuals with ADHD. Developed with care by our skilled team, HamsterBrain is hosted on GitHub and invites collaboration and improvement from users like you. Our core team comprises four dedicated contributors: Jess Skelton, Justin Hodges, Matt Smart, & Joseph Padilla (see our links in the footer). Together, we're committed to enhancing your productivity through HamsterBrain, making it easier for you to manage tasks and maintain focus. Join our community and discover how HamsterBrain can empower you to achieve more each day.</p>
           </div>
         </div>
       </div>
