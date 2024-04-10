@@ -31,7 +31,7 @@ const resolvers = {
     // },
     findTaskByBuddyId: async (_, args, context) => {
       if (context.user) {
-        const tasks = await Tasks.find({partner: context.user.partner}).populate('user');
+        const tasks = await Tasks.find({ partner: context.user.partner }).populate('user');
         return tasks;
       }
       throw new AuthenticationError("You need to be logged in!");
@@ -46,31 +46,31 @@ const resolvers = {
     },
     partner: async (_, args, context) => {
       if (context.user) {
-        const partner = await User.find({buddyId: context.user.partner}).populate('tasks');
+        const partner = await User.find({ buddyId: context.user.partner }).populate('tasks');
         return partner;
+      }
+      throw new AuthenticationError("No buddy found!");
+    },
+    partnerTasks: async (_, args, context) => {
+      if (!context.user) {
+        throw new Error('Authentication required.');
+      }
+      const partnerId = context.user.partner;
+      const tasks = await Tasks.find({ user: partnerId });
+      return tasks;
     }
-    throw new AuthenticationError("No buddy found!");
   },
-  partnerTasks: async (_, args, context) => {
-    if (!context.user) {
-      throw new Error('Authentication required.');
-    }
-    const partnerId = context.user.partner;
-    const tasks = await Tasks.find({user: partnerId});
-    return tasks;
-  }
-},
 
   Mutation: {
-    addUser: async (parent, { username, email, password}) => {
+    addUser: async (parent, { username, email, password }) => {
       const buddyId = await generateBuddyCode();
       const user = await User.create({ username, email, password, buddyId });
       const token = signToken(user);
       return { token, user };
     },
-    updateBuddyCode: async ( parent, {userId, buddyId}) => {
+    updateBuddyCode: async (parent, { userId, buddyId }) => {
       const updatedUser = await User.findByIdAndUpdate(
-        userId, {buddyId}, {new:true}
+        userId, { buddyId }, { new: true }
       );
       return updatedUser;
     },
@@ -113,7 +113,7 @@ const resolvers = {
       if (!taskToDelete) {
         throw new Error("Task not found");
       }
-      
+
       await Tasks.findByIdAndDelete(taskId);
       return taskToDelete;
     },
@@ -208,13 +208,13 @@ const resolvers = {
 
       return updatedPost;
     },
-    
 
-    addPartner: async (parent, {partner}, context) => {
-      try{
-        const updatedUser = await User.findByIdAndUpdate(context.user._id,{
-          $set: {partner}
-        }, {new: true, runValidators: false});
+
+    addPartner: async (parent, { partner }, context) => {
+      try {
+        const updatedUser = await User.findByIdAndUpdate(context.user._id, {
+          $set: { partner }
+        }, { new: true, runValidators: false });
         console.log(updatedUser)
 
         if (!updatedUser) {
@@ -227,6 +227,6 @@ const resolvers = {
       }
     },
   },
-  };
+};
 
 module.exports = resolvers;

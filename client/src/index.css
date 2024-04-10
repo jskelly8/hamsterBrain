@@ -41,6 +41,23 @@
 }
 /* End Schedule CSS */
 
+/* Hero Component Styling */
+.heroContainer {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.heroImage {
+  width: 100%;
+  height: 75vh;
+  object-fit: cover;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
 /* Homepage Styling */
 .homeContainer {
   display: flex;
